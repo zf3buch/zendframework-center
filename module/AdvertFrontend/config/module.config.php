@@ -8,7 +8,9 @@
  */
 
 use AdvertFrontend\Controller\DisplayController;
+use AdvertFrontend\Controller\DisplayControllerFactory;
 use AdvertFrontend\Controller\ModifyController;
+use AdvertFrontend\Controller\ModifyControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -111,6 +113,13 @@ return [
                     ],
                 ],
             ],
+        ],
+    ],
+
+    'controllers' => [
+        'factories' => [
+            DisplayController::class => DisplayControllerFactory::class,
+            ModifyController::class  => ModifyControllerFactory::class,
         ],
     ],
 ];

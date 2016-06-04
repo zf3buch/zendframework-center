@@ -9,6 +9,7 @@
 
 namespace AdvertFrontend\Controller;
 
+use AdvertModel\Repository\AdvertRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -20,12 +21,57 @@ use Zend\View\Model\ViewModel;
 class DisplayController extends AbstractActionController
 {
     /**
+     * @var AdvertRepositoryInterface
+     */
+    private $advertRepository;
+
+    /**
+     * @param AdvertRepositoryInterface $advertRepository
+     */
+    public function setAdvertRepository($advertRepository)
+    {
+        $this->advertRepository = $advertRepository;
+    }
+
+    /**
      * @return ViewModel
      */
     public function indexAction()
     {
-        $viewModel = new ViewModel();
+        $page = $this->params()->fromRoute('page', 1);
+        $type = $this->params()->fromRoute('type', 'job');
 
-        return $viewModel;
+        $advertList = $this->advertRepository->getAdvertsByPage(
+            $type, true, $page
+        );
+
+        if (!$advertList) {
+            return $this->redirect()->toRoute($type, [], true);
+        }
+
+        var_dump($advertList);
+        exit;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function detailAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $type = $this->params()->fromRoute('type', 'job');
+
+        if (!$id) {
+            return $this->redirect()->toRoute($type, [], true);
+        }
+
+        $advert = $this->advertRepository->getSingleAdvertById($id);
+
+        if (!$advert || $advert['type'] != $type) {
+            return $this->redirect()->toRoute($type, [], true);
+        }
+
+        var_dump($advert);
+        exit;
     }
 }

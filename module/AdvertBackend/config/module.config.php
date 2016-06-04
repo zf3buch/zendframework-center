@@ -8,7 +8,9 @@
  */
 
 use AdvertBackend\Controller\DisplayController;
+use AdvertBackend\Controller\DisplayControllerFactory;
 use AdvertBackend\Controller\ModifyController;
+use AdvertBackend\Controller\ModifyControllerFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -62,6 +64,13 @@ return [
                     ],
                 ],
             ],
+        ],
+    ],
+
+    'controllers' => [
+        'factories' => [
+            DisplayController::class => DisplayControllerFactory::class,
+            ModifyController::class  => ModifyControllerFactory::class,
         ],
     ],
 ];

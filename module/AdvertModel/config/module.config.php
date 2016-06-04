@@ -7,4 +7,11 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-return [];
+return [
+    'service_manager' => [
+        'factories' => [
+            AdvertModel\Repository\AdvertRepositoryInterface::class =>
+                AdvertModel\Repository\AdvertRepositoryFactory::class
+        ],
+    ],
+];

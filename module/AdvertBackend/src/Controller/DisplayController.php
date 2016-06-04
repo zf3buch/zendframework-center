@@ -9,6 +9,7 @@
 
 namespace AdvertBackend\Controller;
 
+use AdvertModel\Repository\AdvertRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -20,12 +21,55 @@ use Zend\View\Model\ViewModel;
 class DisplayController extends AbstractActionController
 {
     /**
+     * @var AdvertRepositoryInterface
+     */
+    private $advertRepository;
+
+    /**
+     * @param AdvertRepositoryInterface $advertRepository
+     */
+    public function setAdvertRepository($advertRepository)
+    {
+        $this->advertRepository = $advertRepository;
+    }
+
+    /**
      * @return ViewModel
      */
     public function indexAction()
     {
-        $viewModel = new ViewModel();
+        $page = $this->params()->fromRoute('page', 1);
 
-        return $viewModel;
+        $advertList = $this->advertRepository->getAdvertsByPage(
+            null, false, $page, 15
+        );
+
+        if (!$advertList) {
+            return $this->redirect()->toRoute('advert-admin', [], true);
+        }
+
+        var_dump($advertList);
+        exit;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function showAction()
+    {
+        $id = $this->params()->fromRoute('id');
+
+        if (!$id) {
+            return $this->redirect()->toRoute('advert-admin', [], true);
+        }
+
+        $advert = $this->advertRepository->getSingleAdvertById($id);
+
+        if (!$advert) {
+            return $this->redirect()->toRoute('advert-admin', [], true);
+        }
+
+        var_dump($advert);
+        exit;
     }
 }

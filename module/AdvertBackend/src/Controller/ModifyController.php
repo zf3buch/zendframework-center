@@ -9,6 +9,7 @@
 
 namespace AdvertBackend\Controller;
 
+use AdvertModel\Repository\AdvertRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -20,9 +21,62 @@ use Zend\View\Model\ViewModel;
 class ModifyController extends AbstractActionController
 {
     /**
+     * @var AdvertRepositoryInterface
+     */
+    private $advertRepository;
+
+    /**
+     * @param AdvertRepositoryInterface $advertRepository
+     */
+    public function setAdvertRepository($advertRepository)
+    {
+        $this->advertRepository = $advertRepository;
+    }
+
+    /**
      * @return ViewModel
      */
-    public function indexAction()
+    public function addAction()
+    {
+        $viewModel = new ViewModel();
+
+        return $viewModel;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function editAction()
+    {
+        $viewModel = new ViewModel();
+
+        return $viewModel;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function deleteAction()
+    {
+        $viewModel = new ViewModel();
+
+        return $viewModel;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function approveAction()
+    {
+        $viewModel = new ViewModel();
+
+        return $viewModel;
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function blockAction()
     {
         $viewModel = new ViewModel();
 
