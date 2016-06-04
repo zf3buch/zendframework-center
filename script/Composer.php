@@ -67,7 +67,7 @@ class Composer
         if (!is_dir($baseDir)) {
             return;
         }
-        
+
         $dirList = scandir($baseDir);
 
         foreach ($dirList as $currentDir) {
@@ -98,7 +98,7 @@ class Composer
     public static function copyFiles($targetDir, $sourceDir)
     {
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0777);
+            mkdir($targetDir, 0777, true);
         }
 
         $dirList = glob($sourceDir);
