@@ -19,7 +19,6 @@
     "zendframework/zend-component-installer": "^1.0 || ^0.2 || ^1.0.0-dev@dev",
     "zendframework/zend-console": "^2.6",
     "zendframework/zend-mvc": "^3.0",
-    "ralfeggert/travello-view-helper": "^1.2",
     "twitter/bootstrap": "~3.3",
     "fortawesome/font-awesome": "~4.4",
     "frameworks/jquery": "~1.11"

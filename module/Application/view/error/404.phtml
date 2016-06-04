@@ -8,7 +8,6 @@
  */
 
 $this->headTitle('Seite nicht gefunden');
-$this->h1('Seite nicht gefunden');
 
 if (isset($this->reason) && $this->reason) {
     switch ($this->reason) {
@@ -30,6 +29,10 @@ if (isset($this->reason) && $this->reason) {
     }
 }
 ?>
+<div class="page-header">
+    <h1>Seite nicht gefunden</h1>
+</div>
+
 <div class="jumbotron">
     <h2>Die angeforderte Seite konnte nicht gefunden werden</h2>
     <p>

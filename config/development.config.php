@@ -9,19 +9,9 @@
 
 return [
     'modules'                 => [
-        'Zend\Mvc\Plugin\FilePrg',
-        'Zend\Form',
-        'Zend\Hydrator',
-        'Zend\InputFilter',
-        'Zend\Filter',
-        'Zend\Mvc\Plugin\FlashMessenger',
-        'Zend\Mvc\Plugin\Identity',
-        'Zend\Mvc\Plugin\Prg',
-        'Zend\Session',
         'Zend\Router',
         'Zend\Validator',
         'Application',
-        'TravelloViewHelper',
     ],
     'module_listener_options' => [
         'config_glob_paths'        => [
