@@ -2,6 +2,5 @@
 .idea
 vendor
 composer.lock
-assets
-!public/assets/custom/*
 bin/templatemap_generator.php
+*.xcf
