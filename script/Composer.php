@@ -64,6 +64,10 @@ class Composer
      */
     public static function deleteDir($baseDir, $level)
     {
+        if (!is_dir($baseDir)) {
+            return;
+        }
+        
         $dirList = scandir($baseDir);
 
         foreach ($dirList as $currentDir) {
