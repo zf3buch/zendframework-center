@@ -1,0 +1,43 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+$this->headTitle('Seite nicht gefunden');
+$this->h1('Seite nicht gefunden');
+
+if (isset($this->reason) && $this->reason) {
+    switch ($this->reason) {
+        case 'error-controller-cannot-dispatch':
+            $message = 'Der angeforderte Controller war nicht in der Lage die Anfrage zu verarbeiten.';
+            break;
+        case 'error-controller-not-found':
+            $message = 'Der angeforderte Controller konnte keiner Controller Klasse zugeordnet werden.';
+            break;
+        case 'error-controller-invalid':
+            $message = 'Der angeforderte Controller ist nicht aufrufbar.';
+            break;
+        case 'error-router-no-match':
+            $message = 'Für die angeforderte URL konnte keine Übereinstimmung gefunden werden.';
+            break;
+        default:
+            $message = 'Zu diesem Zeitpunkt ist es uns nicht möglich zu bestimmen, warum ein 404 Fehler aufgetreten ist.';
+            break;
+    }
+}
+?>
+<div class="jumbotron">
+    <h2>Die angeforderte Seite konnte nicht gefunden werden</h2>
+    <p>
+        Grund: <?= $message ?>
+    </p>
+    <p class="pull-center">
+        <a href="/" class="btn btn-success">
+            Zurück zur Startseite
+        </a>
+    </p>
+</div>

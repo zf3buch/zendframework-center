@@ -1,0 +1,40 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use Zend\View\Helper\Navigation\Menu;
+
+?>
+<div class="container">
+  <header>
+    <a href="<?= $this->url('home', [], true); ?>">
+      <img src="/assets/custom/img/logo.png" class="logo">
+    </a>
+  </header>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">
+          Navigation umschalten
+        </span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <a href="/">Startseite</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

@@ -1,0 +1,38 @@
+{
+  "name": "zf3buch/zendframework-center",
+  "description": "Zend Framework Center Example Application for the Zend Framework 3",
+  "license": "The MIT License (MIT)",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Ralf Eggert",
+      "email": "ralf@travello.de",
+      "homepage": "http://www.travello.de",
+      "role": "Developer"
+    }
+  ],
+  "homepage": "http://www.zendframeworkbuch.de/",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "zendframework/zend-component-installer": "^1.0 || ^0.2 || ^1.0.0-dev@dev",
+    "zendframework/zend-console": "^2.6",
+    "zendframework/zend-mvc": "^3.0",
+    "ralfeggert/travello-view-helper": "^1.2",
+    "twitter/bootstrap": "~3.3",
+    "fortawesome/font-awesome": "~4.4",
+    "frameworks/jquery": "~1.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Application\\": "module/Application/src/",
+      "Scripts\\": "script/"
+    }
+  },
+  "extra": [],
+  "scripts": {
+    "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php",
+    "post-update-cmd": "Scripts\\Composer::postUpdate"
+  }
+}
