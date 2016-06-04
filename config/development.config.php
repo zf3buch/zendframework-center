@@ -9,8 +9,8 @@
 
 return [
     'modules'                 => [
-        'Advert',
-        'AdvertAdmin',
+        'AdvertFrontend',
+        'AdvertBackend',
         'AdvertModel',
         'Zend\Router',
         'Zend\Validator',

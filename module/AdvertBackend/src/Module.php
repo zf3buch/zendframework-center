@@ -7,7 +7,7 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace Advert;
+namespace AdvertBackend;
 
 use Zend\Config\Factory;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
@@ -17,7 +17,7 @@ use Zend\ModuleManager\ModuleManagerInterface;
 /**
  * Class Module
  *
- * @package Advert
+ * @package AdvertBackend
  */
 class Module implements ConfigProviderInterface, InitProviderInterface
 {
@@ -28,7 +28,7 @@ class Module implements ConfigProviderInterface, InitProviderInterface
      */
     public function init(ModuleManagerInterface $manager)
     {
-        define('ADVERT_MODULE_ROOT', __DIR__ . '/..');
+        define('ADVERT_BACKEND_MODULE_ROOT', __DIR__ . '/..');
     }
 
     /**
@@ -37,7 +37,7 @@ class Module implements ConfigProviderInterface, InitProviderInterface
     public function getConfig()
     {
         return Factory::fromFile(
-            ADVERT_MODULE_ROOT . '/config/module.config.php'
+            ADVERT_BACKEND_MODULE_ROOT . '/config/module.config.php'
         );
     }
 }

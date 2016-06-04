@@ -26,8 +26,8 @@
   "autoload": {
     "psr-4": {
       "Application\\": "module/Application/src/",
-      "Advert\\": "module/Advert/src/",
-      "AdvertAdmin\\": "module/AdvertAdmin/src/",
+      "AdvertFrontend\\": "module/AdvertFrontend/src/",
+      "AdvertBackend\\": "module/AdvertBackend/src/",
       "AdvertModel\\": "module/AdvertModel/src/",
       "Scripts\\": "script/"
     }
