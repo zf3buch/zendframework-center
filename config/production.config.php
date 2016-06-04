@@ -12,7 +12,6 @@ return [
         'Zend\Router',
         'Zend\Validator',
         'Application',
-        'TravelloViewHelper',
     ],
     'module_listener_options' => [
         'config_glob_paths'        => [
