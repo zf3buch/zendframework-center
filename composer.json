@@ -31,6 +31,7 @@
       "AdvertFrontend\\": "module/AdvertFrontend/src/",
       "AdvertBackend\\": "module/AdvertBackend/src/",
       "AdvertModel\\": "module/AdvertModel/src/",
+      "CompanyModel\\": "module/CompanyModel/src/",
       "Scripts\\": "script/"
     }
   },
