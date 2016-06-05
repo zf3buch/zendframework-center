@@ -10,6 +10,8 @@
 use CompanyModel\Config\CompanyConfigFactory;
 use CompanyModel\Config\CompanyConfigInterface;
 use CompanyModel\Hydrator\CompanyHydrator;
+use CompanyModel\InputFilter\CompanyInputFilter;
+use CompanyModel\InputFilter\CompanyInputFilterFactory;
 use CompanyModel\Repository\CompanyRepositoryFactory;
 use CompanyModel\Repository\CompanyRepositoryInterface;
 use CompanyModel\Storage\Db\CompanyDbStorage;
@@ -31,6 +33,12 @@ return [
     'hydrators' => [
         'invokables' => [
             CompanyHydrator::class => InvokableFactory::class,
+        ],
+    ],
+
+    'input_filters' => [
+        'factories' => [
+            CompanyInputFilter::class => CompanyInputFilterFactory::class,
         ],
     ],
 ];

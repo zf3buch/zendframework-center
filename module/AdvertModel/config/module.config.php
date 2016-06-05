@@ -10,6 +10,8 @@
 use AdvertModel\Config\AdvertConfigFactory;
 use AdvertModel\Config\AdvertConfigInterface;
 use AdvertModel\Hydrator\AdvertHydrator;
+use AdvertModel\InputFilter\AdvertInputFilter;
+use AdvertModel\InputFilter\AdvertInputFilterFactory;
 use AdvertModel\Repository\AdvertRepositoryFactory;
 use AdvertModel\Repository\AdvertRepositoryInterface;
 use AdvertModel\Storage\Db\AdvertDbStorage;
@@ -31,6 +33,12 @@ return [
     'hydrators' => [
         'factories' => [
             AdvertHydrator::class => InvokableFactory::class,
+        ],
+    ],
+
+    'input_filters' => [
+        'factories' => [
+            AdvertInputFilter::class => AdvertInputFilterFactory::class,
         ],
     ],
 ];

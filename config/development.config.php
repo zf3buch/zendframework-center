@@ -9,6 +9,7 @@
 
 return [
     'modules'                 => [
+        'Zend\InputFilter',
         'Zend\Db',
         'Zend\Filter',
         'Zend\Hydrator',
