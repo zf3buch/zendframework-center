@@ -12,7 +12,7 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'hydrators' => [
-        'invokables' => [
+        'factories' => [
             CompanyHydrator::class => InvokableFactory::class,
         ],
     ],
