@@ -11,8 +11,6 @@ namespace Application\Controller;
 
 use AdvertModel\Entity\AdvertEntity;
 use AdvertModel\Hydrator\AdvertHydrator;
-use CompanyModel\Entity\CompanyEntity;
-use CompanyModel\Hydrator\CompanyHydrator;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -29,31 +27,23 @@ class TestController extends AbstractActionController
      */
     public function indexAction()
     {
-        $companyData = [
-            'id'         => '123',
-            'registered' => date('Y-m-d H:i:s'),
-            'updated'    => date('Y-m-d H:i:s'),
-            'status'     => 'approved',
-            'name'       => ' Name ',
-            'email'      => 'Email',
-            'contact'    => 'Contact',
-        ];
-
-        $companyEntity = new CompanyEntity();
-
-        $companyHydrator = new CompanyHydrator();
-        $companyHydrator->hydrate($companyData, $companyEntity);
-
         $advertData = [
-            'id'       => '123',
-            'created'  => date('Y-m-d H:i:s'),
-            'updated'  => date('Y-m-d H:i:s'),
-            'status'   => 'approved',
-            'type'     => 'job',
-            'company'  => $companyEntity,
-            'title'    => ' Title ',
-            'text'     => 'Text',
-            'location' => 'Location',
+            'id'                 => '123',
+            'created'            => date('Y-m-d H:i:s'),
+            'updated'            => date('Y-m-d H:i:s'),
+            'status'             => 'approved',
+            'type'               => 'job',
+            'company'            => '123',
+            'title'              => ' Title ',
+            'text'               => 'Text',
+            'location'           => 'Location',
+            'company_id'         => '123',
+            'company_registered' => date('Y-m-d H:i:s'),
+            'company_updated'    => date('Y-m-d H:i:s'),
+            'company_status'     => 'approved',
+            'company_name'       => ' Name ',
+            'company_email'      => 'Email',
+            'company_contact'    => 'Contact',
         ];
 
         $advertEntity = new AdvertEntity();
@@ -61,10 +51,7 @@ class TestController extends AbstractActionController
         $advertHydrator = new AdvertHydrator();
         $advertHydrator->hydrate($advertData, $advertEntity);
 
-        var_dump($companyEntity);
         var_dump($advertEntity);
-
-        var_dump($companyHydrator->extract($companyEntity));
         var_dump($advertHydrator->extract($advertEntity));
 
         exit;

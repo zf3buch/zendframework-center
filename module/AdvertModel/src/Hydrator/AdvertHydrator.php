@@ -9,6 +9,8 @@
 
 namespace AdvertModel\Hydrator;
 
+use CompanyModel\Hydrator\CompanyHydrator;
+use CompanyModel\Hydrator\Strategy\CompanyEntityStrategy;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
@@ -34,6 +36,10 @@ class AdvertHydrator extends ClassMethods implements HydratorInterface
         $this->addStrategy(
             'updated',
             new DateTimeFormatterStrategy('Y-m-d H:i:s')
+        );
+        $this->addStrategy(
+            'company',
+            new CompanyEntityStrategy(new CompanyHydrator())
         );
     }
 }
