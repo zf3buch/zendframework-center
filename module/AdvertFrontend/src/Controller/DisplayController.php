@@ -46,7 +46,7 @@ class DisplayController extends AbstractActionController
         );
 
         if (!$advertList) {
-            return $this->redirect()->toRoute($type, [], true);
+            return $this->redirect()->toRoute('advert-' . $type, [], true);
         }
 
         $viewModel = new ViewModel();
@@ -65,13 +65,13 @@ class DisplayController extends AbstractActionController
         $type = $this->params()->fromRoute('type', 'job');
 
         if (!$id) {
-            return $this->redirect()->toRoute($type, [], true);
+            return $this->redirect()->toRoute('advert-' . $type, [], true);
         }
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
         if (!$advert || $advert['type'] != $type) {
-            return $this->redirect()->toRoute($type, [], true);
+            return $this->redirect()->toRoute('advert-' . $type, [], true);
         }
 
         $viewModel = new ViewModel();
