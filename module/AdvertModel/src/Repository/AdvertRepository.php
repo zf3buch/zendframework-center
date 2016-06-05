@@ -9,6 +9,9 @@
 
 namespace AdvertModel\Repository;
 
+use Zend\Paginator\Adapter\ArrayAdapter;
+use Zend\Paginator\Paginator;
+
 /**
  * Class AdvertRepository
  *
@@ -46,7 +49,7 @@ class AdvertRepository implements AdvertRepositoryInterface
      * @param int         $page
      * @param int         $count
      *
-     * @return mixed
+     * @return Paginator
      */
     public function getAdvertsByPage(
         $type = null, $approved = true, $page = 1, $count = 5
@@ -57,17 +60,23 @@ class AdvertRepository implements AdvertRepositoryInterface
             $jobAdverts = $this->advertData;
         }
 
-        $offset = ($page - 1) * $count;
+        $paginator = new Paginator(
+            new ArrayAdapter($jobAdverts)
+        );
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage($count);
 
-        $advertList = array_slice($jobAdverts, $offset, $count, true);
+        /** @var \ArrayIterator $currentItemsIterator */
+        $currentItemsIterator = $paginator->getCurrentItems();
 
-        foreach ($advertList as $key => $advert) {
+        foreach ($currentItemsIterator as $key => $advert) {
             $company = $this->companyData[$advert['company']];
+            $advert['company'] = $company;
 
-            $advertList[$key]['company'] = $company;
+            $currentItemsIterator->offsetSet($key, $advert);
         }
 
-        return $advertList;
+        return $paginator;
     }
 
     /**

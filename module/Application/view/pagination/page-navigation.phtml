@@ -1,0 +1,59 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+if (isset($this->previous)) {
+    $prevUrl = $this->url($this->route, ['page' => $this->previous], true);
+}
+if (isset($this->next)) {
+    $nextUrl = $this->url($this->route, ['page' => $this->next], true);
+}
+?>
+<?php if ($this->pageCount): ?>
+  <ul class="pagination">
+    <?php if (isset($prevUrl)): ?>
+      <li>
+        <a href="<?= $prevUrl; ?>">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    <?php else: ?>
+      <li class="disabled">
+        <a>
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    <?php endif; ?>
+
+    <?php foreach ($this->pagesInRange as $page): ?>
+      <?php $actUrl = $this->url($this->route, ['page' => $page], true); ?>
+      <?php if ($page != $this->current): ?>
+        <li>
+          <a href="<?= $actUrl; ?>">
+            <?= $page; ?>
+          </a>
+        </li>
+      <?php else: ?>
+        <li class="active"><a><?= $page; ?></a></li>
+      <?php endif; ?>
+    <?php endforeach; ?>
+
+    <?php if (isset($nextUrl)): ?>
+      <li>
+        <a href="<?= $nextUrl; ?>">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    <?php else: ?>
+      <li class="disabled">
+        <a>
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    <?php endif; ?>
+  </ul>
+<?php endif; ?>

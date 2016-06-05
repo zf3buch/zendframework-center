@@ -9,6 +9,7 @@
 
 return [
     'modules'                 => [
+        'Zend\Paginator',
         'Zend\Navigation',
         'AdvertFrontend',
         'AdvertBackend',

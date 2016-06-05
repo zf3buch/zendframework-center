@@ -84,6 +84,18 @@ $this->headTitle($headTitleText);
     </div>
   </div>
 <?php endforeach; ?>
+<nav class="text-center">
+  <?php
+  echo $this->paginationControl(
+      $this->advertList,
+      'Sliding',
+      'pagination/page-navigation',
+      [
+          'route' => 'advert-' . $this->type . '/page'
+      ]
+  );
+  ?>
+</nav>
 <p class="text-center">
   <a class="btn btn-default" href="<?= $listLink; ?>">
     <i class="fa fa-arrow-circle-left"></i> Zurück zur Startseite

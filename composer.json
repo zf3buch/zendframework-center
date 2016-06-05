@@ -22,7 +22,8 @@
     "twitter/bootstrap": "~3.3",
     "fortawesome/font-awesome": "~4.4",
     "frameworks/jquery": "~1.11",
-    "zendframework/zend-navigation": "^2.7"
+    "zendframework/zend-navigation": "^2.7",
+    "zendframework/zend-paginator": "^2.7"
   },
   "autoload": {
     "psr-4": {

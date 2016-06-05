@@ -9,6 +9,8 @@
 
 namespace AdvertModel\Repository;
 
+use Zend\Paginator\Paginator;
+
 /**
  * Interface AdvertRepositoryInterface
  *
@@ -24,7 +26,7 @@ interface AdvertRepositoryInterface
      * @param int         $page
      * @param int         $count
      *
-     * @return mixed
+     * @return Paginator
      */
     public function getAdvertsByPage(
         $type = null, $approved = true, $page = 1, $count = 5

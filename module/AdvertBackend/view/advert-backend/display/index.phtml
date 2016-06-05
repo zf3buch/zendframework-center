@@ -102,3 +102,15 @@ $this->headTitle('Annoncen administrieren');
   <?php endforeach; ?>
   </tbody>
 </table>
+<nav class="text-center">
+  <?php
+  echo $this->paginationControl(
+      $this->advertList,
+      'Sliding',
+      'pagination/page-navigation',
+      [
+          'route' => 'advert-backend/page'
+      ]
+  );
+  ?>
+</nav>
