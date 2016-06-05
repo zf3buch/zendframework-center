@@ -17,7 +17,7 @@ use Zend\Router\Http\Segment;
 return [
     'router' => [
         'routes' => [
-            'advert-admin' => [
+            'advert-backend' => [
                 'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/advert-admin',
