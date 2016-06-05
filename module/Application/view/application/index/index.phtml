@@ -31,94 +31,94 @@ $jobListLink = $this->url('advert-job', [], true);
 $projectListLink = $this->url('advert-project', [], true);
 ?>
 <div class="page-header">
-    <h1>Willkommen zum Zend Framework Center!</h1>
+  <h1>Willkommen zum Zend Framework Center!</h1>
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
-        <h2>
-            <a href="<?= $jobListLink; ?>">Jobs</a>
-        </h2>
+  <div class="col-sm-6">
+    <h2>
+      <a href="<?= $jobListLink; ?>">Jobs</a>
+    </h2>
 
-        <div class="panel panel-primary">
-            <div class="panel-heading clearfix">
-                <strong>
-                    <a href="<?= $jobDetailLink; ?>"><?= $job['title']; ?></a>
-                </strong>
-            </div>
-            <div class="panel-body">
-                <p>
-                    <img src="<?= $job['company']['logo'] ?>"
-                         class="img-responsive center-block">
-                </p>
-                <p><?= $jobText; ?> ...</p>
-                <p class="text-center">
-                    <a href="<?= $jobDetailLink ?>" class="btn btn-primary">
-                        Job anzeigen
-                    </a>
-                </p>
-            </div>
-            <div class="panel-footer clearfix">
-                <div class="left-text">
-                    <div class="label label-primary">
-                        Zend Framework Job in <?= $job['location']; ?>
-                    </div>
-                </div>
-                <div class="right-text">
-                    <div class="label label-primary">
-                        Letzte Änderung: <?= $job['updated'] ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p class="text-center">
-            <a href="<?= $jobListLink; ?>" class="btn btn-primary">
-                Alle Zend Framework Jobs anzeigen
-            </a>
+    <div class="panel panel-primary">
+      <div class="panel-heading clearfix">
+        <strong>
+          <a href="<?= $jobDetailLink; ?>"><?= $job['title']; ?></a>
+        </strong>
+      </div>
+      <div class="panel-body">
+        <p>
+          <img src="<?= $job['company']['logo'] ?>"
+               class="img-responsive center-block">
         </p>
+        <p><?= $jobText; ?> ...</p>
+        <p class="text-center">
+          <a href="<?= $jobDetailLink ?>" class="btn btn-primary">
+            Job anzeigen
+          </a>
+        </p>
+      </div>
+      <div class="panel-footer clearfix">
+        <div class="left-text">
+          <div class="label label-primary">
+            Zend Framework Job in <?= $job['location']; ?>
+          </div>
+        </div>
+        <div class="right-text">
+          <div class="label label-primary">
+            Letzte Änderung: <?= $job['updated'] ?>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-6">
-        <h2>
-            <a href="<?= $projectListLink; ?>">Projekte</a>
-        </h2>
+    <p class="text-center">
+      <a href="<?= $jobListLink; ?>" class="btn btn-primary">
+        Alle Zend Framework Jobs anzeigen
+      </a>
+    </p>
+  </div>
+  <div class="col-sm-6">
+    <h2>
+      <a href="<?= $projectListLink; ?>">Projekte</a>
+    </h2>
 
-        <div class="panel panel-success">
-            <div class="panel-heading clearfix">
-                <strong>
-                    <a href="<?= $projectDetailLink; ?>">
-                        <?= $project['title']; ?>
-                    </a>
-                </strong>
-            </div>
-            <div class="panel-body">
-                <p>
-                    <img src="<?= $project['company']['logo'] ?>"
-                         class="img-responsive center-block">
-                </p>
-                <p><?= $projectText; ?> ...</p>
-                <p class="text-center">
-                    <a href="<?= $projectDetailLink ?>" class="btn btn-success">
-                        Projekt anzeigen
-                    </a>
-                </p>
-            </div>
-            <div class="panel-footer clearfix">
-                <div class="left-text">
-                    <div class="label label-success">
-                        Zend Framework Job in <?= $project['location']; ?>
-                    </div>
-                </div>
-                <div class="right-text">
-                    <div class="label label-success">
-                        Letzte Änderung: <?= $project['updated'] ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <p class="text-center">
-            <a href="<?= $projectListLink; ?>" class="btn btn-success">
-                Alle Zend Framework Projekte anzeigen
-            </a>
+    <div class="panel panel-success">
+      <div class="panel-heading clearfix">
+        <strong>
+          <a href="<?= $projectDetailLink; ?>">
+            <?= $project['title']; ?>
+          </a>
+        </strong>
+      </div>
+      <div class="panel-body">
+        <p>
+          <img src="<?= $project['company']['logo'] ?>"
+               class="img-responsive center-block">
         </p>
+        <p><?= $projectText; ?> ...</p>
+        <p class="text-center">
+          <a href="<?= $projectDetailLink ?>" class="btn btn-success">
+            Projekt anzeigen
+          </a>
+        </p>
+      </div>
+      <div class="panel-footer clearfix">
+        <div class="left-text">
+          <div class="label label-success">
+            Zend Framework Job in <?= $project['location']; ?>
+          </div>
+        </div>
+        <div class="right-text">
+          <div class="label label-success">
+            Letzte Änderung: <?= $project['updated'] ?>
+          </div>
+        </div>
+      </div>
     </div>
+    <p class="text-center">
+      <a href="<?= $projectListLink; ?>" class="btn btn-success">
+        Alle Zend Framework Projekte anzeigen
+      </a>
+    </p>
+  </div>
 </div>
