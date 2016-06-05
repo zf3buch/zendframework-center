@@ -96,6 +96,43 @@ class CompanyDbStorage implements CompanyStorageInterface
     }
 
     /**
+     * Fetch all companies for an option list
+     *
+     * @return mixed
+     */
+    public function fetchCompanyOptions()
+    {
+        $select = $this->tableGateway->getSql()->select();
+
+        /** @var ResultSet $resultSet */
+        $resultSet = $this->tableGateway->selectWith($select);
+
+        $options = [];
+
+        /** @var CompanyEntity $company */
+        foreach ($resultSet as $company) {
+            $options[$company->getId()] = $company->getName();
+        }
+
+        return $options;
+    }
+
+    /**
+     * Get next id for company entity
+     *
+     * @return integer
+     */
+    public function nextId()
+    {
+        $insert = $this->tableGateway->getSql()->insert();
+        $insert->values(['id' => null]);
+
+        $this->tableGateway->insertWith($insert);
+
+        return $this->tableGateway->getLastInsertValue();
+    }
+
+    /**
      * Insert new company entity to storage
      *
      * @param CompanyEntity $company

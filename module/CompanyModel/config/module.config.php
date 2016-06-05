@@ -7,6 +7,8 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use CompanyModel\Config\CompanyConfigFactory;
+use CompanyModel\Config\CompanyConfigInterface;
 use CompanyModel\Hydrator\CompanyHydrator;
 use CompanyModel\Repository\CompanyRepositoryFactory;
 use CompanyModel\Repository\CompanyRepositoryInterface;
@@ -17,6 +19,8 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'service_manager' => [
         'factories' => [
+            CompanyConfigInterface::class => CompanyConfigFactory::class,
+
             CompanyDbStorage::class => CompanyDbStorageFactory::class,
 
             CompanyRepositoryInterface::class =>

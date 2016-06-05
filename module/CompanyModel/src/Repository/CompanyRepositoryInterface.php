@@ -37,4 +37,38 @@ interface CompanyRepositoryInterface
      * @return CompanyEntity|bool
      */
     public function getSingleCompanyById($id);
+
+    /**
+     * Get company options
+     *
+     * @return array
+     */
+    public function getCompanyOptions();
+
+    /**
+     * Create a new company based on array data
+     *
+     * @param array $data
+     *
+     * @return CompanyEntity
+     */
+    public function createCompanyFromData(array $data = []);
+
+    /**
+     * Save company
+     *
+     * @param CompanyEntity $company
+     *
+     * @return boolean
+     */
+    public function saveCompany(CompanyEntity $company);
+
+    /**
+     * Delete an company
+     *
+     * @param CompanyEntity $company
+     *
+     * @return boolean
+     */
+    public function deleteCompany(CompanyEntity $company);
 }

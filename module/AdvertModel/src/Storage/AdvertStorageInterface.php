@@ -52,6 +52,13 @@ interface AdvertStorageInterface
     public function fetchRandomAdvertEntity($type);
 
     /**
+     * Get next id for advert entity
+     *
+     * @return integer
+     */
+    public function nextId();
+
+    /**
      * Insert new advert entity to storage
      *
      * @param AdvertEntity $advert

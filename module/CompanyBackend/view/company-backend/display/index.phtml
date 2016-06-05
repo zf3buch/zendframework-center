@@ -1,0 +1,119 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use CompanyModel\Entity\CompanyEntity;
+
+$addLink = $this->url(
+    'company-backend/modify', ['action' => 'add'], true
+);
+
+$this->headTitle('Unternehmen administrieren');
+?>
+<div class="page-header">
+  <h1>Unternehmen administrieren</h1>
+</div>
+
+<table class="table table-condensed table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>Status</th>
+    <th>Name</th>
+    <th class="hidden-xs">E-Mail</th>
+    <th class="hidden-xs">Ansprechpartner</th>
+    <th class="hidden-xs">Datum</th>
+    <th class="text-center">
+      <a href="<?= $addLink ?>">
+        <i class="fa fa-plus-square-o"></i>
+      </a>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <?php /** @var CompanyEntity $company */ ?>
+  <?php foreach ($this->companyList as $company) : ?>
+    <?php
+    $showLink    = $this->url(
+        'company-backend/show', ['id' => $company->getId()], true
+    );
+    $editLink    = $this->url(
+        'company-backend/modify',
+        ['action' => 'edit', 'id' => $company->getId()], true
+    );
+    $deleteLink  = $this->url(
+        'company-backend/modify',
+        ['action' => 'delete', 'id' => $company->getId()], true
+    );
+    $approveLink = $this->url(
+        'company-backend/modify',
+        ['action' => 'approve', 'id' => $company->getId()], true
+    );
+    $blockLink   = $this->url(
+        'company-backend/modify',
+        ['action' => 'block', 'id' => $company->getId()], true
+    );
+    ?>
+    <tr>
+      <td>
+        <?= $company->getStatus() ?>
+      </td>
+      <td>
+        <a href="<?= $showLink ?>">
+          <?= $company->getName() ?>
+        </a>
+      </td>
+      <td class="hidden-xs">
+        <?= $company->getEmail() ?>
+      </td>
+      <td class="hidden-xs">
+        <?= $company->getContact() ?>
+      </td>
+      <td class="hidden-xs">
+        <?= $company->getUpdated()->format('d.m.Y H:i:s') ?>
+      </td>
+      <td class="text-center">
+        <a href="<?= $showLink ?>" class="hidden-xs hidden-sm">
+          <i class="fa fa-file-text-o"></i>
+        </a>
+        <a href="<?= $editLink ?>">
+            <i class="fa fa-pencil"></i>
+        </a>
+        <a href="<?= $deleteLink ?>" class="hidden-xs hidden-sm">
+          <i class="fa fa-trash-o"></i>
+        </a>
+        <a href="<?= $approveLink ?>" class="visible-lg-inline">
+          <i class="fa fa-thumbs-o-up"></i>
+        </a>
+        <a href="<?= $blockLink ?>" class="visible-lg-inline">
+         <i class="fa fa-thumbs-o-down"></i>
+        </a>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+<nav class="text-center">
+  <?php
+  echo $this->paginationControl(
+      $this->companyList,
+      'Sliding',
+      'pagination/page-navigation',
+      [
+        'route' => 'company-backend/page'
+      ]
+  );
+  ?>
+</nav>

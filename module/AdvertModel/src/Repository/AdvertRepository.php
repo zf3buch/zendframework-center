@@ -9,7 +9,10 @@
 
 namespace AdvertModel\Repository;
 
+use AdvertModel\Entity\AdvertEntity;
 use AdvertModel\Storage\AdvertStorageInterface;
+use CompanyModel\Entity\CompanyEntity;
+use DateTime;
 use Zend\Paginator\Paginator;
 
 /**
@@ -74,5 +77,61 @@ class AdvertRepository implements AdvertRepositoryInterface
     public function getRandomAdvert($type = 'job')
     {
         return $this->advertStorage->fetchRandomAdvertEntity($type);
+    }
+
+    /**
+     * Create a new advert based on array data
+     *
+     * @param array $data
+     *
+     * @return AdvertEntity
+     */
+    public function createAdvertFromData(array $data = [])
+    {
+        $company = new CompanyEntity();
+        $company->setId($data['company']);
+
+        $nextId = $this->advertStorage->nextId();
+
+        $advert = new AdvertEntity();
+        $advert->setId($nextId);
+        $advert->setCreated(new DateTime());
+        $advert->setUpdated(new DateTime());
+        $advert->setStatus($data['status']);
+        $advert->setType($data['type']);
+        $advert->setCompany($company);
+        $advert->setTitle($data['title']);
+        $advert->setText($data['text']);
+        $advert->setLocation($data['location']);
+
+        return $advert;
+    }
+
+    /**
+     * Save advert
+     *
+     * @param AdvertEntity $advert
+     *
+     * @return boolean
+     */
+    public function saveAdvert(AdvertEntity $advert)
+    {
+        if (!$advert->getId()) {
+            return $this->advertStorage->insertAdvert($advert);
+        } else {
+            return $this->advertStorage->updateAdvert($advert);
+        }
+    }
+
+    /**
+     * Delete an advert
+     *
+     * @param AdvertEntity $advert
+     *
+     * @return boolean
+     */
+    public function deleteAdvert(AdvertEntity $advert)
+    {
+        return $this->advertStorage->deleteAdvert($advert);
     }
 }

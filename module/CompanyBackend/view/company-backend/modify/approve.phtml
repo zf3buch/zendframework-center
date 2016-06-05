@@ -1,0 +1,74 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use CompanyModel\Entity\CompanyEntity;
+
+/** @var CompanyEntity $company */
+$company = $this->company;
+
+$listLink    = $this->url('company-backend', [], true);
+$showLink    = $this->url(
+    'company-backend/show', ['id' => $company->getId()], true
+);
+$editLink    = $this->url(
+    'company-backend/modify', ['action' => 'edit', 'id' => $company->getId()], true
+);
+$deleteLink  = $this->url(
+    'company-backend/modify', ['action' => 'delete', 'id' => $company->getId()], true
+);
+$approveLink = $this->url(
+    'company-backend/modify', ['action' => 'approve', 'id' => $company->getId()], true
+);
+$blockLink   = $this->url(
+    'company-backend/modify', ['action' => 'block', 'id' => $company->getId()], true
+);
+
+$this->headTitle('Unternehmen freigeben');
+?>
+<div class="page-header">
+  <h1>Unternehmen freigeben</h1>
+</div>
+
+<p>
+  <a href="<?= $showLink ?>" class="btn btn-default">
+    <i class="fa fa-file-text-o"></i>
+    <span class="hidden-xs hidden-sm">Anzeigen</span>
+  </a>
+  <a href="<?= $editLink ?>" class="btn btn-default">
+    <i class="fa fa-pencil"></i>
+    <span class="hidden-xs hidden-sm">Bearbeiten</span>
+  </a>
+  <a href="<?= $deleteLink ?>" class="btn btn-default">
+    <i class="fa fa-trash-o"></i>
+    <span class="hidden-xs hidden-sm">Löschen</span>
+  </a>
+  <a href="<?= $approveLink ?>" class="btn btn-primary">
+    <i class="fa fa-thumbs-o-up"></i>
+    <span class="hidden-xs hidden-sm">Freigeben</span>
+  </a>
+  <a href="<?= $blockLink ?>" class="btn btn-default">
+    <i class="fa fa-thumbs-o-down"></i>
+    <span class="hidden-xs hidden-sm">Sperren</span>
+  </a>
+  <a href="<?= $listLink ?>" class="btn btn-default">
+    <i class="fa fa-list"></i>
+    <span class="hidden-xs hidden-sm">Übersicht</span>
+  </a>
+</p>
+<div class="well">
+  In Kürze mehr...
+</div>

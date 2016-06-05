@@ -39,6 +39,20 @@ interface CompanyStorageInterface
     public function fetchCompanyEntity($id);
 
     /**
+     * Fetch all companies for an option list
+     *
+     * @return mixed
+     */
+    public function fetchCompanyOptions();
+
+    /**
+     * Get next id for company entity
+     *
+     * @return integer
+     */
+    public function nextId();
+
+    /**
      * Insert new company entity to storage
      *
      * @param CompanyEntity $company

@@ -7,6 +7,8 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use AdvertModel\Config\AdvertConfigFactory;
+use AdvertModel\Config\AdvertConfigInterface;
 use AdvertModel\Hydrator\AdvertHydrator;
 use AdvertModel\Repository\AdvertRepositoryFactory;
 use AdvertModel\Repository\AdvertRepositoryInterface;
@@ -17,6 +19,8 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 return [
     'service_manager' => [
         'factories' => [
+            AdvertConfigInterface::class => AdvertConfigFactory::class,
+
             AdvertDbStorage::class => AdvertDbStorageFactory::class,
 
             AdvertRepositoryInterface::class =>

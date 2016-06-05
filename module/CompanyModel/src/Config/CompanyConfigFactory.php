@@ -7,18 +7,17 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace CompanyModel\Repository;
+namespace CompanyModel\Config;
 
-use CompanyModel\Storage\Db\CompanyDbStorage;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class CompanyRepositoryFactory
+ * Class CompanyConfigFactory
  *
- * @package CompanyModel\Repository
+ * @package CompanyModel\Config
  */
-class CompanyRepositoryFactory implements FactoryInterface
+class CompanyConfigFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
@@ -31,8 +30,11 @@ class CompanyRepositoryFactory implements FactoryInterface
         ContainerInterface $container, $requestedName,
         array $options = null
     ) {
-        $companyDbStorage = $container->get(CompanyDbStorage::class);
+        $config = new CompanyConfig(
+            include COMPANY_MODEL_MODULE_ROOT
+                . '/config/company.config.php'
+        );
 
-        return new CompanyRepository($companyDbStorage);
+        return $config;
     }
 }

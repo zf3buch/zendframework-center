@@ -35,6 +35,7 @@
       "AdvertBackend\\": "module/AdvertBackend/src/",
       "AdvertModel\\": "module/AdvertModel/src/",
       "CompanyModel\\": "module/CompanyModel/src/",
+      "CompanyBackend\\": "module/CompanyBackend/src/",
       "Scripts\\": "script/"
     }
   },

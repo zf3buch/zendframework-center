@@ -50,4 +50,31 @@ interface AdvertRepositoryInterface
      * @return AdvertEntity|bool
      */
     public function getRandomAdvert($type = 'job');
+
+    /**
+     * Create a new advert based on array data
+     *
+     * @param array $data
+     *
+     * @return AdvertEntity
+     */
+    public function createAdvertFromData(array $data = []);
+
+    /**
+     * Save advert
+     *
+     * @param AdvertEntity $advert
+     *
+     * @return boolean
+     */
+    public function saveAdvert(AdvertEntity $advert);
+
+    /**
+     * Delete an advert
+     *
+     * @param AdvertEntity $advert
+     *
+     * @return boolean
+     */
+    public function deleteAdvert(AdvertEntity $advert);
 }

@@ -14,6 +14,7 @@ return [
         'Zend\Hydrator',
         'Zend\Paginator',
         'Zend\Navigation',
+        'CompanyBackend',
         'CompanyModel',
         'AdvertFrontend',
         'AdvertBackend',

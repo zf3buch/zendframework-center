@@ -136,6 +136,21 @@ class AdvertDbStorage implements AdvertStorageInterface
     }
 
     /**
+     * Get next id for advert entity
+     *
+     * @return integer
+     */
+    public function nextId()
+    {
+        $insert = $this->tableGateway->getSql()->insert();
+        $insert->values(['id' => null]);
+
+        $this->tableGateway->insertWith($insert);
+
+        return $this->tableGateway->getLastInsertValue();
+    }
+
+    /**
      * Insert new advert entity to storage
      *
      * @param AdvertEntity $advert

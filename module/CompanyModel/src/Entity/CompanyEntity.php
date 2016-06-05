@@ -189,4 +189,31 @@ class CompanyEntity
     {
         $this->logo = trim($logo);
     }
+
+    /**
+     * Update company
+     */
+    public function update()
+    {
+        $this->setUpdated(new DateTime());
+    }
+
+    /**
+     * Approve company
+     */
+    public function approve()
+    {
+        $this->setStatus('approved');
+        $this->setUpdated(new DateTime());
+    }
+
+    /**
+     * Block company
+     */
+    public function block()
+    {
+        $this->setStatus('blocked');
+        $this->setUpdated(new DateTime());
+    }
+
 }
