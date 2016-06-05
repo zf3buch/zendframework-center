@@ -48,8 +48,10 @@ class DisplayController extends AbstractActionController
             return $this->redirect()->toRoute('advert-admin', [], true);
         }
 
-        var_dump($advertList);
-        exit;
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('advertList', $advertList);
+
+        return $viewModel;
     }
 
     /**
@@ -69,7 +71,9 @@ class DisplayController extends AbstractActionController
             return $this->redirect()->toRoute('advert-admin', [], true);
         }
 
-        var_dump($advert);
-        exit;
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('advert', $advert);
+
+        return $viewModel;
     }
 }

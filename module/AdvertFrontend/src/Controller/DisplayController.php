@@ -49,8 +49,11 @@ class DisplayController extends AbstractActionController
             return $this->redirect()->toRoute($type, [], true);
         }
 
-        var_dump($advertList);
-        exit;
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('advertList', $advertList);
+        $viewModel->setVariable('type', $type);
+
+        return $viewModel;
     }
 
     /**
@@ -71,7 +74,10 @@ class DisplayController extends AbstractActionController
             return $this->redirect()->toRoute($type, [], true);
         }
 
-        var_dump($advert);
-        exit;
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('advert', $advert);
+        $viewModel->setVariable('type', $type);
+
+        return $viewModel;
     }
 }

@@ -1,0 +1,71 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+$advert = $this->advert;
+
+if ($advert['type'] == 'job') {
+    $color      = 'primary';
+    $advertType = 'Job';
+    $listLink   = $this->url('job', [], true);
+    $listText   = 'Zurück zu den Zend Framework Jobs';
+} else {
+    $color      = 'success';
+    $advertType = 'Projekt';
+    $listLink   = $this->url('project', [], true);
+    $listText   = 'Zurück zu den Zend Framework Projekten';
+}
+
+$this->headTitle($advert['title']);
+$this->h1($advert['title']);
+?>
+<p class="text-center">
+  <a class="btn btn-default" href="<?= $listLink; ?>">
+    <i class="fa fa-arrow-circle-left"></i> <?= $listText; ?>
+  </a>
+</p>
+<div class="panel panel-<?= $color ?>">
+  <div class="panel-heading clearfix">
+    <div class="left-text">
+      <strong><?= $advert['title']; ?></strong>
+    </div>
+    <div class="right-text">
+      <?= $advert['company']['name'] ?>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-9">
+      <p><?= $advert['text']; ?></p>
+    </div>
+    <div class="col-sm-3 company">
+      <p>
+        <img class="img-responsive" src="<?= $advert['company']['logo'] ?>">
+      </p>
+      <h5><strong>Ansprechpartner</strong></h5>
+      <p><?= $advert['company']['contact'] ?></p>
+      <p><?= $advert['company']['email'] ?></p>
+    </div>
+  </div>
+  <div class="panel-footer clearfix">
+    <div class="left-text">
+      <div class="label label-<?= $color; ?>">
+        Zend Framework <?= $advertType; ?> in <?= $advert['location']; ?>
+      </div>
+    </div>
+    <div class="right-text">
+      <div class="label label-<?= $color; ?>">
+        Letzte Änderung: <?= $advert['updated'] ?>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="text-center">
+  <a class="btn btn-default" href="<?= $listLink; ?>">
+    <i class="fa fa-arrow-circle-left"></i> <?= $listText; ?>
+  </a>
+</p>

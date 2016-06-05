@@ -1,0 +1,66 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+$advert = $this->advert;
+
+if ($advert['type'] == 'job') {
+    $advertType = 'Job';
+} else {
+    $advertType = 'Projekt';
+}
+
+$listLink    = $this->url('advert-admin', [], true);
+$showLink    = $this->url(
+    'advert-admin/show', ['id' => $advert['id']], true
+);
+$editLink    = $this->url(
+    'advert-admin/modify', ['action' => 'edit', 'id' => $advert['id']], true
+);
+$deleteLink  = $this->url(
+    'advert-admin/modify', ['action' => 'delete', 'id' => $advert['id']], true
+);
+$approveLink = $this->url(
+    'advert-admin/modify', ['action' => 'approve', 'id' => $advert['id']], true
+);
+$blockLink   = $this->url(
+    'advert-admin/modify', ['action' => 'block', 'id' => $advert['id']], true
+);
+
+$this->headTitle('Annonce sperren');
+$this->h1('Annonce sperren');
+?>
+<p>
+  <a href="<?= $showLink ?>" class="btn btn-default">
+    <i class="fa fa-file-text-o"></i>
+    <span class="hidden-xs hidden-sm">Anzeigen</span>
+  </a>
+  <a href="<?= $editLink ?>" class="btn btn-default">
+    <i class="fa fa-pencil"></i>
+    <span class="hidden-xs hidden-sm">Bearbeiten</span>
+  </a>
+  <a href="<?= $deleteLink ?>" class="btn btn-default">
+    <i class="fa fa-trash-o"></i>
+    <span class="hidden-xs hidden-sm">Löschen</span>
+  </a>
+  <a href="<?= $approveLink ?>" class="btn btn-default">
+    <i class="fa fa-thumbs-o-up"></i>
+    <span class="hidden-xs hidden-sm">Freigeben</span>
+  </a>
+  <a href="<?= $blockLink ?>" class="btn btn-primary">
+    <i class="fa fa-thumbs-o-down"></i>
+    <span class="hidden-xs hidden-sm">Sperren</span>
+  </a>
+  <a href="<?= $listLink ?>" class="btn btn-default">
+    <i class="fa fa-list"></i>
+    <span class="hidden-xs hidden-sm">Übersicht</span>
+  </a>
+</p>
+<div class="well">
+  In Kürze mehr...
+</div>

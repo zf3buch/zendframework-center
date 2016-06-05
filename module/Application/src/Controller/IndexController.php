@@ -11,6 +11,7 @@ namespace Application\Controller;
 
 use AdvertModel\Repository\AdvertRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 /**
  * Class IndexController
@@ -33,7 +34,7 @@ class IndexController extends AbstractActionController
     }
 
     /**
-     *
+     * @return ViewModel
      */
     public function indexAction()
     {
@@ -42,8 +43,10 @@ class IndexController extends AbstractActionController
             'project'
         );
 
-        var_dump($randomJob);
-        var_dump($randomProject);
-        exit;
+        $viewModel = new ViewModel();
+        $viewModel->setVariable('randomJob', $randomJob);
+        $viewModel->setVariable('randomProject', $randomProject);
+
+        return $viewModel;
     }
 }

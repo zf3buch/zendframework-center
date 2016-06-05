@@ -1,0 +1,89 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+if ($this->type == 'job') {
+    $color         = 'primary';
+    $advertType    = 'Job';
+    $headTitleText = 'Aktuelle Zend Framework Jobs';
+    $h1Text        = 'Aktuelle Zend Framework Jobs';
+} else {
+    $color         = 'success';
+    $advertType    = 'Projekt';
+    $headTitleText = 'Aktuelle Zend Framework Projekte';
+    $h1Text        = 'Aktuelle Zend Framework Projekte';
+}
+
+$listLink = $this->url('home', [], true);
+
+$this->headTitle($headTitleText);
+$this->h1($h1Text);
+?>
+<p class="text-center">
+    <a class="btn btn-default" href="<?= $listLink; ?>">
+        <i class="fa fa-arrow-circle-left"></i> Zurück zur Startseite
+    </a>
+</p>
+<?php foreach ($this->advertList as $advert) : ?>
+    <?php
+    $advertText = strip_tags($advert['text']);
+    $advertText = implode(
+        ' ', array_slice(explode(' ', $advertText), 0, 50)
+    );
+    $advertLink = $this->url(
+        $this->type . '/detail', ['id' => $advert['id']], true
+    );
+    ?>
+    <div class="panel panel-<?= $color ?>">
+        <div class="panel-heading clearfix">
+            <div class="left-text">
+                <strong>
+                    <a href="<?= $advertLink ?>">
+                        <?= $advert['title']; ?>
+                    </a>
+                </strong>
+            </div>
+            <div class="right-text">
+                <?= $advert['company']['name'] ?>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-9">
+                <p><?= $advertText; ?> ...</p>
+                <p class="text-center">
+                    <a href="<?= $advertLink ?>"
+                       class="btn btn-<?= $color; ?>">
+                        <?= $advertType ?> anzeigen
+                    </a>
+                </p>
+            </div>
+            <div class="col-sm-3 company">
+                <img class="img-responsive"
+                     src="<?= $advert['company']['logo'] ?>">
+            </div>
+        </div>
+        <div class="panel-footer clearfix">
+            <div class="left-text">
+                <div class="label label-<?= $color; ?>">
+                    Zend Framework <?= $advertType; ?>
+                    in <?= $advert['location']; ?>
+                </div>
+            </div>
+            <div class="right-text">
+                <div class="label label-<?= $color; ?>">
+                    Letzte Änderung: <?= $advert['updated'] ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+<p class="text-center">
+    <a class="btn btn-default" href="<?= $listLink; ?>">
+        <i class="fa fa-arrow-circle-left"></i> Zurück zur Startseite
+    </a>
+</p>
