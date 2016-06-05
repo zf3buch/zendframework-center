@@ -10,8 +10,8 @@
 namespace CompanyModel\Repository;
 
 use CompanyModel\Storage\Db\CompanyDbStorage;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Class CompanyRepositoryFactory
@@ -21,14 +21,18 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class CompanyRepositoryFactory implements FactoryInterface
 {
     /**
-     * @param ServiceLocatorInterface $container
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     * @param array|null|null    $options
      *
-     * @return CompanyRepository
+     * @return mixed
      */
-    public function createService(ServiceLocatorInterface $container)
-    {
+    public function __invoke(
+        ContainerInterface $container, $requestedName,
+        array $options = null
+    ) {
         $companyDbStorage = $container->get(CompanyDbStorage::class);
-        
+
         return new CompanyRepository($companyDbStorage);
     }
 }
