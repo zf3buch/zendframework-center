@@ -7,13 +7,16 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-use CompanyModel\Hydrator\CompanyHydrator;
-use Zend\ServiceManager\Factory\InvokableFactory;
+namespace CompanyModel\Hydrator;
 
-return [
-    'hydrators' => [
-        'invokables' => [
-            CompanyHydrator::class => InvokableFactory::class,
-        ],
-    ],
-];
+use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\HydratorInterface;
+
+/**
+ * Class CompanyHydrator
+ *
+ * @package CompanyModel\Hydrator
+ */
+class CompanyHydrator extends ClassMethods implements HydratorInterface
+{
+}

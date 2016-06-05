@@ -9,6 +9,8 @@
 
 return [
     'modules'                 => [
+        'Zend\Filter',
+        'Zend\Hydrator',
         'Zend\Paginator',
         'Zend\Navigation',
         'CompanyModel',

@@ -10,7 +10,9 @@
 namespace Application\Controller;
 
 use AdvertModel\Entity\AdvertEntity;
+use AdvertModel\Hydrator\AdvertHydrator;
 use CompanyModel\Entity\CompanyEntity;
+use CompanyModel\Hydrator\CompanyHydrator;
 use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 
@@ -28,28 +30,44 @@ class TestController extends AbstractActionController
      */
     public function indexAction()
     {
+        $companyData = [
+            'id'         => '123',
+            'registered' => new DateTime(),
+            'updated'    => new DateTime(),
+            'status'     => 'approved',
+            'name'       => ' Name ',
+            'email'      => 'Email',
+            'contact'    => 'Contact',
+        ];
+
         $companyEntity = new CompanyEntity();
-        $companyEntity->setId('123');
-        $companyEntity->setRegistered(new DateTime());
-        $companyEntity->setUpdated(new DateTime());
-        $companyEntity->setStatus('approved');
-        $companyEntity->setName(' Name ');
-        $companyEntity->setEmail('Email');
-        $companyEntity->setContact('Contact');
+
+        $companyHydrator = new CompanyHydrator();
+        $companyHydrator->hydrate($companyData, $companyEntity);
+
+        $advertData = [
+            'id'       => '123',
+            'created'  => new DateTime(),
+            'updated'  => new DateTime(),
+            'status'   => 'approved',
+            'type'     => 'job',
+            'company'  => $companyEntity,
+            'title'    => ' Title ',
+            'text'     => 'Text',
+            'location' => 'Location',
+        ];
 
         $advertEntity = new AdvertEntity();
-        $advertEntity->setId('123');
-        $advertEntity->setCreated(new DateTime());
-        $advertEntity->setUpdated(new DateTime());
-        $advertEntity->setStatus('approved');
-        $advertEntity->setType('job');
-        $advertEntity->setCompany($companyEntity);
-        $advertEntity->setTitle('Title');
-        $advertEntity->setText('Text');
-        $advertEntity->setLocation('Location');
+
+        $advertHydrator = new AdvertHydrator();
+        $advertHydrator->hydrate($advertData, $advertEntity);
 
         var_dump($companyEntity);
         var_dump($advertEntity);
+
+        var_dump($companyHydrator->extract($companyEntity));
+        var_dump($advertHydrator->extract($advertEntity));
+
         exit;
     }
 }
