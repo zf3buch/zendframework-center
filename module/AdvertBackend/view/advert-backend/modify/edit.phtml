@@ -15,7 +15,7 @@ if ($advert['type'] == 'job') {
     $advertType = 'Projekt';
 }
 
-$listLink    = $this->url('advert-admin', [], true);
+$listLink    = $this->url('advert-backend', [], true);
 $showLink    = $this->url(
     'advert-admin/show', ['id' => $advert['id']], true
 );

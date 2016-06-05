@@ -51,13 +51,13 @@ class ModifyController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!$id) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
         if (!$advert) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $viewModel = new ViewModel();
@@ -74,13 +74,13 @@ class ModifyController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!$id) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
         if (!$advert) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $viewModel = new ViewModel();
@@ -97,13 +97,13 @@ class ModifyController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!$id) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
         if (!$advert) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $viewModel = new ViewModel();
@@ -120,13 +120,13 @@ class ModifyController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!$id) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
         if (!$advert) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $viewModel = new ViewModel();
