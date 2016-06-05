@@ -17,7 +17,7 @@ use Zend\Router\Http\Segment;
 return [
     'router' => [
         'routes' => [
-            'job' => [
+            'advert-job' => [
                 'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/job',
@@ -65,7 +65,7 @@ return [
                     ],
                 ],
             ],
-            'project' => [
+            'advert-project' => [
                 'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/project',
