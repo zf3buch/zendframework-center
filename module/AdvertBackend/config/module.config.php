@@ -11,6 +11,8 @@ use AdvertBackend\Controller\DisplayController;
 use AdvertBackend\Controller\DisplayControllerFactory;
 use AdvertBackend\Controller\ModifyController;
 use AdvertBackend\Controller\ModifyControllerFactory;
+use AdvertBackend\Form\AdvertForm;
+use AdvertBackend\Form\AdvertFormFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -79,6 +81,12 @@ return [
             include ADVERT_BACKEND_MODULE_ROOT . '/template_map.php',
         'template_path_stack' => [
             ADVERT_BACKEND_MODULE_ROOT . '/view'
+        ],
+    ],
+
+    'form_elements' => [
+        'factories' => [
+            AdvertForm::class => AdvertFormFactory::class,
         ],
     ],
 

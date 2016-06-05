@@ -7,18 +7,12 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-/**
- * ZF3 book Zend Framework Center Example Application
- *
- * @author     Ralf Eggert <ralf@travello.de>
- * @link       https://github.com/zf3buch/zendframework-center
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- */
-
 use CompanyBackend\Controller\DisplayController;
 use CompanyBackend\Controller\DisplayControllerFactory;
 use CompanyBackend\Controller\ModifyController;
 use CompanyBackend\Controller\ModifyControllerFactory;
+use CompanyBackend\Form\CompanyForm;
+use CompanyBackend\Form\CompanyFormFactory;
 
 return [
     'router' => [
@@ -85,6 +79,12 @@ return [
             include COMPANY_BACKEND_MODULE_ROOT . '/template_map.php',
         'template_path_stack' => [
             COMPANY_BACKEND_MODULE_ROOT . '/view'
+        ],
+    ],
+
+    'form_elements' => [
+        'factories' => [
+            CompanyForm::class => CompanyFormFactory::class,
         ],
     ],
 
