@@ -10,11 +10,15 @@
 use AdvertModel\Hydrator\AdvertHydrator;
 use AdvertModel\Repository\AdvertRepositoryFactory;
 use AdvertModel\Repository\AdvertRepositoryInterface;
+use AdvertModel\Storage\Db\AdvertDbStorage;
+use AdvertModel\Storage\Db\AdvertDbStorageFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [
         'factories' => [
+            AdvertDbStorage::class => AdvertDbStorageFactory::class,
+
             AdvertRepositoryInterface::class =>
                 AdvertRepositoryFactory::class
         ],

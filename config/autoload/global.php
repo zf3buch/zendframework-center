@@ -7,5 +7,12 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use Zend\Db\Adapter\AdapterServiceFactory;
+
 return [
+    'service_manager' => [
+        'factories' => [
+            Zend\Db\Adapter\Adapter::class => AdapterServiceFactory::class,
+        ],
+    ],
 ];

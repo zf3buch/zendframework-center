@@ -11,6 +11,7 @@ namespace Application\Controller;
 
 use AdvertModel\Entity\AdvertEntity;
 use AdvertModel\Hydrator\AdvertHydrator;
+use AdvertModel\Storage\Db\AdvertDbStorage;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -23,10 +24,33 @@ use Zend\Mvc\Controller\AbstractActionController;
 class TestController extends AbstractActionController
 {
     /**
+     * @var AdvertDbStorage
+     */
+    private $advertDbStorage;
+
+    /**
+     * @param AdvertDbStorage $advertDbStorage
+     */
+    public function setAdvertDbStorage($advertDbStorage)
+    {
+        $this->advertDbStorage = $advertDbStorage;
+    }
+
+    /**
      * Handle homepage
      */
     public function indexAction()
     {
+        $advertEntity = $this->advertDbStorage->fetchAdvertEntity(1);
+
+        var_dump($advertEntity);
+
+        $advertCollection = $this->advertDbStorage->fetchAdvertCollection(
+            'job', 1, 5
+        );
+
+        var_dump($advertCollection->getCurrentItems());
+
         $advertData = [
             'id'                 => '123',
             'created'            => date('Y-m-d H:i:s'),
@@ -37,7 +61,7 @@ class TestController extends AbstractActionController
             'title'              => ' Title ',
             'text'               => 'Text',
             'location'           => 'Location',
-            'company_id'         => '123',
+            'company_id'         => '3',
             'company_registered' => date('Y-m-d H:i:s'),
             'company_updated'    => date('Y-m-d H:i:s'),
             'company_status'     => 'approved',
@@ -51,8 +75,31 @@ class TestController extends AbstractActionController
         $advertHydrator = new AdvertHydrator();
         $advertHydrator->hydrate($advertData, $advertEntity);
 
+        $result = $this->advertDbStorage->insertAdvert($advertEntity);
+
+        var_dump($result);
+
+        $advertEntity = $this->advertDbStorage->fetchAdvertEntity(123);
+
         var_dump($advertEntity);
-        var_dump($advertHydrator->extract($advertEntity));
+
+        $advertEntity->setLocation('LOCATION');
+
+        $result = $this->advertDbStorage->updateAdvert($advertEntity);
+
+        var_dump($result);
+
+        $advertEntity = $this->advertDbStorage->fetchAdvertEntity(123);
+
+        var_dump($advertEntity);
+
+        $result = $this->advertDbStorage->deleteAdvert($advertEntity);
+
+        var_dump($result);
+
+        $advertEntity = $this->advertDbStorage->fetchAdvertEntity(123);
+
+        var_dump($advertEntity);
 
         exit;
     }
