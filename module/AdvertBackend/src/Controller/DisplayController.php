@@ -45,7 +45,7 @@ class DisplayController extends AbstractActionController
         );
 
         if (!$advertList) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         var_dump($advertList);
@@ -60,13 +60,13 @@ class DisplayController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
 
         if (!$id) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
         if (!$advert) {
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         var_dump($advert);
