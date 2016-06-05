@@ -20,7 +20,7 @@ return [
     ],
 
     'hydrators' => [
-        'invokables' => [
+        'factories' => [
             CompanyHydrator::class => InvokableFactory::class,
         ],
     ],
