@@ -20,15 +20,15 @@ $projectText = implode(
     ' ', array_slice(explode(' ', $projectText), 0, 50)
 );
 
-$jobDetailLink = $this->url('job/detail', ['id' => $job['id']], true);
+$jobDetailLink = $this->url('advert-job/detail', ['id' => $job['id']], true);
 
 $projectDetailLink = $this->url(
-    'project/detail', ['id' => $project['id']], true
+    'advert-project/detail', ['id' => $project['id']], true
 );
 
-$jobListLink = $this->url('job', [], true);
+$jobListLink = $this->url('advert-job', [], true);
 
-$projectListLink = $this->url('project', [], true);
+$projectListLink = $this->url('advert-project', [], true);
 ?>
 <div class="page-header">
     <h1>Willkommen zum Zend Framework Center!</h1>

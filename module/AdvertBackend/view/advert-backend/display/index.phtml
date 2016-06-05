@@ -8,12 +8,15 @@
  */
 
 $addLink = $this->url(
-    'advert-admin/modify', ['action' => 'add'], true
+    'advert-backend/modify', ['action' => 'add'], true
 );
 
 $this->headTitle('Annoncen administrieren');
-$this->h1('Annoncen administrieren');
 ?>
+<div class="page-header">
+  <h1>Annoncen administrieren</h1>
+</div>
+
 <table class="table table-condensed table-bordered table-striped">
   <thead>
   <tr>
@@ -38,22 +41,22 @@ $this->h1('Annoncen administrieren');
     }
 
     $showLink    = $this->url(
-        'advert-admin/show', ['id' => $advert['id']], true
+        'advert-backend/show', ['id' => $advert['id']], true
     );
     $editLink    = $this->url(
-        'advert-admin/modify',
+        'advert-backend/modify',
         ['action' => 'edit', 'id' => $advert['id']], true
     );
     $deleteLink  = $this->url(
-        'advert-admin/modify',
+        'advert-backend/modify',
         ['action' => 'delete', 'id' => $advert['id']], true
     );
     $approveLink = $this->url(
-        'advert-admin/modify',
+        'advert-backend/modify',
         ['action' => 'approve', 'id' => $advert['id']], true
     );
     $blockLink   = $this->url(
-        'advert-admin/modify',
+        'advert-backend/modify',
         ['action' => 'block', 'id' => $advert['id']], true
     );
     ?>

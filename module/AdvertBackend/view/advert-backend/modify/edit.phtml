@@ -17,24 +17,27 @@ if ($advert['type'] == 'job') {
 
 $listLink    = $this->url('advert-backend', [], true);
 $showLink    = $this->url(
-    'advert-admin/show', ['id' => $advert['id']], true
+    'advert-backend/show', ['id' => $advert['id']], true
 );
 $editLink    = $this->url(
-    'advert-admin/modify', ['action' => 'edit', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'edit', 'id' => $advert['id']], true
 );
 $deleteLink  = $this->url(
-    'advert-admin/modify', ['action' => 'delete', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'delete', 'id' => $advert['id']], true
 );
 $approveLink = $this->url(
-    'advert-admin/modify', ['action' => 'approve', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'approve', 'id' => $advert['id']], true
 );
 $blockLink   = $this->url(
-    'advert-admin/modify', ['action' => 'block', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'block', 'id' => $advert['id']], true
 );
 
 $this->headTitle('Annonce bearbeiten');
-$this->h1('Annonce bearbeiten');
 ?>
+<div class="page-header">
+  <h1>Annonce bearbeiten</h1>
+</div>
+
 <p>
   <a href="<?= $showLink ?>" class="btn btn-default">
     <i class="fa fa-file-text-o"></i>

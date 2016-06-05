@@ -12,18 +12,21 @@ $advert = $this->advert;
 if ($advert['type'] == 'job') {
     $color      = 'primary';
     $advertType = 'Job';
-    $listLink   = $this->url('job', [], true);
+    $listLink   = $this->url('advert-job', [], true);
     $listText   = 'Zurück zu den Zend Framework Jobs';
 } else {
     $color      = 'success';
     $advertType = 'Projekt';
-    $listLink   = $this->url('project', [], true);
+    $listLink   = $this->url('advert-project', [], true);
     $listText   = 'Zurück zu den Zend Framework Projekten';
 }
 
 $this->headTitle($advert['title']);
-$this->h1($advert['title']);
 ?>
+<div class="page-header">
+  <h1><?= $advert['title'] ?></h1>
+</div>
+
 <p class="text-center">
   <a class="btn btn-default" href="<?= $listLink; ?>">
     <i class="fa fa-arrow-circle-left"></i> <?= $listText; ?>
