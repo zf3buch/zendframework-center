@@ -9,8 +9,11 @@
 
 namespace CompanyBackend\Controller;
 
+use CompanyBackend\Form\CompanyForm;
+use CompanyBackend\Form\CompanyFormInterface;
 use CompanyModel\Repository\CompanyRepositoryInterface;
 use Interop\Container\ContainerInterface;
+use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -31,12 +34,19 @@ class ModifyControllerFactory implements FactoryInterface
         ContainerInterface $container, $requestedName,
         array $options = null
     ) {
+        /** @var FormElementManagerTrait $formElementManager */
+        $formElementManager = $container->get('FormElementManager');
+
         $companyRepository = $container->get(
             CompanyRepositoryInterface::class
         );
 
+        /** @var CompanyFormInterface $companyForm */
+        $companyForm = $formElementManager->get(CompanyForm::class);
+
         $controller = new ModifyController();
         $controller->setCompanyRepository($companyRepository);
+        $controller->setCompanyForm($companyForm);
 
         return $controller;
     }

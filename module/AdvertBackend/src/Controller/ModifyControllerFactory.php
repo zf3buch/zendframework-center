@@ -9,8 +9,10 @@
 
 namespace AdvertBackend\Controller;
 
+use AdvertBackend\Form\AdvertForm;
 use AdvertModel\Repository\AdvertRepositoryInterface;
 use Interop\Container\ContainerInterface;
+use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -25,12 +27,19 @@ class ModifyControllerFactory implements FactoryInterface
         $requestedName,
         array $options = null
     ) {
+        /** @var FormElementManagerTrait $formElementManager */
+        $formElementManager = $container->get('FormElementManager');
+
         $advertRepository = $container->get(
             AdvertRepositoryInterface::class
         );
 
+        /** @var AdvertForm $advertForm */
+        $advertForm = $formElementManager->get(AdvertForm::class);
+
         $controller = new ModifyController();
         $controller->setAdvertRepository($advertRepository);
+        $controller->setAdvertForm($advertForm);
 
         return $controller;
     }

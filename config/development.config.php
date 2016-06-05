@@ -9,6 +9,8 @@
 
 return [
     'modules'                 => [
+        'Zend\I18n',
+        'Zend\Session',
         'Zend\Form',
         'Zend\InputFilter',
         'Zend\Db',

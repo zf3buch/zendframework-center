@@ -9,7 +9,9 @@
 
 namespace CompanyBackend\Controller;
 
+use CompanyBackend\Form\CompanyFormInterface;
 use CompanyModel\Repository\CompanyRepositoryInterface;
+use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -26,11 +28,24 @@ class ModifyController extends AbstractActionController
     private $companyRepository;
 
     /**
+     * @var CompanyFormInterface|Form
+     */
+    private $companyForm;
+
+    /**
      * @param CompanyRepositoryInterface $companyRepository
      */
     public function setCompanyRepository($companyRepository)
     {
         $this->companyRepository = $companyRepository;
+    }
+
+    /**
+     * @param CompanyFormInterface $companyForm
+     */
+    public function setCompanyForm($companyForm)
+    {
+        $this->companyForm = $companyForm;
     }
 
     /**
@@ -40,7 +55,17 @@ class ModifyController extends AbstractActionController
      */
     public function addAction()
     {
+        $this->companyForm->addMode();
+        $this->companyForm->setAttribute(
+            'action',
+            $this->url()->fromRoute(
+                'company-backend/modify', ['action' => 'add'], true
+            )
+        );
+        $this->companyForm->prepare();
+
         $viewModel = new ViewModel();
+        $viewModel->setVariable('companyForm', $this->companyForm);
 
         return $viewModel;
     }
@@ -52,6 +77,8 @@ class ModifyController extends AbstractActionController
      */
     public function editAction()
     {
+        $this->companyForm->editMode();
+
         $id = $this->params()->fromRoute('id');
 
         if (!$id) {
@@ -64,8 +91,20 @@ class ModifyController extends AbstractActionController
             return $this->redirect()->toRoute('company-backend', [], true);
         }
 
+        $this->companyForm->bind($company);
+        $this->companyForm->setAttribute(
+            'action',
+            $this->url()->fromRoute(
+                'company-backend/modify',
+                ['action' => 'edit', 'id' => $id],
+                true
+            )
+        );
+        $this->companyForm->prepare();
+
         $viewModel = new ViewModel();
         $viewModel->setVariable('company', $company);
+        $viewModel->setVariable('companyForm', $this->companyForm);
 
         return $viewModel;
     }

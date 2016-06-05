@@ -7,13 +7,10 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-/**
- * ZF3 book Zend Framework Center Example Application
- *
- * @author     Ralf Eggert <ralf@travello.de>
- * @link       https://github.com/zf3buch/zendframework-center
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- */
+use CompanyBackend\Form\CompanyFormInterface;
+
+/** @var CompanyFormInterface $form */
+$form = $this->companyForm;
 
 $listLink = $this->url('company-backend', [], true);
 
@@ -30,5 +27,40 @@ $this->headTitle('Unternehmen anlegen');
   </a>
 </p>
 <div class="well">
-  In Kürze mehr...
+  <?= $this->form()->openTag($form); ?>
+  <?= $this->formElement($form->get('csrf')); ?>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('status')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('status')); ?>
+      <?= $this->formElementErrors($form->get('status')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('name')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('name')); ?>
+      <?= $this->formElementErrors($form->get('name')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('email')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('email')); ?>
+      <?= $this->formElementErrors($form->get('email')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('contact')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('contact')); ?>
+      <?= $this->formElementErrors($form->get('contact')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <?= $this->formElement($form->get('save_company')); ?>
+    </div>
+  </div>
+  <?= $this->form()->closeTag(); ?>
 </div>

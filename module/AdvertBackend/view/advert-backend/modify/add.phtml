@@ -7,6 +7,11 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use AdvertBackend\Form\AdvertFormInterface;
+
+/** @var AdvertFormInterface $form */
+$form = $this->advertForm;
+
 $listLink = $this->url('advert-backend', [], true);
 
 $this->headTitle('Annonce anlegen');
@@ -22,5 +27,54 @@ $this->headTitle('Annonce anlegen');
   </a>
 </p>
 <div class="well">
-  In Kürze mehr...
+  <?= $this->form()->openTag($form); ?>
+  <?= $this->formElement($form->get('csrf')); ?>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('type')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('type')); ?>
+      <?= $this->formElementErrors($form->get('type')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('status')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('status')); ?>
+      <?= $this->formElementErrors($form->get('status')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('company')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('company')); ?>
+      <?= $this->formElementErrors($form->get('company')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('location')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('location')); ?>
+      <?= $this->formElementErrors($form->get('location')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('title')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('title')); ?>
+      <?= $this->formElementErrors($form->get('title')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <?= $this->formLabel($form->get('text')); ?>
+    <div class="col-sm-10">
+      <?= $this->formElement($form->get('text')); ?>
+      <?= $this->formElementErrors($form->get('text')); ?>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <?= $this->formElement($form->get('save_advert')); ?>
+    </div>
+  </div>
+  <?= $this->form()->closeTag(); ?>
 </div>

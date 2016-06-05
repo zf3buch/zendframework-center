@@ -67,6 +67,75 @@ $this->headTitle('Annonce sperren');
     <span class="hidden-xs hidden-sm">Übersicht</span>
   </a>
 </p>
+<div class="alert alert-danger">
+  <p>
+    <strong>Möchten Sie diese Annonce sperren?</strong>
+  </p>
+  <p>
+    <a class="btn btn-danger"
+       href="<?= $blockLink ?>?block=yes">
+      Annonce sperren
+    </a>
+    <a class="btn btn-default" href="<?= $showLink ?>">
+      Abbrechen
+    </a>
+  </p>
+</div>
 <div class="well">
-  In Kürze mehr...
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Typ</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getType() ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Angelegt</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getCreated()->format('d.m.Y H:i:s') ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Geändert</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getUpdated()->format('d.m.Y H:i:s') ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Status</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getStatus() ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Unternehmen</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getCompany()->getName() ?>
+        <i>
+          (Ansprechpartner:
+          <?= $advert->getCompany()->getContact() ?>,
+          E-Mail-Adresse:
+          <?= $advert->getCompany()->getEmail() ?>)
+        </i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Ort</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getLocation() ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Titel</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getTitle() ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Text</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getText() ?>
+      </div>
+    </div>
+  </form>
 </div>
