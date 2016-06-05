@@ -9,7 +9,7 @@
 
 namespace AdvertModel\Repository;
 
-use Zend\Paginator\Adapter\ArrayAdapter;
+use AdvertModel\Storage\AdvertStorageInterface;
 use Zend\Paginator\Paginator;
 
 /**
@@ -20,25 +20,18 @@ use Zend\Paginator\Paginator;
 class AdvertRepository implements AdvertRepositoryInterface
 {
     /**
-     * @var array
+     * @var AdvertStorageInterface
      */
-    private $advertData = [];
-
-    /**
-     * @var array
-     */
-    private $companyData = [];
+    private $advertStorage;
 
     /**
      * AdvertRepository constructor.
      *
-     * @param array $advertData
-     * @param array $companyData
+     * @param AdvertStorageInterface $advertStorage
      */
-    public function __construct(array $advertData, array $companyData)
+    public function __construct(AdvertStorageInterface $advertStorage)
     {
-        $this->advertData  = $advertData;
-        $this->companyData = $companyData;
+        $this->advertStorage = $advertStorage;
     }
 
     /**
@@ -54,29 +47,9 @@ class AdvertRepository implements AdvertRepositoryInterface
     public function getAdvertsByPage(
         $type = null, $approved = true, $page = 1, $count = 5
     ) {
-        if (!is_null($type)) {
-            $jobAdverts = $this->getAdvertsByType($type, $approved);
-        } else {
-            $jobAdverts = $this->advertData;
-        }
-
-        $paginator = new Paginator(
-            new ArrayAdapter($jobAdverts)
+        return $this->advertStorage->fetchAdvertCollection(
+            $type, $approved, $page, $count
         );
-        $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage($count);
-
-        /** @var \ArrayIterator $currentItemsIterator */
-        $currentItemsIterator = $paginator->getCurrentItems();
-
-        foreach ($currentItemsIterator as $key => $advert) {
-            $company = $this->companyData[$advert['company']];
-            $advert['company'] = $company;
-
-            $currentItemsIterator->offsetSet($key, $advert);
-        }
-
-        return $paginator;
     }
 
     /**
@@ -88,16 +61,7 @@ class AdvertRepository implements AdvertRepositoryInterface
      */
     public function getSingleAdvertById($id)
     {
-        if (!isset($this->advertData[$id])) {
-            return false;
-        }
-
-        $advert  = $this->advertData[$id];
-        $company = $this->companyData[$advert['company']];
-
-        $advert['company'] = $company;
-
-        return $advert;
+        return $this->advertStorage->fetchAdvertEntity($id);
     }
 
     /**
@@ -109,43 +73,6 @@ class AdvertRepository implements AdvertRepositoryInterface
      */
     public function getRandomAdvert($type = 'job')
     {
-        $jobAdverts = $this->getAdvertsByType($type, true);
-
-        if (empty($jobAdverts)) {
-            return false;
-        }
-
-        $advertKeys = array_keys($jobAdverts);
-
-        $randomKey = array_rand($advertKeys);
-
-        return $this->getSingleAdvertById($advertKeys[$randomKey]);
-    }
-
-    /**
-     * Get adverts by type
-     *
-     * @param string $type
-     * @param bool   $approved
-     *
-     * @return array
-     */
-    private function getAdvertsByType($type, $approved = true)
-    {
-        $jobAdverts = [];
-
-        foreach ($this->advertData as $advert) {
-            if ($approved && $advert['status'] != 'approved') {
-                continue;
-            }
-
-            if ($advert['type'] != $type) {
-                continue;
-            }
-
-            $jobAdverts[$advert['id']] = $advert;
-        }
-
-        return $jobAdverts;
+        return $this->advertStorage->fetchRandomAdvertEntity($type);
     }
 }

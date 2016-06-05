@@ -7,23 +7,28 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use AdvertModel\Entity\AdvertEntity;
+
+/** @var AdvertEntity $job */
 $job     = $this->randomJob;
+
+/** @var AdvertEntity $project */
 $project = $this->randomProject;
 
-$jobText = strip_tags($job['text']);
+$jobText = strip_tags($job->getText());
 $jobText = implode(
     ' ', array_slice(explode(' ', $jobText), 0, 50)
 );
 
-$projectText = strip_tags($project['text']);
+$projectText = strip_tags($project->getText());
 $projectText = implode(
     ' ', array_slice(explode(' ', $projectText), 0, 50)
 );
 
-$jobDetailLink = $this->url('advert-job/detail', ['id' => $job['id']], true);
+$jobDetailLink = $this->url('advert-job/detail', ['id' => $job->getId()], true);
 
 $projectDetailLink = $this->url(
-    'advert-project/detail', ['id' => $project['id']], true
+    'advert-project/detail', ['id' => $project->getId()], true
 );
 
 $jobListLink = $this->url('advert-job', [], true);
@@ -43,12 +48,12 @@ $projectListLink = $this->url('advert-project', [], true);
         <div class="panel panel-primary">
             <div class="panel-heading clearfix">
                 <strong>
-                    <a href="<?= $jobDetailLink; ?>"><?= $job['title']; ?></a>
+                    <a href="<?= $jobDetailLink; ?>"><?= $job->getTitle(); ?></a>
                 </strong>
             </div>
             <div class="panel-body">
                 <p>
-                    <img src="<?= $job['company']['logo'] ?>"
+                    <img src="<?= $job->getCompany()->getLogo() ?>"
                          class="img-responsive center-block">
                 </p>
                 <p><?= $jobText; ?> ...</p>
@@ -61,12 +66,12 @@ $projectListLink = $this->url('advert-project', [], true);
             <div class="panel-footer clearfix">
                 <div class="left-text">
                     <div class="label label-primary">
-                        Zend Framework Job in <?= $job['location']; ?>
+                        Zend Framework Job in <?= $job->getLocation(); ?>
                     </div>
                 </div>
                 <div class="right-text">
                     <div class="label label-primary">
-                        Letzte Änderung: <?= $job['updated'] ?>
+                        Letzte Änderung: <?= $job->getUpdated()->format('Y-m-d H:i:s') ?>
                     </div>
                 </div>
             </div>
@@ -86,13 +91,13 @@ $projectListLink = $this->url('advert-project', [], true);
             <div class="panel-heading clearfix">
                 <strong>
                     <a href="<?= $projectDetailLink; ?>">
-                        <?= $project['title']; ?>
+                        <?= $project->getTitle(); ?>
                     </a>
                 </strong>
             </div>
             <div class="panel-body">
                 <p>
-                    <img src="<?= $project['company']['logo'] ?>"
+                    <img src="<?= $project->getCompany()->getLogo() ?>"
                          class="img-responsive center-block">
                 </p>
                 <p><?= $projectText; ?> ...</p>
@@ -105,12 +110,12 @@ $projectListLink = $this->url('advert-project', [], true);
             <div class="panel-footer clearfix">
                 <div class="left-text">
                     <div class="label label-success">
-                        Zend Framework Job in <?= $project['location']; ?>
+                        Zend Framework Job in <?= $project->getLocation(); ?>
                     </div>
                 </div>
                 <div class="right-text">
                     <div class="label label-success">
-                        Letzte Änderung: <?= $project['updated'] ?>
+                        Letzte Änderung: <?= $project->getUpdated()->format('Y-m-d H:i:s') ?>
                     </div>
                 </div>
             </div>

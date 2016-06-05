@@ -9,6 +9,7 @@
 
 namespace AdvertModel\Repository;
 
+use AdvertModel\Entity\AdvertEntity;
 use Zend\Paginator\Paginator;
 
 /**
@@ -37,7 +38,7 @@ interface AdvertRepositoryInterface
      *
      * @param $id
      *
-     * @return array|bool
+     * @return AdvertEntity|bool
      */
     public function getSingleAdvertById($id);
 
@@ -46,7 +47,7 @@ interface AdvertRepositoryInterface
      *
      * @param string $type
      *
-     * @return array|bool
+     * @return AdvertEntity|bool
      */
     public function getRandomAdvert($type = 'job');
 }

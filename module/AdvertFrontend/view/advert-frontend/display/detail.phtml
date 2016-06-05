@@ -7,24 +7,27 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use AdvertModel\Entity\AdvertEntity;
+
+/** @var AdvertEntity $advert */
 $advert = $this->advert;
 
-if ($advert['type'] == 'job') {
-    $color      = 'primary';
-    $advertType = 'Job';
-    $listLink   = $this->url('advert-job', [], true);
-    $listText   = 'Zurück zu den Zend Framework Jobs';
+if ($advert->getType() == 'job') {
+  $color      = 'primary';
+  $advertType = 'Job';
+  $listLink   = $this->url('advert-job', [], true);
+  $listText   = 'Zurück zu den Zend Framework Jobs';
 } else {
-    $color      = 'success';
-    $advertType = 'Projekt';
-    $listLink   = $this->url('advert-project', [], true);
-    $listText   = 'Zurück zu den Zend Framework Projekten';
+  $color      = 'success';
+  $advertType = 'Projekt';
+  $listLink   = $this->url('advert-project', [], true);
+  $listText   = 'Zurück zu den Zend Framework Projekten';
 }
 
-$this->headTitle($advert['title']);
+$this->headTitle($advert->getTitle());
 ?>
 <div class="page-header">
-  <h1><?= $advert['title'] ?></h1>
+  <h1><?= $advert->getTitle() ?></h1>
 </div>
 
 <p class="text-center">
@@ -35,34 +38,35 @@ $this->headTitle($advert['title']);
 <div class="panel panel-<?= $color ?>">
   <div class="panel-heading clearfix">
     <div class="left-text">
-      <strong><?= $advert['title']; ?></strong>
+      <strong><?= $advert->getTitle(); ?></strong>
     </div>
     <div class="right-text">
-      <?= $advert['company']['name'] ?>
+      <?= $advert->getCompany()->getName() ?>
     </div>
   </div>
   <div class="panel-body">
     <div class="col-sm-9">
-      <p><?= $advert['text']; ?></p>
+      <p><?= $advert->getText(); ?></p>
     </div>
     <div class="col-sm-3 company">
       <p>
-        <img class="img-responsive" src="<?= $advert['company']['logo'] ?>">
+        <img class="img-responsive"
+             src="<?= $advert->getCompany()->getLogo() ?>">
       </p>
       <h5><strong>Ansprechpartner</strong></h5>
-      <p><?= $advert['company']['contact'] ?></p>
-      <p><?= $advert['company']['email'] ?></p>
+      <p><?= $advert->getCompany()->getContact() ?></p>
+      <p><?= $advert->getCompany()->getEmail() ?></p>
     </div>
   </div>
   <div class="panel-footer clearfix">
     <div class="left-text">
       <div class="label label-<?= $color; ?>">
-        Zend Framework <?= $advertType; ?> in <?= $advert['location']; ?>
+        Zend Framework <?= $advertType; ?> in <?= $advert->getLocation(); ?>
       </div>
     </div>
     <div class="right-text">
       <div class="label label-<?= $color; ?>">
-        Letzte Änderung: <?= $advert['updated'] ?>
+        Letzte Änderung: <?= $advert->getUpdated()->format('Y-m-d H:i:s') ?>
       </div>
     </div>
   </div>

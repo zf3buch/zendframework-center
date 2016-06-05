@@ -8,6 +8,8 @@
  */
 
 use CompanyModel\Hydrator\CompanyHydrator;
+use CompanyModel\Repository\CompanyRepositoryFactory;
+use CompanyModel\Repository\CompanyRepositoryInterface;
 use CompanyModel\Storage\Db\CompanyDbStorage;
 use CompanyModel\Storage\Db\CompanyDbStorageFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -16,6 +18,9 @@ return [
     'service_manager' => [
         'factories' => [
             CompanyDbStorage::class => CompanyDbStorageFactory::class,
+
+            CompanyRepositoryInterface::class =>
+                CompanyRepositoryFactory::class
         ],
     ],
 

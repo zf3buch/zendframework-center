@@ -7,6 +7,8 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use AdvertModel\Entity\AdvertEntity;
+
 $addLink = $this->url(
     'advert-backend/modify', ['action' => 'add'], true
 );
@@ -32,32 +34,33 @@ $this->headTitle('Annoncen administrieren');
   </tr>
   </thead>
   <tbody>
+  <?php /** @var AdvertEntity $advert */ ?>
   <?php foreach ($this->advertList as $advert) : ?>
     <?php
-    if ($advert['type'] == 'job') {
-        $advertType = 'Job';
+    if ($advert->getType() == 'job') {
+      $advertType = 'Job';
     } else {
-        $advertType = 'Projekt';
+      $advertType = 'Projekt';
     }
 
     $showLink    = $this->url(
-        'advert-backend/show', ['id' => $advert['id']], true
+        'advert-backend/show', ['id' => $advert->getId()], true
     );
     $editLink    = $this->url(
         'advert-backend/modify',
-        ['action' => 'edit', 'id' => $advert['id']], true
+        ['action' => 'edit', 'id' => $advert->getId()], true
     );
     $deleteLink  = $this->url(
         'advert-backend/modify',
-        ['action' => 'delete', 'id' => $advert['id']], true
+        ['action' => 'delete', 'id' => $advert->getId()], true
     );
     $approveLink = $this->url(
         'advert-backend/modify',
-        ['action' => 'approve', 'id' => $advert['id']], true
+        ['action' => 'approve', 'id' => $advert->getId()], true
     );
     $blockLink   = $this->url(
         'advert-backend/modify',
-        ['action' => 'block', 'id' => $advert['id']], true
+        ['action' => 'block', 'id' => $advert->getId()], true
     );
     ?>
     <tr>
@@ -65,21 +68,21 @@ $this->headTitle('Annoncen administrieren');
         <?= $advertType ?>
       </td>
       <td>
-        <?= $advert['status'] ?>
+        <?= $advert->getStatus() ?>
       </td>
       <td>
         <a href="<?= $showLink ?>">
-          <?= $advert['title'] ?>
+          <?= $advert->getTitle() ?>
         </a>
       </td>
       <td class="hidden-xs">
-        <?= $advert['company']['name'] ?>
+        <?= $advert->getCompany()->getName() ?>
       </td>
       <td class="hidden-xs">
-        <?= $advert['location'] ?>
+        <?= $advert->getLocation() ?>
       </td>
       <td class="hidden-xs">
-        <?= $advert['updated'] ?>
+        <?= $advert->getUpdated()->format('d.m.Y H:i:s') ?>
       </td>
       <td class="text-center">
         <a href="<?= $showLink ?>" class="hidden-xs hidden-sm">

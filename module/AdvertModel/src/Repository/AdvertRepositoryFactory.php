@@ -9,6 +9,7 @@
 
 namespace AdvertModel\Repository;
 
+use AdvertModel\Storage\Db\AdvertDbStorage;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
@@ -24,9 +25,8 @@ class AdvertRepositoryFactory implements FactoryInterface
         $requestedName,
         array $options = null
     ) {
-        $advertData  = include PROJECT_ROOT . '/data/advert-data.php';
-        $companyData = include PROJECT_ROOT . '/data/company-data.php';
+        $advertDbStorage = $container->get(AdvertDbStorage::class);
 
-        return new AdvertRepository($advertData, $companyData);
+        return new AdvertRepository($advertDbStorage);
     }
 }

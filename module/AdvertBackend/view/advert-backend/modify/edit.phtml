@@ -7,29 +7,32 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use AdvertModel\Entity\AdvertEntity;
+
+/** @var AdvertEntity $advert */
 $advert = $this->advert;
 
-if ($advert['type'] == 'job') {
-    $advertType = 'Job';
+if ($advert->getType() == 'job') {
+  $advertType = 'Job';
 } else {
-    $advertType = 'Projekt';
+  $advertType = 'Projekt';
 }
 
 $listLink    = $this->url('advert-backend', [], true);
 $showLink    = $this->url(
-    'advert-backend/show', ['id' => $advert['id']], true
+    'advert-backend/show', ['id' => $advert->getId()], true
 );
 $editLink    = $this->url(
-    'advert-backend/modify', ['action' => 'edit', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'edit', 'id' => $advert->getId()], true
 );
 $deleteLink  = $this->url(
-    'advert-backend/modify', ['action' => 'delete', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'delete', 'id' => $advert->getId()], true
 );
 $approveLink = $this->url(
-    'advert-backend/modify', ['action' => 'approve', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'approve', 'id' => $advert->getId()], true
 );
 $blockLink   = $this->url(
-    'advert-backend/modify', ['action' => 'block', 'id' => $advert['id']], true
+    'advert-backend/modify', ['action' => 'block', 'id' => $advert->getId()], true
 );
 
 $this->headTitle('Annonce bearbeiten');
