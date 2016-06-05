@@ -13,7 +13,6 @@ use AdvertModel\Entity\AdvertEntity;
 use AdvertModel\Hydrator\AdvertHydrator;
 use CompanyModel\Entity\CompanyEntity;
 use CompanyModel\Hydrator\CompanyHydrator;
-use DateTime;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -32,8 +31,8 @@ class TestController extends AbstractActionController
     {
         $companyData = [
             'id'         => '123',
-            'registered' => new DateTime(),
-            'updated'    => new DateTime(),
+            'registered' => date('Y-m-d H:i:s'),
+            'updated'    => date('Y-m-d H:i:s'),
             'status'     => 'approved',
             'name'       => ' Name ',
             'email'      => 'Email',
@@ -47,8 +46,8 @@ class TestController extends AbstractActionController
 
         $advertData = [
             'id'       => '123',
-            'created'  => new DateTime(),
-            'updated'  => new DateTime(),
+            'created'  => date('Y-m-d H:i:s'),
+            'updated'  => date('Y-m-d H:i:s'),
             'status'   => 'approved',
             'type'     => 'job',
             'company'  => $companyEntity,
