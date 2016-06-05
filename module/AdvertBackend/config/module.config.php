@@ -81,4 +81,35 @@ return [
             ADVERT_BACKEND_MODULE_ROOT . '/view'
         ],
     ],
+
+    'navigation' => [
+        'default' => [
+            'advert-admin' => [
+                'type'       => 'mvc',
+                'order'      => '900',
+                'label'      => 'Annoncen administrieren',
+                'route'      => 'advert-backend',
+                'controller' => DisplayController::class,
+                'action'     => 'index',
+                'useRouteMatch' => true,
+                'pages'      => [
+                    'edit' => [
+                        'type'       => 'mvc',
+                        'route'      => 'advert-backend/modify',
+                        'visible'    => false,
+                    ],
+                    'show' => [
+                        'type'       => 'mvc',
+                        'route'      => 'advert-backend/show',
+                        'visible'    => false,
+                    ],
+                    'page' => [
+                        'type'       => 'mvc',
+                        'route'      => 'advert-backend/page',
+                        'visible'    => false,
+                    ],
+                ],
+            ],
+        ],
+    ],
 ];

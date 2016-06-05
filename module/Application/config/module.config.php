@@ -45,4 +45,18 @@ return [
             APPLICATION_MODULE_ROOT . '/view',
         ],
     ],
+
+    'navigation' => [
+        'default' => [
+            'application' => [
+                'type'          => 'mvc',
+                'order'         => '100',
+                'label'         => 'Startseite',
+                'route'         => 'home',
+                'controller'    => IndexController::class,
+                'action'        => 'index',
+                'useRouteMatch' => true,
+            ],
+        ],
+    ],
 ];

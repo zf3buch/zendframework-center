@@ -9,6 +9,7 @@
 
 return [
     'modules'                 => [
+        'Zend\Navigation',
         'AdvertFrontend',
         'AdvertBackend',
         'AdvertModel',

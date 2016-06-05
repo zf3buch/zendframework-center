@@ -130,4 +130,61 @@ return [
             ADVERT_FRONTEND_MODULE_ROOT . '/view'
         ],
     ],
+
+    'navigation' => [
+        'default' => [
+            'job'     => [
+                'type'          => 'mvc',
+                'order'         => '200',
+                'label'         => 'Jobs',
+                'route'         => 'advert-job',
+                'controller'    => DisplayController::class,
+                'action'        => 'index',
+                'useRouteMatch' => true,
+                'pages'         => [
+                    'edit' => [
+                        'type'    => 'mvc',
+                        'route'   => 'advert-job/modify',
+                        'visible' => false,
+                    ],
+                    'show' => [
+                        'type'    => 'mvc',
+                        'route'   => 'advert-job/detail',
+                        'visible' => false,
+                    ],
+                    'page' => [
+                        'type'    => 'mvc',
+                        'route'   => 'advert-job/page',
+                        'visible' => false,
+                    ],
+                ],
+            ],
+            'project' => [
+                'type'          => 'mvc',
+                'order'         => '300',
+                'label'         => 'Projekte',
+                'route'         => 'advert-project',
+                'controller'    => DisplayController::class,
+                'action'        => 'index',
+                'useRouteMatch' => true,
+                'pages'         => [
+                    'edit' => [
+                        'type'    => 'mvc',
+                        'route'   => 'advert-project/modify',
+                        'visible' => false,
+                    ],
+                    'show' => [
+                        'type'    => 'mvc',
+                        'route'   => 'advert-project/detail',
+                        'visible' => false,
+                    ],
+                    'page' => [
+                        'type'    => 'mvc',
+                        'route'   => 'advert-project/page',
+                        'visible' => false,
+                    ],
+                ],
+            ],
+        ],
+    ],
 ];

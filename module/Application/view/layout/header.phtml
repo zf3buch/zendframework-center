@@ -30,11 +30,13 @@ use Zend\View\Helper\Navigation\Menu;
       </button>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active">
-          <a href="/">Startseite</a>
-        </li>
-      </ul>
+      <?php
+      /** @var Menu $menuHelper */
+      $menuHelper = $this->navigation('navigation')->menu();
+      $menuHelper->setUlClass('nav navbar-nav');
+
+      echo $menuHelper->render();
+      ?>
     </div>
   </nav>
 </div>
