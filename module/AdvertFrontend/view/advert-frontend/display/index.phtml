@@ -84,7 +84,11 @@ $this->h1($h1Text);
         <div class="label label-<?= $color; ?>">
           <?= sprintf(
               $this->translate('advert_frontend_label_last_update'),
-              $advert->getUpdated()->format('d.m.Y H:i:s')
+              $this->dateFormat(
+                  $advert->getUpdated(),
+                  IntlDateFormatter::LONG,
+                  IntlDateFormatter::MEDIUM
+              )
           ); ?>
         </div>
       </div>

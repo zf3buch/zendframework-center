@@ -79,7 +79,11 @@ $this->h1('company_backend_h1_display_index');
         <?= $company->getContact() ?>
       </td>
       <td class="hidden-xs">
-        <?= $company->getUpdated()->format('d.m.Y H:i:s') ?>
+        <?= $this->dateFormat(
+            $company->getUpdated(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ) ?>
       </td>
       <td class="text-center">
         <a href="<?= $showLink ?>" class="hidden-xs hidden-sm">

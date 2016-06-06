@@ -37,6 +37,18 @@ use Zend\View\Helper\Navigation\Menu;
 
       echo $menuHelper->render();
       ?>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="<?= $this->url(null, ['lang' => 'de'], true) ?>">
+            <?= $this->translate('application_navigation_german'); ?>
+          </a>
+        </li>
+        <li>
+          <a href="<?= $this->url(null, ['lang' => 'en'], true) ?>">
+            <?= $this->translate('application_navigation_english'); ?>
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 </div>

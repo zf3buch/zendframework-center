@@ -79,7 +79,11 @@ $this->h1('advert_backend_h1_display_index');
         <?= $advert->getLocation() ?>
       </td>
       <td class="hidden-xs">
-        <?= $advert->getUpdated()->format('d.m.Y H:i:s') ?>
+        <?= $this->dateFormat(
+            $advert->getUpdated(),
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::MEDIUM
+        ) ?>
       </td>
       <td class="text-center">
         <a href="<?= $showLink ?>" class="hidden-xs hidden-sm">
