@@ -7,24 +7,18 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-/**
- * ZF3 book Zend Framework Center Example Application
- *
- * @author     Ralf Eggert <ralf@travello.de>
- * @link       https://github.com/zf3buch/zendframework-center
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- */
-
 use CompanyBackend\Controller\DisplayController;
 use CompanyBackend\Controller\DisplayControllerFactory;
 use CompanyBackend\Controller\ModifyController;
 use CompanyBackend\Controller\ModifyControllerFactory;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
             'company-backend' => [
-                'type'          => 'Literal',
+                'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/company-backend',
                     'defaults' => [
@@ -35,7 +29,7 @@ return [
                 'may_terminate' => true,
                 'child_routes'  => [
                     'modify' => [
-                        'type'    => 'segment',
+                        'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:action[/:id]',
                             'defaults'    => [
@@ -48,7 +42,7 @@ return [
                         ],
                     ],
                     'show'   => [
-                        'type'    => 'segment',
+                        'type'    => Segment::class,
                         'options' => [
                             'route'       => '/show[/:id]',
                             'defaults'    => [
@@ -60,7 +54,7 @@ return [
                         ],
                     ],
                     'page'   => [
-                        'type'    => 'segment',
+                        'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:page',
                             'constraints' => [
