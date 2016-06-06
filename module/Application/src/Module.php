@@ -9,6 +9,7 @@
 
 namespace Application;
 
+use Application\I18n\I18nListener;
 use Application\View\LayoutListener;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\ModuleManagerInterface;
@@ -36,13 +37,19 @@ class Module
      */
     public function onBootstrap(EventInterface $e)
     {
+        // get services
+        $serviceManager = $e->getApplication()->getServiceManager();
+
         // add listeners
         $eventManager = $e->getApplication()->getEventManager();
 
         $layoutListener = new LayoutListener(['header', 'footer']);
         $layoutListener->attach($eventManager);
-    }
 
+        /** @var I18nListener $i18nListener */
+        $i18nListener = $serviceManager->get(I18nListener::class);
+        $i18nListener->attach($eventManager);
+    }
 
     /**
      * @return mixed

@@ -11,18 +11,24 @@ namespace Application;
 
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
-use Zend\Router\Http\Literal;
+use Application\I18n\I18nListener;
+use Application\I18n\I18nListenerFactory;
+use Zend\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
             'home' => [
-                'type'    => Literal::class,
+                'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/',
-                    'defaults' => [
+                    'route'       => '/[:lang]',
+                    'defaults'    => [
                         'controller' => IndexController::class,
                         'action'     => 'index',
+                        'lang'       => 'de',
+                    ],
+                    'constraints' => [
+                        'lang' => '(de|en)',
                     ],
                 ],
             ],
@@ -32,6 +38,12 @@ return [
     'controllers' => [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
+        ],
+    ],
+
+    'service_manager' => [
+        'factories' => [
+            I18nListener::class => I18nListenerFactory::class,
         ],
     ],
 
@@ -46,6 +58,15 @@ return [
         'template_path_stack'      => [
             APPLICATION_MODULE_ROOT . '/view',
         ],
+    ],
+
+    'i18n' => [
+        'defaultLang'    => 'de',
+        'allowedLocales' => [
+            'de' => 'de_DE',
+            'en' => 'en_US',
+        ],
+        'defaultRoute'   => 'home',
     ],
 
     'navigation' => [

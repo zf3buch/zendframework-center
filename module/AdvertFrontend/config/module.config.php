@@ -11,25 +11,28 @@ use AdvertFrontend\Controller\DisplayController;
 use AdvertFrontend\Controller\DisplayControllerFactory;
 use AdvertFrontend\Controller\ModifyController;
 use AdvertFrontend\Controller\ModifyControllerFactory;
-use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
-            'advert-job' => [
-                'type'          => Literal::class,
+            'advert-job'     => [
+                'type'          => Segment::class,
                 'options'       => [
-                    'route'    => '/job',
-                    'defaults' => [
+                    'route'       => '/:lang/job',
+                    'defaults'    => [
                         'controller' => DisplayController::class,
                         'action'     => 'index',
                         'type'       => 'job',
+                        'lang'       => 'de',
+                    ],
+                    'constraints' => [
+                        'lang' => '(de|en)',
                     ],
                 ],
                 'may_terminate' => true,
                 'child_routes'  => [
-                    'modify'   => [
+                    'modify' => [
                         'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:action[/:id]',
@@ -50,7 +53,7 @@ return [
                                 'action' => 'detail',
                             ],
                             'constraints' => [
-                                'id'     => '[1-9][0-9]*',
+                                'id' => '[1-9][0-9]*',
                             ],
                         ],
                     ],
@@ -66,18 +69,22 @@ return [
                 ],
             ],
             'advert-project' => [
-                'type'          => Literal::class,
+                'type'          => Segment::class,
                 'options'       => [
-                    'route'    => '/project',
-                    'defaults' => [
+                    'route'       => '/:lang/project',
+                    'defaults'    => [
                         'controller' => DisplayController::class,
                         'action'     => 'index',
                         'type'       => 'project',
+                        'lang'       => 'de',
+                    ],
+                    'constraints' => [
+                        'lang' => '(de|en)',
                     ],
                 ],
                 'may_terminate' => true,
                 'child_routes'  => [
-                    'modify'   => [
+                    'modify' => [
                         'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:action[/:id]',
@@ -98,7 +105,7 @@ return [
                                 'action' => 'detail',
                             ],
                             'constraints' => [
-                                'id'     => '[1-9][0-9]*',
+                                'id' => '[1-9][0-9]*',
                             ],
                         ],
                     ],

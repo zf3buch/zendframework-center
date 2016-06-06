@@ -13,19 +13,22 @@ use AdvertBackend\Controller\ModifyController;
 use AdvertBackend\Controller\ModifyControllerFactory;
 use AdvertBackend\Form\AdvertForm;
 use AdvertBackend\Form\AdvertFormFactory;
-use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
 return [
     'router' => [
         'routes' => [
             'advert-backend' => [
-                'type'          => Literal::class,
+                'type'          => Segment::class,
                 'options'       => [
-                    'route'    => '/advert-backend',
-                    'defaults' => [
+                    'route'       => '/:lang/advert-backend',
+                    'defaults'    => [
                         'controller' => DisplayController::class,
                         'action'     => 'index',
+                        'lang'       => 'de',
+                    ],
+                    'constraints' => [
+                        'lang' => '(de|en)',
                     ],
                 ],
                 'may_terminate' => true,
@@ -43,7 +46,7 @@ return [
                             ],
                         ],
                     ],
-                    'show' => [
+                    'show'   => [
                         'type'    => Segment::class,
                         'options' => [
                             'route'       => '/show[/:id]',
@@ -51,11 +54,11 @@ return [
                                 'action' => 'show',
                             ],
                             'constraints' => [
-                                'id'     => '[1-9][0-9]*',
+                                'id' => '[1-9][0-9]*',
                             ],
                         ],
                     ],
-                    'page' => [
+                    'page'   => [
                         'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:page',
@@ -93,28 +96,28 @@ return [
     'navigation' => [
         'default' => [
             'advert-backend' => [
-                'type'       => 'mvc',
-                'order'      => '900',
-                'label'      => 'Annoncen administrieren',
-                'route'      => 'advert-backend',
-                'controller' => DisplayController::class,
-                'action'     => 'index',
+                'type'          => 'mvc',
+                'order'         => '900',
+                'label'         => 'Annoncen administrieren',
+                'route'         => 'advert-backend',
+                'controller'    => DisplayController::class,
+                'action'        => 'index',
                 'useRouteMatch' => true,
-                'pages'      => [
+                'pages'         => [
                     'edit' => [
-                        'type'       => 'mvc',
-                        'route'      => 'advert-backend/modify',
-                        'visible'    => false,
+                        'type'    => 'mvc',
+                        'route'   => 'advert-backend/modify',
+                        'visible' => false,
                     ],
                     'show' => [
-                        'type'       => 'mvc',
-                        'route'      => 'advert-backend/show',
-                        'visible'    => false,
+                        'type'    => 'mvc',
+                        'route'   => 'advert-backend/show',
+                        'visible' => false,
                     ],
                     'page' => [
-                        'type'       => 'mvc',
-                        'route'      => 'advert-backend/page',
-                        'visible'    => false,
+                        'type'    => 'mvc',
+                        'route'   => 'advert-backend/page',
+                        'visible' => false,
                     ],
                 ],
             ],
