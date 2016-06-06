@@ -84,7 +84,7 @@ return [
 
     'navigation' => [
         'default' => [
-            'advert-admin' => [
+            'advert-backend' => [
                 'type'       => 'mvc',
                 'order'      => '900',
                 'label'      => 'Annoncen administrieren',
