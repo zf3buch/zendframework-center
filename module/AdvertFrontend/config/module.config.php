@@ -143,7 +143,7 @@ return [
             'job'     => [
                 'type'          => 'mvc',
                 'order'         => '200',
-                'label'         => 'Jobs',
+                'label'         => 'advert_frontend_navigation_jobs',
                 'route'         => 'advert-job',
                 'controller'    => DisplayController::class,
                 'action'        => 'index',
@@ -169,7 +169,7 @@ return [
             'project' => [
                 'type'          => 'mvc',
                 'order'         => '300',
-                'label'         => 'Projekte',
+                'label'         => 'advert_frontend_navigation_projects',
                 'route'         => 'advert-project',
                 'controller'    => DisplayController::class,
                 'action'        => 'index',
@@ -191,6 +191,16 @@ return [
                         'visible' => false,
                     ],
                 ],
+            ],
+        ],
+    ],
+
+    'translator' => [
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phpArray',
+                'base_dir' => ADVERT_FRONTEND_MODULE_ROOT . '/language',
+                'pattern'  => '%s.php',
             ],
         ],
     ],

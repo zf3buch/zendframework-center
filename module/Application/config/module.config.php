@@ -74,11 +74,21 @@ return [
             'application' => [
                 'type'          => 'mvc',
                 'order'         => '100',
-                'label'         => 'Startseite',
+                'label'         => 'application_navigation_home',
                 'route'         => 'home',
                 'controller'    => IndexController::class,
                 'action'        => 'index',
                 'useRouteMatch' => true,
+            ],
+        ],
+    ],
+
+    'translator' => [
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phpArray',
+                'base_dir' => APPLICATION_MODULE_ROOT . '/language',
+                'pattern'  => '%s.php',
             ],
         ],
     ],

@@ -103,7 +103,7 @@ return [
             'company-backend' => [
                 'type'          => 'mvc',
                 'order'         => '950',
-                'label'         => 'Unternehmen administrieren',
+                'label'         => 'company_backend_navigation_admin',
                 'route'         => 'company-backend',
                 'controller'    => DisplayController::class,
                 'action'        => 'index',
@@ -125,6 +125,16 @@ return [
                         'visible' => false,
                     ],
                 ],
+            ],
+        ],
+    ],
+
+    'translator' => [
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phpArray',
+                'base_dir' => COMPANY_BACKEND_MODULE_ROOT . '/language',
+                'pattern'  => '%s.php',
             ],
         ],
     ],

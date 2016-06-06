@@ -98,7 +98,7 @@ return [
             'advert-backend' => [
                 'type'          => 'mvc',
                 'order'         => '900',
-                'label'         => 'Annoncen administrieren',
+                'label'         => 'advert_backend_navigation_admin',
                 'route'         => 'advert-backend',
                 'controller'    => DisplayController::class,
                 'action'        => 'index',
@@ -120,6 +120,16 @@ return [
                         'visible' => false,
                     ],
                 ],
+            ],
+        ],
+    ],
+
+    'translator' => [
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phpArray',
+                'base_dir' => ADVERT_BACKEND_MODULE_ROOT . '/language',
+                'pattern'  => '%s.php',
             ],
         ],
     ],

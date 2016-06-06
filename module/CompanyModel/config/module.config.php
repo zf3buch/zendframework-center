@@ -41,4 +41,14 @@ return [
             CompanyInputFilter::class => CompanyInputFilterFactory::class,
         ],
     ],
+
+    'translator' => [
+        'translation_file_patterns' => [
+            [
+                'type'     => 'phpArray',
+                'base_dir' => COMPANY_MODEL_MODULE_ROOT . '/language',
+                'pattern'  => '%s.php',
+            ],
+        ],
+    ],
 ];
