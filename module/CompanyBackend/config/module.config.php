@@ -13,6 +13,8 @@ use CompanyBackend\Controller\ModifyController;
 use CompanyBackend\Controller\ModifyControllerFactory;
 use CompanyBackend\Form\CompanyForm;
 use CompanyBackend\Form\CompanyFormFactory;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
 
 return [
     'company_admin' => [
@@ -23,7 +25,7 @@ return [
     'router' => [
         'routes' => [
             'company-backend' => [
-                'type'          => 'Literal',
+                'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/company-backend',
                     'defaults' => [
@@ -34,7 +36,7 @@ return [
                 'may_terminate' => true,
                 'child_routes'  => [
                     'modify' => [
-                        'type'    => 'segment',
+                        'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:action[/:id]',
                             'defaults'    => [
@@ -47,7 +49,7 @@ return [
                         ],
                     ],
                     'show'   => [
-                        'type'    => 'segment',
+                        'type'    => Segment::class,
                         'options' => [
                             'route'       => '/show[/:id]',
                             'defaults'    => [
@@ -59,7 +61,7 @@ return [
                         ],
                     ],
                     'page'   => [
-                        'type'    => 'segment',
+                        'type'    => Segment::class,
                         'options' => [
                             'route'       => '/:page',
                             'constraints' => [
