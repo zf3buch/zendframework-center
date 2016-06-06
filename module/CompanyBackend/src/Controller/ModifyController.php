@@ -12,6 +12,7 @@ namespace CompanyBackend\Controller;
 use CompanyBackend\Form\CompanyFormInterface;
 use CompanyModel\Repository\CompanyRepositoryInterface;
 use Zend\Form\Form;
+use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -19,6 +20,7 @@ use Zend\View\Model\ViewModel;
  * Class ModifyController
  *
  * @package CompanyBackend\Controller
+ * @method Request getRequest()
  */
 class ModifyController extends AbstractActionController
 {
@@ -56,6 +58,50 @@ class ModifyController extends AbstractActionController
     public function addAction()
     {
         $this->companyForm->addMode();
+
+        if ($this->getRequest()->isPost()) {
+            $this->companyForm->setData($this->params()->fromPost());
+
+            if ($this->companyForm->isValid()) {
+                $company = $this->companyRepository->createCompanyFromData(
+                    $this->companyForm->getData()
+                );
+
+                $result = $this->companyRepository->saveCompany($company);
+
+                if ($result) {
+                    $this->flashMessenger()->addSuccessMessage(
+                        'Das neue Unternehmen wurde gespeichert!'
+                    );
+
+                    return $this->redirect()->toRoute(
+                        'company-admin/modify',
+                        [
+                            'action' => 'edit',
+                            'id'     => $company->getId(),
+                        ],
+                        true
+                    );
+                }
+            }
+
+            $messages = $this->companyForm->getMessages();
+
+            if (isset($messages['csrf'])) {
+                $this->flashMessenger()->addErrorMessage(
+                    'Zeitüberschreitung! Bitte Formular erneut absenden!'
+                );
+            } else {
+                $this->flashMessenger()->addErrorMessage(
+                    'Bitte überprüfen Sie die Daten des Unternehmens!'
+                );
+            }
+        } else {
+            $this->flashMessenger()->addInfoMessage(
+                'Sie können das neue Unternehmen nun anlegen!'
+            );
+        }
+
         $this->companyForm->setAttribute(
             'action',
             $this->url()->fromRoute(
@@ -92,11 +138,53 @@ class ModifyController extends AbstractActionController
         }
 
         $this->companyForm->bind($company);
+
+        if ($this->getRequest()->isPost()) {
+            $this->companyForm->setData($this->params()->fromPost());
+
+            if ($this->companyForm->isValid()) {
+                $company->update();
+
+                $result = $this->companyRepository->saveCompany($company);
+
+                if ($result) {
+                    $this->flashMessenger()->addSuccessMessage(
+                        'Das Unternehmen wurde gespeichert!'
+                    );
+
+                    return $this->redirect()->toRoute(
+                        'company-admin/modify',
+                        [
+                            'action' => 'edit',
+                            'id'     => $company->getId(),
+                        ],
+                        true
+                    );
+                }
+            }
+
+            $messages = $this->companyForm->getMessages();
+
+            if (isset($messages['csrf'])) {
+                $this->flashMessenger()->addErrorMessage(
+                    'Zeitüberschreitung! Bitte Formular erneut absenden!'
+                );
+            } else {
+                $this->flashMessenger()->addErrorMessage(
+                    'Bitte überprüfen Sie die Daten des Unternehmens!'
+                );
+            }
+        } else {
+            $this->flashMessenger()->addInfoMessage(
+                'Sie können das Unternehmen nun bearbeiten!'
+            );
+        }
+
         $this->companyForm->setAttribute(
             'action',
             $this->url()->fromRoute(
                 'company-backend/modify',
-                ['action' => 'edit', 'id' => $id],
+                ['action' => 'edit', 'id' => $company->getId()],
                 true
             )
         );
@@ -128,6 +216,18 @@ class ModifyController extends AbstractActionController
             return $this->redirect()->toRoute('company-backend', [], true);
         }
 
+        $delete = $this->params()->fromQuery('delete', 'no');
+
+        if ($delete == 'yes') {
+            $this->companyRepository->deleteCompany($company);
+
+            $this->flashMessenger()->addSuccessMessage(
+                'Das Unternehmen wurde gelöscht!'
+            );
+
+            return $this->redirect()->toRoute('company-admin', [], true);
+        }
+
         $viewModel = new ViewModel();
         $viewModel->setVariable('company', $company);
 
@@ -153,6 +253,22 @@ class ModifyController extends AbstractActionController
             return $this->redirect()->toRoute('company-backend', [], true);
         }
 
+        $approve = $this->params()->fromQuery('approve', 'no');
+
+        if ($approve == 'yes') {
+            $company->approve();
+
+            $this->companyRepository->saveCompany($company);
+
+            $this->flashMessenger()->addSuccessMessage(
+                'Das Unternehmen wurde genehmigt!'
+            );
+
+            return $this->redirect()->toRoute(
+                'company-admin/show', ['id' => $company->getId()], true
+            );
+        }
+
         $viewModel = new ViewModel();
         $viewModel->setVariable('company', $company);
 
@@ -176,6 +292,22 @@ class ModifyController extends AbstractActionController
 
         if (!$company) {
             return $this->redirect()->toRoute('company-backend', [], true);
+        }
+
+        $block = $this->params()->fromQuery('block', 'no');
+
+        if ($block == 'yes') {
+            $company->block();
+
+            $this->companyRepository->saveCompany($company);
+
+            $this->flashMessenger()->addSuccessMessage(
+                'Das Unternehmen wurde gesperrt!'
+            );
+
+            return $this->redirect()->toRoute(
+                'company-admin/show', ['id' => $company->getId()], true
+            );
         }
 
         $viewModel = new ViewModel();

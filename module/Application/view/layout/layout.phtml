@@ -49,6 +49,7 @@ $this->inlineScript()->prependFile(
 <body>
 <?= $this->header; ?>
 <div class="container">
+<?= $this->bootstrapFlashMessenger()->render(); ?>
 <?= $this->content; ?>
 </div>
 <?= $this->footer; ?>
