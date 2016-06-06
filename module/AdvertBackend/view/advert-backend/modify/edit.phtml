@@ -40,6 +40,11 @@ $blockLink   = $this->url(
 );
 
 $this->headTitle('Annonce bearbeiten');
+
+$this->inlineScript()->prependFile(
+    '/assets/vendor/ckeditor/ckeditor.js', 'text/javascript'
+);
+$this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
 ?>
 <div class="page-header">
   <h1>Annonce bearbeiten</h1>

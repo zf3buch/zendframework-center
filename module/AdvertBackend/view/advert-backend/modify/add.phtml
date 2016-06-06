@@ -15,6 +15,11 @@ $form = $this->advertForm;
 $listLink = $this->url('advert-backend', [], true);
 
 $this->headTitle('Annonce anlegen');
+
+$this->inlineScript()->prependFile(
+    '/assets/vendor/ckeditor/ckeditor.js', 'text/javascript'
+);
+$this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
 ?>
 <div class="page-header">
   <h1>Annonce anlegen</h1>

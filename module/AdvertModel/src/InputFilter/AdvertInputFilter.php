@@ -169,6 +169,7 @@ class AdvertInputFilter extends InputFilter
                 'required'   => true,
                 'filters'    => [
                     ['name' => 'StringTrim'],
+                    ['name' => 'StringHtmlPurify'],
                 ],
                 'validators' => [
                     [

@@ -160,6 +160,7 @@ class AdvertForm extends Form implements AdvertFormInterface
                 'type'       => 'Textarea',
                 'name'       => 'text',
                 'attributes' => [
+                    'id'    => 'advert_text',
                     'class' => 'form-control',
                 ],
                 'options'    => [
