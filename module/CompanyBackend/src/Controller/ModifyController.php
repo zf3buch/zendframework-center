@@ -14,6 +14,7 @@ use CompanyModel\Repository\CompanyRepositoryInterface;
 use Zend\Form\Form;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -21,6 +22,7 @@ use Zend\View\Model\ViewModel;
  *
  * @package CompanyBackend\Controller
  * @method Request getRequest()
+ * @method FlashMessenger flashMessenger()
  */
 class ModifyController extends AbstractActionController
 {
@@ -75,7 +77,7 @@ class ModifyController extends AbstractActionController
                     );
 
                     return $this->redirect()->toRoute(
-                        'company-admin/modify',
+                        'company-backend/modify',
                         [
                             'action' => 'edit',
                             'id'     => $company->getId(),
@@ -153,7 +155,7 @@ class ModifyController extends AbstractActionController
                     );
 
                     return $this->redirect()->toRoute(
-                        'company-admin/modify',
+                        'company-backend/modify',
                         [
                             'action' => 'edit',
                             'id'     => $company->getId(),
@@ -225,7 +227,7 @@ class ModifyController extends AbstractActionController
                 'Das Unternehmen wurde gelöscht!'
             );
 
-            return $this->redirect()->toRoute('company-admin', [], true);
+            return $this->redirect()->toRoute('company-backend', [], true);
         }
 
         $viewModel = new ViewModel();
@@ -265,7 +267,7 @@ class ModifyController extends AbstractActionController
             );
 
             return $this->redirect()->toRoute(
-                'company-admin/show', ['id' => $company->getId()], true
+                'company-backend/show', ['id' => $company->getId()], true
             );
         }
 
@@ -306,7 +308,7 @@ class ModifyController extends AbstractActionController
             );
 
             return $this->redirect()->toRoute(
-                'company-admin/show', ['id' => $company->getId()], true
+                'company-backend/show', ['id' => $company->getId()], true
             );
         }
 

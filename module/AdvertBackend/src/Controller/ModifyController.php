@@ -73,7 +73,7 @@ class ModifyController extends AbstractActionController
                     );
 
                     return $this->redirect()->toRoute(
-                        'advert-admin/modify',
+                        'advert-backend/modify',
                         [
                             'action' => 'edit',
                             'id'     => $advert->getId(),
@@ -149,7 +149,7 @@ class ModifyController extends AbstractActionController
                     );
 
                     return $this->redirect()->toRoute(
-                        'advert-admin/modify',
+                        'advert-backend/modify',
                         [
                             'action' => 'edit',
                             'id'     => $advert->getId(),
@@ -219,7 +219,7 @@ class ModifyController extends AbstractActionController
                 'Die Annonce wurde gelöscht!'
             );
 
-            return $this->redirect()->toRoute('advert-admin', [], true);
+            return $this->redirect()->toRoute('advert-backend', [], true);
         }
 
         $viewModel = new ViewModel();
@@ -257,7 +257,7 @@ class ModifyController extends AbstractActionController
             );
 
             return $this->redirect()->toRoute(
-                'advert-admin/show', ['id' => $advert->getId()], true
+                'advert-backend/show', ['id' => $advert->getId()], true
             );
         }
 
@@ -296,7 +296,7 @@ class ModifyController extends AbstractActionController
             );
 
             return $this->redirect()->toRoute(
-                'advert-admin/show', ['id' => $advert->getId()], true
+                'advert-backend/show', ['id' => $advert->getId()], true
             );
         }
 
