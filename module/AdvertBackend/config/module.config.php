@@ -20,7 +20,7 @@ return [
             'advert-backend' => [
                 'type'          => Literal::class,
                 'options'       => [
-                    'route'    => '/advert-admin',
+                    'route'    => '/advert-backend',
                     'defaults' => [
                         'controller' => DisplayController::class,
                         'action'     => 'index',
