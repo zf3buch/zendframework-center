@@ -7,14 +7,6 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-/**
- * ZF3 book Zend Framework Center Example Application
- *
- * @author     Ralf Eggert <ralf@travello.de>
- * @link       https://github.com/zf3buch/zendframework-center
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- */
-
 use CompanyModel\Entity\CompanyEntity;
 
 /** @var CompanyEntity $company */
@@ -37,47 +29,61 @@ $blockLink   = $this->url(
     'company-backend/modify', ['action' => 'block', 'id' => $company->getId()], true
 );
 
-$this->headTitle('Unternehmen sperren');
-$this->h1('Unternehmen sperren');
+$this->headTitle('company_backend_title_display_block');
+$this->h1('company_backend_h1_display_block');
 ?>
 <div class="alert alert-danger">
   <p>
-    <strong>Möchten Sie dieses Unternehmen sperren?</strong>
+    <strong>
+      <?= $this->translate('company_backend_message_block_company') ?>
+    </strong>
   </p>
   <p>
     <a class="btn btn-danger"
        href="<?= $blockLink ?>?block=yes">
-      Unternehmen sperren
+      <?= $this->translate('company_backend_action_block') ?>
     </a>
     <a class="btn btn-default" href="<?= $showLink ?>">
-      Abbrechen
+      <?= $this->translate('company_backend_action_cancel') ?>
     </a>
   </p>
 </div>
 <p>
   <a href="<?= $showLink ?>" class="btn btn-default">
     <i class="fa fa-file-text-o"></i>
-    <span class="hidden-xs hidden-sm">Anzeigen</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('company_backend_action_show_short') ?>
+    </span>
   </a>
   <a href="<?= $editLink ?>" class="btn btn-default">
     <i class="fa fa-pencil"></i>
-    <span class="hidden-xs hidden-sm">Bearbeiten</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('company_backend_action_edit_short') ?>
+    </span>
   </a>
   <a href="<?= $deleteLink ?>" class="btn btn-default">
     <i class="fa fa-trash-o"></i>
-    <span class="hidden-xs hidden-sm">Löschen</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('company_backend_action_delete_short') ?>
+    </span>
   </a>
   <a href="<?= $approveLink ?>" class="btn btn-default">
     <i class="fa fa-thumbs-o-up"></i>
-    <span class="hidden-xs hidden-sm">Freigeben</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('company_backend_action_approve_short') ?>
+    </span>
   </a>
   <a href="<?= $blockLink ?>" class="btn btn-primary">
     <i class="fa fa-thumbs-o-down"></i>
-    <span class="hidden-xs hidden-sm">Sperren</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('company_backend_action_block_short') ?>
+    </span>
   </a>
   <a href="<?= $listLink ?>" class="btn btn-default">
     <i class="fa fa-list"></i>
-    <span class="hidden-xs hidden-sm">Übersicht</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('company_backend_action_overview') ?>
+    </span>
   </a>
 </p>
 <div class="well" style="position: relative">
@@ -86,40 +92,55 @@ $this->h1('Unternehmen sperren');
   </div>
   <form class="form-horizontal">
     <div class="form-group">
-      <label class="col-sm-2 control-label">Angelegt</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('company_backend_label_created') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $company->getRegistered()->format('d.m.Y H:i:s') ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Geändert</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('company_backend_label_updated') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $company->getUpdated()->format('d.m.Y H:i:s')  ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Status</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('company_backend_label_status') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
-        <?= $company->getStatus() ?>
+        <?= $this->translate(
+            'company_model_option_status_' . $company->getStatus()
+        ) ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Name</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('company_backend_label_name') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $company->getName() ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">E-Mail</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('company_backend_label_email') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $company->getEmail() ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Ansprechpartner</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('company_backend_label_contact') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $company->getContact() ?>
       </div>
     </div>
   </form>
 </div>
+

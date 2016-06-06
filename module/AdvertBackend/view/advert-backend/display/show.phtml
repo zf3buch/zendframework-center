@@ -12,12 +12,6 @@ use AdvertModel\Entity\AdvertEntity;
 /** @var AdvertEntity $advert */
 $advert = $this->advert;
 
-if ($advert->getType() == 'job') {
-    $advertType = 'Job';
-} else {
-    $advertType = 'Projekt';
-}
-
 $listLink    = $this->url('advert-backend', [], true);
 $showLink    = $this->url(
     'advert-backend/show', ['id' => $advert->getId()], true
@@ -35,85 +29,117 @@ $blockLink   = $this->url(
     'advert-backend/modify', ['action' => 'block', 'id' => $advert->getId()], true
 );
 
-$this->headTitle('Annonce anzeigen');
-$this->h1('Annonce anzeigen');
+$this->headTitle('advert_backend_title_display_show');
+$this->h1('advert_backend_h1_display_show');
 ?>
 <p>
   <a href="<?= $showLink ?>" class="btn btn-primary">
     <i class="fa fa-file-text-o"></i>
-    <span class="hidden-xs hidden-sm">Anzeigen</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_show_short') ?>
+    </span>
   </a>
   <a href="<?= $editLink ?>" class="btn btn-default">
     <i class="fa fa-pencil"></i>
-    <span class="hidden-xs hidden-sm">Bearbeiten</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_edit_short') ?>
+    </span>
   </a>
   <a href="<?= $deleteLink ?>" class="btn btn-default">
     <i class="fa fa-trash-o"></i>
-    <span class="hidden-xs hidden-sm">Löschen</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_delete_short') ?>
+    </span>
   </a>
   <a href="<?= $approveLink ?>" class="btn btn-default">
     <i class="fa fa-thumbs-o-up"></i>
-    <span class="hidden-xs hidden-sm">Freigeben</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_approve_short') ?>
+    </span>
   </a>
   <a href="<?= $blockLink ?>" class="btn btn-default">
     <i class="fa fa-thumbs-o-down"></i>
-    <span class="hidden-xs hidden-sm">Sperren</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_block_short') ?>
+    </span>
   </a>
   <a href="<?= $listLink ?>" class="btn btn-default">
     <i class="fa fa-list"></i>
-    <span class="hidden-xs hidden-sm">Übersicht</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_overview') ?>
+    </span>
   </a>
 </p>
 <div class="well">
   <form class="form-horizontal">
     <div class="form-group">
-      <label class="col-sm-2 control-label">Typ</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_type') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
-        <?= $advert->getType() ?>
+        <?= $this->translate('advert_model_option_type_' . $advert->getType()) ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Angelegt</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_created') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $advert->getCreated()->format('d.m.Y H:i:s') ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Geändert</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_updated') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $advert->getUpdated()->format('d.m.Y H:i:s') ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Status</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_status') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
-        <?= $advert->getStatus() ?>
+        <?= $this->translate(
+            'advert_model_option_status_' . $advert->getStatus()
+        ) ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Unternehmen</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_company') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $advert->getCompany()->getName() ?>
         <i>
-          (Ansprechpartner: <?= $advert->getCompany()->getContact() ?>,
-          E-Mail-Adresse: <?= $advert->getCompany()->getEmail() ?>)
+          (<?= $this->translate('advert_frontend_label_type_contact') ?>:
+          <?= $advert->getCompany()->getContact() ?>,
+          <?= $this->translate('company_backend_label_email') ?>:
+          <?= $advert->getCompany()->getEmail() ?>)
         </i>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Ort</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_location') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $advert->getLocation() ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Titel</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_title') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $advert->getTitle() ?>
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-2 control-label">Text</label>
+      <label class="col-sm-2 control-label">
+        <?= $this->translate('advert_backend_label_text') ?>
+      </label>
       <div class="col-sm-10 form-control-static">
         <?= $advert->getText() ?>
       </div>

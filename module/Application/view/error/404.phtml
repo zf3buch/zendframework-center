@@ -7,37 +7,38 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-$this->headTitle('Seite nicht gefunden');
-$this->h1('Seite nicht gefunden');
+$this->headTitle('application_title_error_404');
+$this->h1('application_h1_error_404');
 
 if (isset($this->reason) && $this->reason) {
     switch ($this->reason) {
         case 'error-controller-cannot-dispatch':
-            $message = 'Der angeforderte Controller war nicht in der Lage die Anfrage zu verarbeiten.';
+            $message = 'application_message_controller_not_dispatched';
             break;
         case 'error-controller-not-found':
-            $message = 'Der angeforderte Controller konnte keiner Controller Klasse zugeordnet werden.';
+            $message = 'application_message_controller_not_found';
             break;
         case 'error-controller-invalid':
-            $message = 'Der angeforderte Controller ist nicht aufrufbar.';
+            $message = 'application_message_controller_invalid';
             break;
         case 'error-router-no-match':
-            $message = 'Für die angeforderte URL konnte keine Übereinstimmung gefunden werden.';
+            $message = 'application_message_controller_no_match';
             break;
         default:
-            $message = 'Zu diesem Zeitpunkt ist es uns nicht möglich zu bestimmen, warum ein 404 Fehler aufgetreten ist.';
+            $message = 'application_message_controller_other';
             break;
     }
 }
 ?>
 <div class="jumbotron">
-  <h2>Die angeforderte Seite konnte nicht gefunden werden</h2>
+  <h2><?= $this->translate('application_h2_error_404'); ?></h2>
   <p>
-    Grund: <?= $message ?>
+    <?= $this->translate('application_misc_reason') ?>:
+    <?= $this->translate($message) ?>
   </p>
   <p class="pull-center">
     <a href="/" class="btn btn-success">
-      Zurück zur Startseite
+      <?= $this->translate('application_action_homepage'); ?>
     </a>
   </p>
 </div>

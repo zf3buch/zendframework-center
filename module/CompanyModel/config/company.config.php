@@ -9,8 +9,8 @@
 
 return [
     'status_options' => [
-        'new'      => 'neu',
-        'approved' => 'genehmigt',
-        'blocked'  => 'gesperrt',
+        'new'      => 'company_model_option_status_new',
+        'approved' => 'company_model_option_status_approved',
+        'blocked'  => 'company_model_option_status_blocked',
     ],
 ];

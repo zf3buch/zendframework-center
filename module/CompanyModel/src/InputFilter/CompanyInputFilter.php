@@ -47,14 +47,14 @@ class CompanyInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Status eingeben!',
+                            'message' => 'company_model_message_status_missing',
                         ],
                     ],
                     [
                         'name'    => 'InArray',
                         'options' => [
                             'haystack' => $this->statusOptions,
-                            'message'  => 'Ungültiger Status!',
+                            'message'  => 'company_model_message_status_invalid',
                         ],
                     ],
                 ],
@@ -74,7 +74,7 @@ class CompanyInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Firmenname eingeben!',
+                            'message' => 'company_model_message_name_missing',
                         ],
                     ],
                     [
@@ -82,7 +82,7 @@ class CompanyInputFilter extends InputFilter
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
-                            'message'  => 'Nur %min%-%max% Zeichen erlaubt!',
+                            'message'  => 'company_model_message_name_invalid',
                         ],
                     ],
                 ],
@@ -102,13 +102,13 @@ class CompanyInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte E-Mail Adresse eingeben!',
+                            'message' => 'company_model_message_email_missing',
                         ],
                     ],
                     [
                         'name'    => 'EmailAddress',
                         'options' => [
-                            'message' => 'Bitte gültige E-Mail eingeben!',
+                            'message' => 'company_model_message_email_invalid',
                         ],
                     ],
                 ],
@@ -128,7 +128,7 @@ class CompanyInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Ansprechpartner eingeben!',
+                            'message' => 'company_model_message_contact_missing',
                         ],
                     ],
                     [
@@ -136,7 +136,7 @@ class CompanyInputFilter extends InputFilter
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
-                            'message'  => 'Nur %min%-%max% Zeichen erlaubt!',
+                            'message'  => 'company_model_message_contact_invalid',
                         ],
                     ],
                 ],
@@ -154,7 +154,7 @@ class CompanyInputFilter extends InputFilter
                         'name'    => 'FileMimeType',
                         'options' => [
                             'mimeType' => 'image/png,image/x-png',
-                            'message'  => 'Nur PNG Grafiken erlaubt!',
+                            'message'  => 'company_model_message_logo_type',
                         ],
                     ],
                     [
@@ -164,7 +164,7 @@ class CompanyInputFilter extends InputFilter
                             'maxWidth'  => '200',
                             'minHeight' => '100',
                             'maxHeight' => '100',
-                            'message'   => 'Nur 200x100 Pixel erlaubt!',
+                            'message'   => 'company_model_message_logo_size',
                         ],
                     ],
                 ],

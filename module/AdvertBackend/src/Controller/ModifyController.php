@@ -69,7 +69,7 @@ class ModifyController extends AbstractActionController
 
                 if ($result) {
                     $this->flashMessenger()->addSuccessMessage(
-                        'Die neue Annonce wurde gespeichert!'
+                        'advert_backend_message_saved_advert'
                     );
 
                     return $this->redirect()->toRoute(
@@ -87,16 +87,16 @@ class ModifyController extends AbstractActionController
 
             if (isset($messages['csrf'])) {
                 $this->flashMessenger()->addErrorMessage(
-                    'Zeitüberschreitung! Bitte Formular erneut absenden!'
+                    'advert_backend_message_form_timeout'
                 );
             } else {
                 $this->flashMessenger()->addErrorMessage(
-                    'Bitte überprüfen Sie die Daten der Annonce!'
+                    'advert_backend_message_check_data'
                 );
             }
         } else {
             $this->flashMessenger()->addInfoMessage(
-                'Sie können die neue Annonce nun anlegen!'
+                'advert_backend_message_create_advert'
             );
         }
 
@@ -145,7 +145,7 @@ class ModifyController extends AbstractActionController
 
                 if ($result) {
                     $this->flashMessenger()->addSuccessMessage(
-                        'Die Annonce wurde gespeichert!'
+                        'advert_backend_message_saved_advert'
                     );
 
                     return $this->redirect()->toRoute(
@@ -163,16 +163,16 @@ class ModifyController extends AbstractActionController
 
             if (isset($messages['csrf'])) {
                 $this->flashMessenger()->addErrorMessage(
-                    'Zeitüberschreitung! Bitte Formular erneut absenden!'
+                    'advert_backend_message_form_timeout'
                 );
             } else {
                 $this->flashMessenger()->addErrorMessage(
-                    'Bitte überprüfen Sie die Daten der Annonce!'
+                    'advert_backend_message_check_data'
                 );
             }
         } else {
             $this->flashMessenger()->addInfoMessage(
-                'Sie können die Annonce nun bearbeiten!'
+                'advert_backend_message_update_advert'
             );
         }
 
@@ -216,7 +216,7 @@ class ModifyController extends AbstractActionController
             $this->advertRepository->deleteAdvert($advert);
 
             $this->flashMessenger()->addSuccessMessage(
-                'Die Annonce wurde gelöscht!'
+                'advert_backend_message_deleted_advert'
             );
 
             return $this->redirect()->toRoute('advert-backend', [], true);
@@ -253,7 +253,7 @@ class ModifyController extends AbstractActionController
             $this->advertRepository->saveAdvert($advert);
 
             $this->flashMessenger()->addSuccessMessage(
-                'Die Annonce wurde genehmigt!'
+                'advert_backend_message_approved_advert'
             );
 
             return $this->redirect()->toRoute(
@@ -292,7 +292,7 @@ class ModifyController extends AbstractActionController
             $this->advertRepository->saveAdvert($advert);
 
             $this->flashMessenger()->addSuccessMessage(
-                'Die Annonce wurde gesperrt!'
+                'advert_backend_message_blocked_advert'
             );
 
             return $this->redirect()->toRoute(

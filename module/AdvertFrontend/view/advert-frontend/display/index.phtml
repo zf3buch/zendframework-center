@@ -11,14 +11,16 @@ use AdvertModel\Entity\AdvertEntity;
 
 if ($this->type == 'job') {
   $color         = 'primary';
-  $advertType    = 'Job';
-  $headTitleText = 'Aktuelle Zend Framework Jobs';
-  $h1Text        = 'Aktuelle Zend Framework Jobs';
+  $advertButton  = 'advert_frontend_action_show_job';
+  $advertMessage = 'advert_frontend_message_type_job';
+  $headTitleText = 'advert_frontend_title_display_jobs';
+  $h1Text        = 'advert_frontend_h1_display_jobs';
 } else {
   $color         = 'success';
-  $advertType    = 'Projekt';
-  $headTitleText = 'Aktuelle Zend Framework Projekte';
-  $h1Text        = 'Aktuelle Zend Framework Projekte';
+  $advertButton  = 'advert_frontend_action_show_project';
+  $advertMessage = 'advert_frontend_message_type_project';
+  $headTitleText = 'advert_frontend_title_display_projects';
+  $h1Text        = 'advert_frontend_h1_display_projects';
 }
 
 $listLink = $this->url('home', [], true);
@@ -28,7 +30,8 @@ $this->h1($h1Text);
 ?>
 <p class="text-center">
   <a class="btn btn-default" href="<?= $listLink; ?>">
-    <i class="fa fa-arrow-circle-left"></i> Zurück zur Startseite
+    <i class="fa fa-arrow-circle-left"></i>
+    <?= $this->translate('application_action_homepage'); ?>
   </a>
 </p>
 <?php /** @var AdvertEntity $advert */ ?>
@@ -60,7 +63,7 @@ $this->h1($h1Text);
         <p><?= $advertText; ?> ...</p>
         <p class="text-center">
           <a href="<?= $advertLink ?>" class="btn btn-<?= $color; ?>">
-            <?= $advertType ?> anzeigen
+            <?= $this->translate($advertButton) ?>
           </a>
         </p>
       </div>
@@ -72,12 +75,17 @@ $this->h1($h1Text);
     <div class="panel-footer clearfix">
       <div class="left-text">
         <div class="label label-<?= $color; ?>">
-          Zend Framework <?= $advertType; ?> in <?= $advert->getLocation(); ?>
+          <?= sprintf(
+              $this->translate($advertMessage), $advert->getLocation()
+          ); ?>
         </div>
       </div>
       <div class="right-text">
         <div class="label label-<?= $color; ?>">
-          Letzte Änderung: <?= $advert->getUpdated()->format('d.m.Y H:i:s') ?>
+          <?= sprintf(
+              $this->translate('advert_frontend_label_last_update'),
+              $advert->getUpdated()->format('d.m.Y H:i:s')
+          ); ?>
         </div>
       </div>
     </div>
@@ -97,6 +105,7 @@ $this->h1($h1Text);
 </nav>
 <p class="text-center">
   <a class="btn btn-default" href="<?= $listLink; ?>">
-    <i class="fa fa-arrow-circle-left"></i> Zurück zur Startseite
+    <i class="fa fa-arrow-circle-left"></i>
+    <?= $this->translate('application_action_homepage'); ?>
   </a>
 </p>

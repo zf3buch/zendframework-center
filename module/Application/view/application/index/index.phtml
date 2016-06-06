@@ -58,26 +58,32 @@ $this->h1('Willkommen zum Zend Framework Center!');
         <p><?= $jobText; ?> ...</p>
         <p class="text-center">
           <a href="<?= $jobDetailLink ?>" class="btn btn-primary">
-            Job anzeigen
+            <?= $this->translate('advert_frontend_action_show_job'); ?>
           </a>
         </p>
       </div>
       <div class="panel-footer clearfix">
         <div class="left-text">
           <div class="label label-primary">
-            Zend Framework Job in <?= $job->getLocation(); ?>
+            <?= sprintf(
+                $this->translate('advert_frontend_message_type_job'),
+                $job->getLocation()
+            ); ?>
           </div>
         </div>
         <div class="right-text">
           <div class="label label-primary">
-            Letzte Änderung: <?= $job->getUpdated()->format('Y-m-d H:i:s') ?>
+            <?= sprintf(
+                $this->translate('advert_frontend_label_last_update'),
+                $project->getUpdated()->format('d.m.Y H:i:s')
+            ); ?>
           </div>
         </div>
       </div>
     </div>
     <p class="text-center">
       <a href="<?= $jobListLink; ?>" class="btn btn-primary">
-        Alle Zend Framework Jobs anzeigen
+        <?= $this->translate('advert_frontend_action_all_jobs') ?>
       </a>
     </p>
   </div>
@@ -102,26 +108,32 @@ $this->h1('Willkommen zum Zend Framework Center!');
         <p><?= $projectText; ?> ...</p>
         <p class="text-center">
           <a href="<?= $projectDetailLink ?>" class="btn btn-success">
-            Projekt anzeigen
+            <?= $this->translate('advert_frontend_action_show_project'); ?>
           </a>
         </p>
       </div>
       <div class="panel-footer clearfix">
         <div class="left-text">
           <div class="label label-success">
-            Zend Framework Job in <?= $project->getLocation(); ?>
+            <?= sprintf(
+                $this->translate('advert_frontend_message_type_project'),
+                $project->getLocation()
+            ); ?>
           </div>
         </div>
         <div class="right-text">
           <div class="label label-success">
-            Letzte Änderung: <?= $project->getUpdated()->format('Y-m-d H:i:s') ?>
+            <?= sprintf(
+                $this->translate('advert_frontend_label_last_update'),
+                $project->getUpdated()->format('d.m.Y H:i:s')
+            ); ?>
           </div>
         </div>
       </div>
     </div>
     <p class="text-center">
       <a href="<?= $projectListLink; ?>" class="btn btn-success">
-        Alle Zend Framework Projekte anzeigen
+        <?= $this->translate('advert_frontend_action_all_projects') ?>
       </a>
     </p>
   </div>

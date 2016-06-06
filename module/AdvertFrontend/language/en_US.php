@@ -33,4 +33,6 @@ return [
     'advert_frontend_action_show_project'    => 'Show project',
     'advert_frontend_action_back_jobs'       => 'Back to the Zend Framework jobs',
     'advert_frontend_action_back_projects'   => 'Back to the Zend Framework projects',
+    'advert_frontend_action_all_jobs'        => 'Show all Zend Framework Jobs',
+    'advert_frontend_action_all_projects'    => 'Show all Zend Framework Projekte',
 ];

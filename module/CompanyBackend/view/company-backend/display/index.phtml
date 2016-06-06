@@ -7,31 +7,29 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-/**
- * ZF3 book Zend Framework Center Example Application
- *
- * @author     Ralf Eggert <ralf@travello.de>
- * @link       https://github.com/zf3buch/zendframework-center
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- */
-
 use CompanyModel\Entity\CompanyEntity;
 
 $addLink = $this->url(
     'company-backend/modify', ['action' => 'add'], true
 );
 
-$this->headTitle('Unternehmen administrieren');
-$this->h1('Unternehmen administrieren');
+$this->headTitle('company_backend_title_display_index');
+$this->h1('company_backend_h1_display_index');
 ?>
 <table class="table table-condensed table-bordered table-striped">
   <thead>
   <tr>
-    <th>Status</th>
-    <th>Name</th>
-    <th class="hidden-xs">E-Mail</th>
-    <th class="hidden-xs">Ansprechpartner</th>
-    <th class="hidden-xs">Datum</th>
+    <th><?= $this->translate('company_backend_label_status') ?></th>
+    <th><?= $this->translate('company_backend_label_name') ?></th>
+    <th class="hidden-xs">
+      <?= $this->translate('company_backend_label_email') ?>
+    </th>
+    <th class="hidden-xs">
+      <?= $this->translate('company_backend_label_contact') ?>
+    </th>
+    <th class="hidden-xs">
+      <?= $this->translate('company_backend_label_updated') ?>
+    </th>
     <th class="text-center">
       <a href="<?= $addLink ?>">
         <i class="fa fa-plus-square-o"></i>
@@ -65,7 +63,9 @@ $this->h1('Unternehmen administrieren');
     ?>
     <tr>
       <td>
-        <?= $company->getStatus() ?>
+        <?= $this->translate(
+            'company_model_option_status_' . $company->getStatus()
+        ) ?>
       </td>
       <td>
         <a href="<?= $showLink ?>">

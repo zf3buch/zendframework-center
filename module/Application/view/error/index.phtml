@@ -7,18 +7,18 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-$this->headTitle('Server Fehler');
-$this->h1('Server Fehler');
+$this->headTitle('application_title_error_index');
+$this->h1('application_h1_error_index');
 ?>
 <div class="jumbotron">
-  <h2>Ein interner Server Fehler ist aufgetreten.</h2>
+  <h2><?= $this->translate('application_h2_error_index'); ?></h2>
   <p>
-    Bitte versuchen Sie es später noch einmal.
+    <?= $this->translate('application_message_try_later') ?>:
   </p>
   <?php var_dump($this->exception) ?>`
   <p class="pull-center">
     <a href="/" class="btn btn-success">
-      Zurück zur Startseite
+      <?= $this->translate('application_action_homepage'); ?>
     </a>
   </p>
 </div>

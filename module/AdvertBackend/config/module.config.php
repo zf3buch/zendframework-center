@@ -127,7 +127,7 @@ return [
     'translator' => [
         'translation_file_patterns' => [
             [
-                'type'     => 'phpArray',
+                'type'     => 'phparray',
                 'base_dir' => ADVERT_BACKEND_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
             ],

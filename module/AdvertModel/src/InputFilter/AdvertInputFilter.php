@@ -73,14 +73,14 @@ class AdvertInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Status eingeben!',
+                            'message' => 'advert_model_message_status_missing',
                         ],
                     ],
                     [
                         'name'    => 'InArray',
                         'options' => [
                             'haystack' => $this->statusOptions,
-                            'message'  => 'Ungültiger Status!',
+                            'message'  => 'advert_model_message_status_invalid',
                         ],
                     ],
                 ],
@@ -97,14 +97,14 @@ class AdvertInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Typ der Annonce eingeben!',
+                            'message' => 'advert_model_message_type_missing',
                         ],
                     ],
                     [
                         'name'    => 'InArray',
                         'options' => [
                             'haystack' => $this->typeOptions,
-                            'message'  => 'Ungültiger Annoncentyp!',
+                            'message'  => 'advert_model_message_type_invalid',
                         ],
                     ],
                 ],
@@ -121,14 +121,14 @@ class AdvertInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Status eingeben!',
+                            'message' => 'advert_model_message_company_missing',
                         ],
                     ],
                     [
                         'name'    => 'InArray',
                         'options' => [
                             'haystack' => $this->companyOptions,
-                            'message'  => 'Unbekanntes Unternehmen!',
+                            'message'  => 'advert_model_message_company_invalid',
                         ],
                     ],
                 ],
@@ -148,7 +148,7 @@ class AdvertInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Annoncentitel eingeben!',
+                            'message' => 'advert_model_message_title_missing',
                         ],
                     ],
                     [
@@ -156,7 +156,7 @@ class AdvertInputFilter extends InputFilter
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
-                            'message'  => 'Nur %min%-%max% Zeichen erlaubt!',
+                            'message'  => 'advert_model_message_title_invalid',
                         ],
                     ],
                 ],
@@ -176,14 +176,14 @@ class AdvertInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Text der Annonce eingeben!',
+                            'message' => 'advert_model_message_text_missing',
                         ],
                     ],
                     [
                         'name'    => 'StringLength',
                         'options' => [
                             'min'      => 200,
-                            'message'  => 'Mindestens %min% Zeichen eingeben!',
+                            'message'  => 'advert_model_message_text_invalid',
                         ],
                     ],
                 ],
@@ -203,7 +203,7 @@ class AdvertInputFilter extends InputFilter
                         'name'                   => 'NotEmpty',
                         'break_chain_on_failure' => true,
                         'options'                => [
-                            'message' => 'Bitte Ort eingeben!',
+                            'message' => 'advert_model_message_location_missing',
                         ],
                     ],
                     [
@@ -211,7 +211,7 @@ class AdvertInputFilter extends InputFilter
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
-                            'message'  => 'Nur %min%-%max% Zeichen erlaubt!',
+                            'message'  => 'advert_model_message_location_invalid',
                         ],
                     ],
                 ],

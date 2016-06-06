@@ -9,13 +9,13 @@
 
 return [
     'status_options' => [
-        'new'      => 'neu',
-        'approved' => 'genehmigt',
-        'blocked'  => 'gesperrt',
+        'new'      => 'advert_model_option_status_new',
+        'approved' => 'advert_model_option_status_approved',
+        'blocked'  => 'advert_model_option_status_blocked',
     ],
 
     'type_options' => [
-        'job'     => 'Job',
-        'project' => 'Projekt',
+        'job'     => 'advert_model_option_type_job',
+        'project' => 'advert_model_option_type_project',
     ],
 ];

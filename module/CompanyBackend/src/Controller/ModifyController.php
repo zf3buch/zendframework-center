@@ -73,7 +73,7 @@ class ModifyController extends AbstractActionController
 
                 if ($result) {
                     $this->flashMessenger()->addSuccessMessage(
-                        'Das neue Unternehmen wurde gespeichert!'
+                        'company_backend_message_saved_company'
                     );
 
                     return $this->redirect()->toRoute(
@@ -91,16 +91,16 @@ class ModifyController extends AbstractActionController
 
             if (isset($messages['csrf'])) {
                 $this->flashMessenger()->addErrorMessage(
-                    'Zeitüberschreitung! Bitte Formular erneut absenden!'
+                    'company_backend_message_form_timeout'
                 );
             } else {
                 $this->flashMessenger()->addErrorMessage(
-                    'Bitte überprüfen Sie die Daten des Unternehmens!'
+                    'company_backend_message_check_data'
                 );
             }
         } else {
             $this->flashMessenger()->addInfoMessage(
-                'Sie können das neue Unternehmen nun anlegen!'
+                'company_backend_message_create_company'
             );
         }
 
@@ -161,7 +161,7 @@ class ModifyController extends AbstractActionController
 
                 if ($result) {
                     $this->flashMessenger()->addSuccessMessage(
-                        'Das Unternehmen wurde gespeichert!'
+                        'company_backend_message_saved_company'
                     );
 
                     return $this->redirect()->toRoute(
@@ -179,16 +179,16 @@ class ModifyController extends AbstractActionController
 
             if (isset($messages['csrf'])) {
                 $this->flashMessenger()->addErrorMessage(
-                    'Zeitüberschreitung! Bitte Formular erneut absenden!'
+                    'company_backend_message_form_timeout'
                 );
             } else {
                 $this->flashMessenger()->addErrorMessage(
-                    'Bitte überprüfen Sie die Daten des Unternehmens!'
+                    'company_backend_message_check_data'
                 );
             }
         } else {
             $this->flashMessenger()->addInfoMessage(
-                'Sie können das Unternehmen nun bearbeiten!'
+                'company_backend_message_update_company'
             );
         }
 
@@ -234,7 +234,7 @@ class ModifyController extends AbstractActionController
             $this->companyRepository->deleteCompany($company);
 
             $this->flashMessenger()->addSuccessMessage(
-                'Das Unternehmen wurde gelöscht!'
+                'company_backend_message_deleted_company'
             );
 
             return $this->redirect()->toRoute('company-backend', [], true);
@@ -273,7 +273,7 @@ class ModifyController extends AbstractActionController
             $this->companyRepository->saveCompany($company);
 
             $this->flashMessenger()->addSuccessMessage(
-                'Das Unternehmen wurde genehmigt!'
+                'company_backend_message_approved_company'
             );
 
             return $this->redirect()->toRoute(
@@ -314,7 +314,7 @@ class ModifyController extends AbstractActionController
             $this->companyRepository->saveCompany($company);
 
             $this->flashMessenger()->addSuccessMessage(
-                'Das Unternehmen wurde gesperrt!'
+                'company_backend_message_blocked_company'
             );
 
             return $this->redirect()->toRoute(

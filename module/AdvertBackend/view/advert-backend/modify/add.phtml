@@ -14,8 +14,8 @@ $form = $this->advertForm;
 
 $listLink = $this->url('advert-backend', [], true);
 
-$this->headTitle('Annonce anlegen');
-$this->h1('Annonce anlegen');
+$this->headTitle('advert_backend_title_display_add');
+$this->h1('advert_backend_h1_display_add');
 
 $this->inlineScript()->prependFile(
     '/assets/vendor/ckeditor/ckeditor.js', 'text/javascript'
@@ -25,7 +25,9 @@ $this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
 <p>
   <a href="<?= $listLink ?>" class="btn btn-default">
     <i class="fa fa-list"></i>
-    <span class="hidden-xs hidden-sm">Übersicht</span>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('advert_backend_action_overview') ?>
+    </span>
   </a>
 </p>
 <div class="well">

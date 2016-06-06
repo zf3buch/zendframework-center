@@ -27,7 +27,7 @@ return [
     'application_h4_footer_links2'                  => 'ZF3buch Links',
 
     // message texts
-    'application_message_footer_skeleton'           => 'Dieses Demoprojekt basiert auf der erweiterten <strong>MVC Skeleton Application</strong>, die das ZF3 Buch bereit stellt, damit Sie schnell eigene Zend Framework 3 Anwendungen erstellen können. Dieses Demoprojekt dient nur als Beispiel, bestellte Pizzen werden <strong>nicht</strong> verschickt.',
+    'application_message_footer_skeleton'           => 'Dieses Demoprojekt basiert auf der erweiterten <strong>MVC Skeleton Application</strong>, die das ZF3 Buch bereit stellt, damit Sie schnell eigene Zend Framework 3 Anwendungen erstellen können. Dieses Demoprojekt dient nur als Beispiel, die Jobs und Projekte sowie die Unternehmen sind rein <strong>fiktiv</strong>',
     'application_message_controller_not_dispatched' => 'Der angeforderte Controller war nicht in der Lage die Anfrage zu verarbeiten.',
     'application_message_controller_not_found'      => 'Der angeforderte Controller konnte keiner Controller Klasse zugeordnet werden.',
     'application_message_controller_invalid'        => 'Der angeforderte Controller ist nicht aufrufbar.',

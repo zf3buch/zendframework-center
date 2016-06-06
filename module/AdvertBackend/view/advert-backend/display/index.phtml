@@ -13,18 +13,24 @@ $addLink = $this->url(
     'advert-backend/modify', ['action' => 'add'], true
 );
 
-$this->headTitle('Annoncen administrieren');
-$this->h1('Annoncen administrieren');
+$this->headTitle('advert_backend_title_display_index');
+$this->h1('advert_backend_h1_display_index');
 ?>
 <table class="table table-condensed table-bordered table-striped">
   <thead>
   <tr>
-    <th>Typ</th>
-    <th>Status</th>
-    <th>Titel</th>
-    <th class="hidden-xs">Firma</th>
-    <th class="hidden-xs">Ort</th>
-    <th class="hidden-xs">Datum</th>
+    <th><?= $this->translate('advert_backend_label_type') ?></th>
+    <th><?= $this->translate('advert_backend_label_status') ?></th>
+    <th><?= $this->translate('advert_backend_label_title') ?></th>
+    <th class="hidden-xs">
+      <?= $this->translate('advert_backend_label_company') ?>
+    </th>
+    <th class="hidden-xs">
+      <?= $this->translate('advert_backend_label_location') ?>
+    </th>
+    <th class="hidden-xs">
+      <?= $this->translate('advert_backend_label_updated') ?>
+    </th>
     <th class="text-center">
       <a href="<?= $addLink ?>"><i class="fa fa-plus-square-o"></i></a>
     </th>
@@ -34,12 +40,6 @@ $this->h1('Annoncen administrieren');
   <?php /** @var AdvertEntity $advert */ ?>
   <?php foreach ($this->advertList as $advert) : ?>
     <?php
-    if ($advert->getType() == 'job') {
-      $advertType = 'Job';
-    } else {
-      $advertType = 'Projekt';
-    }
-
     $showLink    = $this->url(
         'advert-backend/show', ['id' => $advert->getId()], true
     );
@@ -62,10 +62,10 @@ $this->h1('Annoncen administrieren');
     ?>
     <tr>
       <td>
-        <?= $advertType ?>
+        <?= $this->translate('advert_model_option_type_' . $advert->getType()) ?>
       </td>
       <td>
-        <?= $advert->getStatus() ?>
+        <?= $this->translate('advert_model_option_status_' . $advert->getStatus()) ?>
       </td>
       <td>
         <a href="<?= $showLink ?>">
