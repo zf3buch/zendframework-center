@@ -22,7 +22,7 @@ return [
             'advert-backend' => [
                 'type'          => Literal::class,
                 'options'       => [
-                    'route'    => '/advert-admin',
+                    'route'    => '/advert-backend',
                     'defaults' => [
                         'controller' => DisplayController::class,
                         'action'     => 'index',
@@ -92,7 +92,7 @@ return [
 
     'navigation' => [
         'default' => [
-            'advert-admin' => [
+            'advert-backend' => [
                 'type'       => 'mvc',
                 'order'      => '900',
                 'label'      => 'Annoncen administrieren',
