@@ -36,11 +36,22 @@ $blockLink   = $this->url(
 );
 
 $this->headTitle('Annonce freigeben');
+$this->h1('Annonce freigeben');
 ?>
-<div class="page-header">
-  <h1>Annonce freigeben</h1>
+<div class="alert alert-danger">
+  <p>
+    <strong>Möchten Sie diese Annonce freigeben?</strong>
+  </p>
+  <p>
+    <a class="btn btn-danger"
+       href="<?= $approveLink ?>?approve=yes">
+      Annonce freigeben
+    </a>
+    <a class="btn btn-default" href="<?= $showLink ?>">
+      Abbrechen
+    </a>
+  </p>
 </div>
-
 <p>
   <a href="<?= $showLink ?>" class="btn btn-default">
     <i class="fa fa-file-text-o"></i>
@@ -67,20 +78,6 @@ $this->headTitle('Annonce freigeben');
     <span class="hidden-xs hidden-sm">Übersicht</span>
   </a>
 </p>
-<div class="alert alert-danger">
-  <p>
-    <strong>Möchten Sie diese Annonce freigeben?</strong>
-  </p>
-  <p>
-    <a class="btn btn-danger"
-       href="<?= $approveLink ?>?approve=yes">
-      Annonce freigeben
-    </a>
-    <a class="btn btn-default" href="<?= $showLink ?>">
-      Abbrechen
-    </a>
-  </p>
-</div>
 <div class="well">
   <form class="form-horizontal">
     <div class="form-group">

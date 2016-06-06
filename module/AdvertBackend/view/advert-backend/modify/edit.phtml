@@ -40,16 +40,13 @@ $blockLink   = $this->url(
 );
 
 $this->headTitle('Annonce bearbeiten');
+$this->h1('Annonce bearbeiten');
 
 $this->inlineScript()->prependFile(
     '/assets/vendor/ckeditor/ckeditor.js', 'text/javascript'
 );
 $this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
 ?>
-<div class="page-header">
-  <h1>Annonce bearbeiten</h1>
-</div>
-
 <p>
   <a href="<?= $showLink ?>" class="btn btn-default">
     <i class="fa fa-file-text-o"></i>
@@ -77,69 +74,43 @@ $this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
   </a>
 </p>
 <div class="well">
-  <?= $this->form()->openTag($form); ?>
-  <?= $this->formElement($form->get('csrf')); ?>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Typ</label>
-    <div class="col-sm-10 form-control-static">
-      <?= $advert->getType() ?>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Typ</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getType() ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Angelegt</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getCreated()->format('d.m.Y H:i:s') ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Geändert</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getUpdated()->format('d.m.Y H:i:s')  ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Status</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getStatus() ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Unternehmen</label>
+      <div class="col-sm-10 form-control-static">
+        <?= $advert->getCompany()->getName() ?>
+        <i>
+          (Ansprechpartner:
+          <?= $advert->getCompany()->getContact() ?>,
+          E-Mail-Adresse:
+          <?= $advert->getCompany()->getEmail() ?>)
+        </i>
+      </div>
     </div>
   </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Angelegt</label>
-    <div class="col-sm-10 form-control-static">
-      <?= $advert->getCreated()->format('d.m.Y H:i:s') ?>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Geändert</label>
-    <div class="col-sm-10 form-control-static">
-      <?= $advert->getUpdated()->format('d.m.Y H:i:s')  ?>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Status</label>
-    <div class="col-sm-10 form-control-static">
-      <?= $advert->getStatus() ?>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Unternehmen</label>
-    <div class="col-sm-10 form-control-static">
-      <?= $advert->getCompany()->getName() ?>
-      <i>
-        (Ansprechpartner:
-        <?= $advert->getCompany()->getContact() ?>,
-        E-Mail-Adresse:
-        <?= $advert->getCompany()->getEmail() ?>)
-      </i>
-    </div>
-  </div>
-  <div class="form-group">
-    <?= $this->formLabel($form->get('location')); ?>
-    <div class="col-sm-10">
-      <?= $this->formElement($form->get('location')); ?>
-      <?= $this->formElementErrors($form->get('location')); ?>
-    </div>
-  </div>
-  <div class="form-group">
-    <?= $this->formLabel($form->get('title')); ?>
-    <div class="col-sm-10">
-      <?= $this->formElement($form->get('title')); ?>
-      <?= $this->formElementErrors($form->get('title')); ?>
-    </div>
-  </div>
-  <div class="form-group">
-    <?= $this->formLabel($form->get('text')); ?>
-    <div class="col-sm-10">
-      <?= $this->formElement($form->get('text')); ?>
-      <?= $this->formElementErrors($form->get('text')); ?>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <?= $this->formElement($form->get('save_advert')); ?>
-    </div>
-  </div>
-  <?= $this->form()->closeTag(); ?>
+  <?= $this->bootstrapForm($form); ?>
 </div>

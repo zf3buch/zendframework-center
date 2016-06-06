@@ -36,11 +36,22 @@ $blockLink   = $this->url(
 );
 
 $this->headTitle('Annonce sperren');
+$this->h1('Annonce sperren');
 ?>
-<div class="page-header">
-  <h1>Annonce sperren</h1>
+<div class="alert alert-danger">
+  <p>
+    <strong>Möchten Sie diese Annonce sperren?</strong>
+  </p>
+  <p>
+    <a class="btn btn-danger"
+       href="<?= $blockLink ?>?block=yes">
+      Annonce sperren
+    </a>
+    <a class="btn btn-default" href="<?= $showLink ?>">
+      Abbrechen
+    </a>
+  </p>
 </div>
-
 <p>
   <a href="<?= $showLink ?>" class="btn btn-default">
     <i class="fa fa-file-text-o"></i>
@@ -67,20 +78,6 @@ $this->headTitle('Annonce sperren');
     <span class="hidden-xs hidden-sm">Übersicht</span>
   </a>
 </p>
-<div class="alert alert-danger">
-  <p>
-    <strong>Möchten Sie diese Annonce sperren?</strong>
-  </p>
-  <p>
-    <a class="btn btn-danger"
-       href="<?= $blockLink ?>?block=yes">
-      Annonce sperren
-    </a>
-    <a class="btn btn-default" href="<?= $showLink ?>">
-      Abbrechen
-    </a>
-  </p>
-</div>
 <div class="well">
   <form class="form-horizontal">
     <div class="form-group">
