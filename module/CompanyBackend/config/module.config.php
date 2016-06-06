@@ -15,6 +15,11 @@ use CompanyBackend\Form\CompanyForm;
 use CompanyBackend\Form\CompanyFormFactory;
 
 return [
+    'company_admin' => [
+        'logo_file_path'    => PROJECT_ROOT . '/public',
+        'logo_file_pattern' => '/logos/%s.png',
+    ],
+
     'router' => [
         'routes' => [
             'company-backend' => [

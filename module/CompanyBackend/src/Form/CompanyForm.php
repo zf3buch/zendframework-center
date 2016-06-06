@@ -9,6 +9,9 @@
 
 namespace CompanyBackend\Form;
 
+use CompanyModel\Filter\LogoFileUpload;
+use TravelloFilter\Filter\StringToUrlSlug;
+use Zend\Filter\StaticFilter;
 use Zend\Form\Form;
 
 /**
@@ -24,11 +27,37 @@ class CompanyForm extends Form implements CompanyFormInterface
     private $statusOptions;
 
     /**
+     * @var string
+     */
+    private $logoFilePath;
+
+    /**
+     * @var string
+     */
+    private $logoFilePattern;
+
+    /**
      * @param array $statusOptions
      */
     public function setStatusOptions($statusOptions)
     {
         $this->statusOptions = $statusOptions;
+    }
+
+    /**
+     * @param string $logoFilePath
+     */
+    public function setLogoFilePath($logoFilePath)
+    {
+        $this->logoFilePath = $logoFilePath;
+    }
+
+    /**
+     * @param string $logoFilePattern
+     */
+    public function setLogoFilePattern($logoFilePattern)
+    {
+        $this->logoFilePattern = $logoFilePattern;
     }
 
     /**
@@ -163,5 +192,26 @@ class CompanyForm extends Form implements CompanyFormInterface
         }
 
         $this->setValidationGroup(array_keys($this->getElements()));
+    }
+
+    /**
+     * Add logo file upload filter to input filter
+     */
+    public function addLogoFileUploadFilter()
+    {
+        $nameValue = $this->get('name')->getValue();
+
+        $targetFile = sprintf(
+            $this->logoFilePattern,
+            StaticFilter::execute($nameValue, StringToUrlSlug::class)
+        );
+
+        $logoFileUploadFilter = new LogoFileUpload(
+            $this->logoFilePath, $targetFile
+        );
+
+        $this->getInputFilter()->get('logo')->getFilterChain()->attach(
+            $logoFileUploadFilter
+        );
     }
 }

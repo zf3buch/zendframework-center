@@ -142,7 +142,17 @@ class ModifyController extends AbstractActionController
         $this->companyForm->bind($company);
 
         if ($this->getRequest()->isPost()) {
-            $this->companyForm->setData($this->params()->fromPost());
+            $postData  = $this->params()->fromPost();
+            $filesData = $this->params()->fromFiles();
+
+            if (isset($filesData['logo'])
+                && $filesData['logo']['size'] > 0
+            ) {
+                $postData = array_merge_recursive($postData, $filesData);
+            }
+
+            $this->companyForm->setData($postData);
+            $this->companyForm->addLogoFileUploadFilter();
 
             if ($this->companyForm->isValid()) {
                 $company->update();

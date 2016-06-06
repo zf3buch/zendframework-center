@@ -146,9 +146,28 @@ class CompanyInputFilter extends InputFilter
         $this->add(
             [
                 'name'       => 'logo',
+                'type'       => 'Zend\InputFilter\FileInput',
                 'required'   => false,
                 'filters'    => [],
-                'validators' => [],
+                'validators' => [
+                    [
+                        'name'    => 'FileMimeType',
+                        'options' => [
+                            'mimeType' => 'image/png,image/x-png',
+                            'message'  => 'Nur PNG Grafiken erlaubt!',
+                        ],
+                    ],
+                    [
+                        'name'    => 'FileImageSize',
+                        'options' => [
+                            'minWidth'  => '200',
+                            'maxWidth'  => '200',
+                            'minHeight' => '100',
+                            'maxHeight' => '100',
+                            'message'   => 'Nur 200x100 Pixel erlaubt!',
+                        ],
+                    ],
+                ],
             ]
         );
     }

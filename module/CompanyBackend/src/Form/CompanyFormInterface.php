@@ -32,4 +32,9 @@ interface CompanyFormInterface extends FormInterface
      * Switch to edit mode
      */
     public function editMode();
+
+    /**
+     * Add logo file upload filter to input filter
+     */
+    public function addLogoFileUploadFilter();
 }

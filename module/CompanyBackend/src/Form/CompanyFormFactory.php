@@ -54,10 +54,19 @@ class CompanyFormFactory implements FactoryInterface
         /** @var CompanyConfigInterface $companyConfig */
         $companyConfig = $container->get(CompanyConfigInterface::class);
 
+        /** @var array $config */
+        $moduleConfig = $container->get('Config');
+
         $form = new CompanyForm();
         $form->setHydrator($companyHydrator);
         $form->setInputFilter($companyInputFilter);
         $form->setStatusOptions($companyConfig->getStatusOptions());
+        $form->setLogoFilePath(
+            $moduleConfig['company_admin']['logo_file_path']
+        );
+        $form->setLogoFilePattern(
+            $moduleConfig['company_admin']['logo_file_pattern']
+        );
 
         return $form;
     }
