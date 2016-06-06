@@ -38,11 +38,22 @@ $blockLink   = $this->url(
 );
 
 $this->headTitle('Unternehmen sperren');
+$this->h1('Unternehmen sperren');
 ?>
-<div class="page-header">
-  <h1>Unternehmen sperren</h1>
+<div class="alert alert-danger">
+  <p>
+    <strong>Möchten Sie dieses Unternehmen sperren?</strong>
+  </p>
+  <p>
+    <a class="btn btn-danger"
+       href="<?= $blockLink ?>?block=yes">
+      Unternehmen sperren
+    </a>
+    <a class="btn btn-default" href="<?= $showLink ?>">
+      Abbrechen
+    </a>
+  </p>
 </div>
-
 <p>
   <a href="<?= $showLink ?>" class="btn btn-default">
     <i class="fa fa-file-text-o"></i>
@@ -69,20 +80,6 @@ $this->headTitle('Unternehmen sperren');
     <span class="hidden-xs hidden-sm">Übersicht</span>
   </a>
 </p>
-<div class="alert alert-danger">
-  <p>
-    <strong>Möchten Sie dieses Unternehmen sperren?</strong>
-  </p>
-  <p>
-    <a class="btn btn-danger"
-       href="<?= $blockLink ?>?block=yes">
-      Unternehmen sperren
-    </a>
-    <a class="btn btn-default" href="<?= $showLink ?>">
-      Abbrechen
-    </a>
-  </p>
-</div>
 <div class="well" style="position: relative">
   <div style="position: absolute; right: 20px;">
     <img src="<?= $company->getLogo() ?>">
