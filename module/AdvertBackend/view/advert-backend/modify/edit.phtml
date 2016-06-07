@@ -96,7 +96,7 @@ $this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
       <div class="col-sm-10 form-control-static">
         <?= $this->dateFormat(
             $advert->getCreated(),
-            IntlDateFormatter::LONG,
+            IntlDateFormatter::MEDIUM,
             IntlDateFormatter::MEDIUM
         ) ?>
       </div>
@@ -108,7 +108,7 @@ $this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
       <div class="col-sm-10 form-control-static">
         <?= $this->dateFormat(
             $advert->getUpdated(),
-            IntlDateFormatter::LONG,
+            IntlDateFormatter::MEDIUM,
             IntlDateFormatter::MEDIUM
         ) ?>
       </div>

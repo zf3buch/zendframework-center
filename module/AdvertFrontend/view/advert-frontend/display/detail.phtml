@@ -74,7 +74,7 @@ $this->h1($advert->getTitle());
             $this->translate('advert_frontend_label_last_update'),
             $this->dateFormat(
                 $advert->getUpdated(),
-                IntlDateFormatter::LONG,
+                IntlDateFormatter::MEDIUM,
                 IntlDateFormatter::MEDIUM
             )
         ); ?>
