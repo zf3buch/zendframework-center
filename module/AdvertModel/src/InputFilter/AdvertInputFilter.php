@@ -9,7 +9,13 @@
 
 namespace AdvertModel\InputFilter;
 
+use TravelloFilter\Filter\StringHtmlPurify;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\InArray;
+use Zend\Validator\NotEmpty;
+use Zend\Validator\StringLength;
 
 /**
  * Class AdvertInputFilter
@@ -70,14 +76,14 @@ class AdvertInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'advert_model_message_status_missing',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->statusOptions,
                             'message'  => 'advert_model_message_status_invalid',
@@ -94,14 +100,14 @@ class AdvertInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'advert_model_message_type_missing',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->typeOptions,
                             'message'  => 'advert_model_message_type_invalid',
@@ -118,14 +124,14 @@ class AdvertInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'advert_model_message_company_missing',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->companyOptions,
                             'message'  => 'advert_model_message_company_invalid',
@@ -140,19 +146,19 @@ class AdvertInputFilter extends InputFilter
                 'name'       => 'title',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'advert_model_message_title_missing',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
@@ -168,19 +174,19 @@ class AdvertInputFilter extends InputFilter
                 'name'       => 'text',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StringTrim'],
-                    ['name' => 'StringHtmlPurify'],
+                    ['name' => StringTrim::class],
+                    ['name' => StringHtmlPurify::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'advert_model_message_text_missing',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 200,
                             'message'  => 'advert_model_message_text_invalid',
@@ -195,19 +201,19 @@ class AdvertInputFilter extends InputFilter
                 'name'       => 'location',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'advert_model_message_location_missing',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
