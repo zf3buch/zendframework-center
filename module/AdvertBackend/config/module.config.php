@@ -13,6 +13,7 @@ use AdvertBackend\Controller\ModifyController;
 use AdvertBackend\Controller\ModifyControllerFactory;
 use AdvertBackend\Form\AdvertForm;
 use AdvertBackend\Form\AdvertFormFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -93,7 +94,7 @@ return [
     'navigation' => [
         'default' => [
             'advert-backend' => [
-                'type'       => 'mvc',
+                'type'       => Mvc::class,
                 'order'      => '900',
                 'label'      => 'Annoncen administrieren',
                 'route'      => 'advert-backend',
@@ -102,17 +103,17 @@ return [
                 'useRouteMatch' => true,
                 'pages'      => [
                     'edit' => [
-                        'type'       => 'mvc',
+                        'type'       => Mvc::class,
                         'route'      => 'advert-backend/modify',
                         'visible'    => false,
                     ],
                     'show' => [
-                        'type'       => 'mvc',
+                        'type'       => Mvc::class,
                         'route'      => 'advert-backend/show',
                         'visible'    => false,
                     ],
                     'page' => [
-                        'type'       => 'mvc',
+                        'type'       => Mvc::class,
                         'route'      => 'advert-backend/page',
                         'visible'    => false,
                     ],

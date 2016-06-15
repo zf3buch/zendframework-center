@@ -12,6 +12,11 @@ namespace CompanyBackend\Form;
 use CompanyModel\Filter\LogoFileUpload;
 use TravelloFilter\Filter\StringToUrlSlug;
 use Zend\Filter\StaticFilter;
+use Zend\Form\Element\Csrf;
+use Zend\Form\Element\File;
+use Zend\Form\Element\Select;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
 use Zend\Form\Form;
 
 /**
@@ -70,14 +75,14 @@ class CompanyForm extends Form implements CompanyFormInterface
 
         $this->add(
             [
-                'type' => 'Csrf',
+                'type' => Csrf::class,
                 'name' => 'csrf',
             ]
         );
 
         $this->add(
             [
-                'type'       => 'Select',
+                'type'       => Select::class,
                 'name'       => 'status',
                 'attributes' => [
                     'class' => 'form-control',
@@ -94,7 +99,7 @@ class CompanyForm extends Form implements CompanyFormInterface
 
         $this->add(
             [
-                'type'       => 'Text',
+                'type'       => Text::class,
                 'name'       => 'name',
                 'attributes' => [
                     'class' => 'form-control',
@@ -110,7 +115,7 @@ class CompanyForm extends Form implements CompanyFormInterface
 
         $this->add(
             [
-                'type'       => 'Text',
+                'type'       => Text::class,
                 'name'       => 'email',
                 'attributes' => [
                     'class' => 'form-control',
@@ -126,7 +131,7 @@ class CompanyForm extends Form implements CompanyFormInterface
 
         $this->add(
             [
-                'type'       => 'Text',
+                'type'       => Text::class,
                 'name'       => 'contact',
                 'attributes' => [
                     'class' => 'form-control',
@@ -142,7 +147,7 @@ class CompanyForm extends Form implements CompanyFormInterface
 
         $this->add(
             [
-                'type'       => 'File',
+                'type'       => File::class,
                 'name'       => 'logo',
                 'attributes' => [
                     'class' => 'form-control-static',
@@ -158,7 +163,7 @@ class CompanyForm extends Form implements CompanyFormInterface
 
         $this->add(
             [
-                'type'       => 'Submit',
+                'type'       => Submit::class,
                 'name'       => 'save_company',
                 'options'    => [],
                 'attributes' => [
