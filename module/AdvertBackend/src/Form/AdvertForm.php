@@ -168,7 +168,7 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => Text::class,
+                    'label'            => 'Text',
                     'label_attributes' => [
                         'class' => 'col-sm-2 control-label',
                     ],
