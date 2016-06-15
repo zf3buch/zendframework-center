@@ -11,6 +11,8 @@ namespace CompanyModel\InputFilter;
 
 use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\File\ImageSize;
+use Zend\Validator\File\MimeType;
 
 /**
  * Class CompanyInputFilter
@@ -152,14 +154,14 @@ class CompanyInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'    => 'FileMimeType',
+                        'name'    => MimeType::class,
                         'options' => [
                             'mimeType' => 'image/png,image/x-png',
                             'message'  => 'company_model_message_logo_type',
                         ],
                     ],
                     [
-                        'name'    => 'FileImageSize',
+                        'name'    => ImageSize::class,
                         'options' => [
                             'minWidth'  => '200',
                             'maxWidth'  => '200',
