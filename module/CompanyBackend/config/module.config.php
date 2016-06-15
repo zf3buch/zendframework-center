@@ -11,6 +11,7 @@ use CompanyBackend\Controller\DisplayController;
 use CompanyBackend\Controller\DisplayControllerFactory;
 use CompanyBackend\Controller\ModifyController;
 use CompanyBackend\Controller\ModifyControllerFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 
@@ -85,7 +86,7 @@ return [
     'navigation' => [
         'default' => [
             'company-backend' => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '950',
                 'label'         => 'Unternehmen administrieren',
                 'route'         => 'company-backend',
@@ -94,17 +95,17 @@ return [
                 'useRouteMatch' => true,
                 'pages'         => [
                     'edit' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'company-backend/modify',
                         'visible' => false,
                     ],
                     'show' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'company-backend/show',
                         'visible' => false,
                     ],
                     'page' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'company-backend/page',
                         'visible' => false,
                     ],
