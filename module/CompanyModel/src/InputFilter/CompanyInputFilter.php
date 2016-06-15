@@ -9,6 +9,7 @@
 
 namespace CompanyModel\InputFilter;
 
+use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
 
 /**
@@ -146,7 +147,7 @@ class CompanyInputFilter extends InputFilter
         $this->add(
             [
                 'name'       => 'logo',
-                'type'       => 'Zend\InputFilter\FileInput',
+                'type'       => FileInput::class,
                 'required'   => false,
                 'filters'    => [],
                 'validators' => [
