@@ -9,10 +9,16 @@
 
 namespace CompanyModel\InputFilter;
 
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\EmailAddress;
 use Zend\Validator\File\ImageSize;
 use Zend\Validator\File\MimeType;
+use Zend\Validator\InArray;
+use Zend\Validator\NotEmpty;
+use Zend\Validator\StringLength;
 
 /**
  * Class CompanyInputFilter
@@ -47,14 +53,14 @@ class CompanyInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'company_model_message_status_missing',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->statusOptions,
                             'message'  => 'company_model_message_status_invalid',
@@ -69,19 +75,19 @@ class CompanyInputFilter extends InputFilter
                 'name'       => 'name',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'company_model_message_name_missing',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
@@ -97,19 +103,19 @@ class CompanyInputFilter extends InputFilter
                 'name'       => 'email',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'company_model_message_email_missing',
                         ],
                     ],
                     [
-                        'name'    => 'EmailAddress',
+                        'name'    => EmailAddress::class,
                         'options' => [
                             'message' => 'company_model_message_email_invalid',
                         ],
@@ -123,19 +129,19 @@ class CompanyInputFilter extends InputFilter
                 'name'       => 'contact',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'company_model_message_contact_missing',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
