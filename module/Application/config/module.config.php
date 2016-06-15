@@ -12,6 +12,7 @@ namespace Application;
 use Application\Controller\IndexController;
 use Application\Controller\TestController;
 use Application\Controller\IndexControllerFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -64,7 +65,7 @@ return [
     'navigation' => [
         'default' => [
             'application' => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '100',
                 'label'         => 'Startseite',
                 'route'         => 'home',
