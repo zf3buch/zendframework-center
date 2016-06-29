@@ -16,7 +16,7 @@
   "prefer-stable": true,
   "require": {
     "php": "^5.6 || ^7.0",
-    "zendframework/zend-component-installer": "^1.0 || ^0.2 || ^1.0.0-dev@dev",
+    "zendframework/zend-component-installer": "^1.0 || ^0.3 || ^1.0.0-dev@dev",
     "zendframework/zend-console": "^2.6",
     "zendframework/zend-mvc": "^3.0",
     "twitter/bootstrap": "~3.3",
@@ -32,6 +32,10 @@
     "zendframework/zend-math": "^3.0",
     "zendframework/zend-session": "^2.7",
     "zendframework/zend-i18n": "^2.7"
+  },
+  "require-dev": {
+    "zendframework/zend-developer-tools": "^1.1",
+    "san/san-session-toolbar": "^0.6.3"
   },
   "autoload": {
     "psr-4": {
