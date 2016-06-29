@@ -2,5 +2,4 @@
 .idea
 vendor
 composer.lock
-bin/templatemap_generator.php
 *.xcf
