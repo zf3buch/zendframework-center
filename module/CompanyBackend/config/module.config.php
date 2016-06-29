@@ -78,7 +78,7 @@ return [
 
     'view_manager' => [
         'template_map'        =>
-            include COMPANY_BACKEND_MODULE_ROOT . '/template_map.php',
+            include COMPANY_BACKEND_MODULE_ROOT . '/config/template_map.config.php',
         'template_path_stack' => [
             COMPANY_BACKEND_MODULE_ROOT . '/view'
         ],
