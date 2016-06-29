@@ -9,6 +9,9 @@
 
 return [
     'modules'                 => [
+        'ZendDeveloperTools',
+        'SanSessionToolbar',
+        'Zend\Session',
         'Zend\Router',
         'Zend\Validator',
         'Application',
