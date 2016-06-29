@@ -132,7 +132,7 @@ return [
 
     'view_manager' => [
         'template_map'        =>
-            include ADVERT_FRONTEND_MODULE_ROOT . '/template_map.php',
+            include ADVERT_FRONTEND_MODULE_ROOT . '/config/template_map.config.php',
         'template_path_stack' => [
             ADVERT_FRONTEND_MODULE_ROOT . '/view'
         ],
