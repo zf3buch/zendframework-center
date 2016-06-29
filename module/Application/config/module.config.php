@@ -54,7 +54,7 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map'             =>
-            include APPLICATION_MODULE_ROOT . '/template_map.php',
+            include APPLICATION_MODULE_ROOT . '/config/template_map.config.php',
         'template_path_stack'      => [
             APPLICATION_MODULE_ROOT . '/view',
         ],
