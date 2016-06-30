@@ -70,7 +70,7 @@ return [
         'defaultRoute'   => 'home',
     ],
 
-    'navigation' => [
+    'navigation'   => [
         'default' => [
             'application' => [
                 'type'          => Mvc::class,

@@ -17,7 +17,7 @@ use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Segment;
 
 return [
-    'router' => [
+    'router'        => [
         'routes' => [
             'advert-backend' => [
                 'type'          => Segment::class,
@@ -73,14 +73,14 @@ return [
         ],
     ],
 
-    'controllers' => [
+    'controllers'   => [
         'factories' => [
             DisplayController::class => DisplayControllerFactory::class,
             ModifyController::class  => ModifyControllerFactory::class,
         ],
     ],
 
-    'view_manager' => [
+    'view_manager'  => [
         'template_map'        =>
             include ADVERT_BACKEND_MODULE_ROOT . '/config/template_map.config.php',
         'template_path_stack' => [
@@ -94,31 +94,31 @@ return [
         ],
     ],
 
-    'navigation' => [
+    'navigation'    => [
         'default' => [
             'advert-backend' => [
-                'type'       => Mvc::class,
-                'order'      => '900',
-                'label'      => 'Annoncen administrieren',
-                'route'      => 'advert-backend',
-                'controller' => DisplayController::class,
-                'action'     => 'index',
+                'type'          => Mvc::class,
+                'order'         => '900',
+                'label'         => 'Annoncen administrieren',
+                'route'         => 'advert-backend',
+                'controller'    => DisplayController::class,
+                'action'        => 'index',
                 'useRouteMatch' => true,
                 'pages'         => [
                     'edit' => [
-                        'type'       => Mvc::class,
-                        'route'      => 'advert-backend/modify',
-                        'visible'    => false,
+                        'type'    => Mvc::class,
+                        'route'   => 'advert-backend/modify',
+                        'visible' => false,
                     ],
                     'show' => [
-                        'type'       => Mvc::class,
-                        'route'      => 'advert-backend/show',
-                        'visible'    => false,
+                        'type'    => Mvc::class,
+                        'route'   => 'advert-backend/show',
+                        'visible' => false,
                     ],
                     'page' => [
-                        'type'       => Mvc::class,
-                        'route'      => 'advert-backend/page',
-                        'visible'    => false,
+                        'type'    => Mvc::class,
+                        'route'   => 'advert-backend/page',
+                        'visible' => false,
                     ],
                 ],
             ],

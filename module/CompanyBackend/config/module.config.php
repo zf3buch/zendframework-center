@@ -22,7 +22,7 @@ return [
         'logo_file_pattern' => '/logos/%s.png',
     ],
 
-    'router' => [
+    'router'        => [
         'routes' => [
             'company-backend' => [
                 'type'          => Segment::class,
@@ -78,14 +78,14 @@ return [
         ],
     ],
 
-    'controllers' => [
+    'controllers'   => [
         'factories' => [
             DisplayController::class => DisplayControllerFactory::class,
             ModifyController::class  => ModifyControllerFactory::class,
         ],
     ],
 
-    'view_manager' => [
+    'view_manager'  => [
         'template_map'        =>
             include COMPANY_BACKEND_MODULE_ROOT . '/config/template_map.config.php',
         'template_path_stack' => [
@@ -99,7 +99,7 @@ return [
         ],
     ],
 
-    'navigation' => [
+    'navigation'    => [
         'default' => [
             'company-backend' => [
                 'type'          => Mvc::class,
