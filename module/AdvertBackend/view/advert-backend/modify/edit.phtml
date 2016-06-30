@@ -82,27 +82,29 @@ $this->inlineScript()->appendScript('CKEDITOR.replace("advert_text");');
 <?php
 $staticElements = [
     [
-        'label' => 'Typ',
-        'value' => $advert->getType(),
+        'label' => $this->translate('advert_backend_label_type'),
+        'value' => $this->translate('advert_model_option_type_'
+            . $advert->getType()),
     ],
     [
-        'label' => 'Angelegt',
+        'label' => $this->translate('advert_backend_label_created'),
         'value' => $advert->getCreated()->format('d.m.Y H:i:s'),
     ],
     [
-        'label' => 'Geändert',
+        'label' => $this->translate('advert_backend_label_updated'),
         'value' => $advert->getUpdated()->format('d.m.Y H:i:s'),
     ],
     [
-        'label' => 'Status',
-        'value' => $advert->getStatus(),
+        'label' => $this->translate('advert_backend_label_status'),
+        'value' => $this->translate('advert_model_option_status_'
+            . $advert->getStatus()),
     ],
     [
-        'label' => 'Unternehmen',
-        'value' => $advert->getCompany()->getName()
-            . ' <i>(Ansprechpartner: '
-            . $advert->getCompany()->getContact()
-            . ' E-Mail-Adresse: '
+        'label' => $this->translate('advert_backend_label_company'),
+        'value' => $advert->getCompany()->getName() . ' <i>('
+            . $this->translate('advert_frontend_label_type_contact') . ': '
+            . $advert->getCompany()->getContact() . ', '
+            . $this->translate('company_backend_label_email') . ': '
             . $advert->getCompany()->getEmail() . ')</i>',
     ],
 ];

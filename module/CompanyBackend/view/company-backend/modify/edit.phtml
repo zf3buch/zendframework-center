@@ -77,16 +77,18 @@ $this->h1('company_backend_h1_display_edit');
 <?php
 $staticElements = [
     [
-        'label' => 'Angelegt',
+        'label' => $this->translate('company_backend_label_created'),
         'value' => $company->getRegistered()->format('d.m.Y H:i:s'),
     ],
     [
-        'label' => 'Geändert',
+        'label' => $this->translate('company_backend_label_updated'),
         'value' => $company->getUpdated()->format('d.m.Y H:i:s'),
     ],
     [
-        'label' => 'Status',
-        'value' => $company->getStatus(),
+        'label' => $this->translate('company_backend_label_status'),
+        'value' => $this->translate(
+            'company_model_option_status_' . $company->getStatus()
+        ),
     ],
 ];
 ?>
