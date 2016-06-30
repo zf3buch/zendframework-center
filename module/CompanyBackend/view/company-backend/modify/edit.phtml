@@ -78,11 +78,19 @@ $this->h1('company_backend_h1_display_edit');
 $staticElements = [
     [
         'label' => $this->translate('company_backend_label_created'),
-        'value' => $company->getRegistered()->format('d.m.Y H:i:s'),
+        'value' => $this->dateFormat(
+            $company->getRegistered(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ),
     ],
     [
         'label' => $this->translate('company_backend_label_updated'),
-        'value' => $company->getUpdated()->format('d.m.Y H:i:s'),
+        'value' => $this->dateFormat(
+            $company->getUpdated(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ),
     ],
     [
         'label' => $this->translate('company_backend_label_status'),

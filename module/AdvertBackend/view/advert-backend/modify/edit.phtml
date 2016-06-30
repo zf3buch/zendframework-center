@@ -88,11 +88,19 @@ $staticElements = [
     ],
     [
         'label' => $this->translate('advert_backend_label_created'),
-        'value' => $advert->getCreated()->format('d.m.Y H:i:s'),
+        'value' => $this->dateFormat(
+            $advert->getCreated(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ),
     ],
     [
         'label' => $this->translate('advert_backend_label_updated'),
-        'value' => $advert->getUpdated()->format('d.m.Y H:i:s'),
+        'value' => $this->dateFormat(
+            $advert->getUpdated(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ),
     ],
     [
         'label' => $this->translate('advert_backend_label_status'),
