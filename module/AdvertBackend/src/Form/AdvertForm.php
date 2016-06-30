@@ -9,6 +9,11 @@
 
 namespace AdvertBackend\Form;
 
+use Zend\Form\Element\Csrf;
+use Zend\Form\Element\Select;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
+use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 
 /**
@@ -67,14 +72,14 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type' => 'Csrf',
+                'type' => Csrf::class,
                 'name' => 'csrf',
             ]
         );
 
         $this->add(
             [
-                'type'       => 'Select',
+                'type'       => Select::class,
                 'name'       => 'type',
                 'attributes' => [
                     'class' => 'form-control',
@@ -91,7 +96,7 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type'       => 'Select',
+                'type'       => Select::class,
                 'name'       => 'status',
                 'attributes' => [
                     'class' => 'form-control',
@@ -108,7 +113,7 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type'       => 'Select',
+                'type'       => Select::class,
                 'name'       => 'company',
                 'attributes' => [
                     'class' => 'form-control',
@@ -125,7 +130,7 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type'       => 'Text',
+                'type'       => Text::class,
                 'name'       => 'location',
                 'attributes' => [
                     'class' => 'form-control',
@@ -141,7 +146,7 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type'       => 'Text',
+                'type'       => Text::class,
                 'name'       => 'title',
                 'attributes' => [
                     'class' => 'form-control',
@@ -157,7 +162,7 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type'       => 'Textarea',
+                'type'       => Textarea::class,
                 'name'       => 'text',
                 'attributes' => [
                     'class' => 'form-control',
@@ -173,7 +178,7 @@ class AdvertForm extends Form implements AdvertFormInterface
 
         $this->add(
             [
-                'type'       => 'Submit',
+                'type'       => Submit::class,
                 'name'       => 'save_advert',
                 'options'    => [],
                 'attributes' => [
