@@ -74,7 +74,7 @@ return [
                 'useRouteMatch' => true,
             ],
             'test' => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '999',
                 'label'         => 'Testseite',
                 'route'         => 'test',
