@@ -17,7 +17,7 @@ use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 
 return [
-    'router' => [
+    'router'       => [
         'routes' => [
             'home' => [
                 'type'    => Literal::class,
@@ -42,7 +42,7 @@ return [
         ],
     ],
 
-    'controllers' => [
+    'controllers'  => [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
             TestController::class  => TestControllerFactory::class,
@@ -62,7 +62,7 @@ return [
         ],
     ],
 
-    'navigation' => [
+    'navigation'   => [
         'default' => [
             'application' => [
                 'type'          => Mvc::class,
@@ -73,7 +73,7 @@ return [
                 'action'        => 'index',
                 'useRouteMatch' => true,
             ],
-            'test' => [
+            'test'        => [
                 'type'          => Mvc::class,
                 'order'         => '999',
                 'label'         => 'Testseite',
