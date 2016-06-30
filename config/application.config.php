@@ -14,13 +14,11 @@ return [
         'Zend\Validator',
         'Application',
     ],
-
     'module_listener_options' => [
         'module_paths' => [
             PROJECT_ROOT . '/module',
             PROJECT_ROOT . '/vendor',
         ],
-
         'cache_dir'                => PROJECT_ROOT . '/data/cache',
         'config_cache_enabled'     => true,
         'config_cache_key'         => 'application.config.cache',
