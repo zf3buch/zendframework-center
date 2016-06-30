@@ -11,6 +11,7 @@ use AdvertFrontend\Controller\DisplayController;
 use AdvertFrontend\Controller\DisplayControllerFactory;
 use AdvertFrontend\Controller\ModifyController;
 use AdvertFrontend\Controller\ModifyControllerFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Segment;
 
 return [
@@ -141,7 +142,7 @@ return [
     'navigation' => [
         'default' => [
             'job'     => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '200',
                 'label'         => 'advert_frontend_navigation_jobs',
                 'route'         => 'advert-job',
@@ -150,24 +151,24 @@ return [
                 'useRouteMatch' => true,
                 'pages'         => [
                     'edit' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'advert-job/modify',
                         'visible' => false,
                     ],
                     'show' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'advert-job/detail',
                         'visible' => false,
                     ],
                     'page' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'advert-job/page',
                         'visible' => false,
                     ],
                 ],
             ],
             'project' => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '300',
                 'label'         => 'advert_frontend_navigation_projects',
                 'route'         => 'advert-project',
@@ -176,17 +177,17 @@ return [
                 'useRouteMatch' => true,
                 'pages'         => [
                     'edit' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'advert-project/modify',
                         'visible' => false,
                     ],
                     'show' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'advert-project/detail',
                         'visible' => false,
                     ],
                     'page' => [
-                        'type'    => 'mvc',
+                        'type'    => Mvc::class,
                         'route'   => 'advert-project/page',
                         'visible' => false,
                     ],
