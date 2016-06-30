@@ -8,15 +8,7 @@
  */
 
 return [
-    'modules'                 => [
-        'Zend\Filter',
-        'Zend\Hydrator',
-        'Zend\Paginator',
-        'Zend\Navigation',
-        'CompanyModel',
-        'AdvertFrontend',
-        'AdvertBackend',
-        'AdvertModel',
+    'modules' => [
         'ZendDeveloperTools',
         'SanSessionToolbar',
     ],
