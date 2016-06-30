@@ -11,8 +11,11 @@ namespace CompanyModel\InputFilter;
 
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
+use Zend\InputFilter\FileInput;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\EmailAddress;
+use Zend\Validator\File\ImageSize;
+use Zend\Validator\File\MimeType;
 use Zend\Validator\InArray;
 use Zend\Validator\NotEmpty;
 use Zend\Validator\StringLength;
@@ -152,19 +155,19 @@ class CompanyInputFilter extends InputFilter
         $this->add(
             [
                 'name'       => 'logo',
-                'type'       => 'Zend\InputFilter\FileInput',
+                'type'       => FileInput::class,
                 'required'   => false,
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'    => 'FileMimeType',
+                        'name'    => MimeType::class,
                         'options' => [
                             'mimeType' => 'image/png,image/x-png',
                             'message'  => 'Nur PNG Grafiken erlaubt!',
                         ],
                     ],
                     [
-                        'name'    => 'FileImageSize',
+                        'name'    => ImageSize::class,
                         'options' => [
                             'minWidth'  => '200',
                             'maxWidth'  => '200',
