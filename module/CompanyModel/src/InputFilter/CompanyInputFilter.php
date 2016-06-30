@@ -9,7 +9,13 @@
 
 namespace CompanyModel\InputFilter;
 
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\EmailAddress;
+use Zend\Validator\InArray;
+use Zend\Validator\NotEmpty;
+use Zend\Validator\StringLength;
 
 /**
  * Class CompanyInputFilter
@@ -44,14 +50,14 @@ class CompanyInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Status eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->statusOptions,
                             'message'  => 'Ungültiger Status!',
@@ -66,19 +72,19 @@ class CompanyInputFilter extends InputFilter
                 'name'       => 'name',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Firmenname eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
@@ -94,19 +100,19 @@ class CompanyInputFilter extends InputFilter
                 'name'       => 'email',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte E-Mail Adresse eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'EmailAddress',
+                        'name'    => EmailAddress::class,
                         'options' => [
                             'message' => 'Bitte gültige E-Mail eingeben!',
                         ],
@@ -120,19 +126,19 @@ class CompanyInputFilter extends InputFilter
                 'name'       => 'contact',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Ansprechpartner eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,

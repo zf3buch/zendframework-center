@@ -9,7 +9,12 @@
 
 namespace AdvertModel\InputFilter;
 
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\InArray;
+use Zend\Validator\NotEmpty;
+use Zend\Validator\StringLength;
 
 /**
  * Class AdvertInputFilter
@@ -70,14 +75,14 @@ class AdvertInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Status eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->statusOptions,
                             'message'  => 'Ungültiger Status!',
@@ -94,14 +99,14 @@ class AdvertInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Typ der Annonce eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->typeOptions,
                             'message'  => 'Ungültiger Annoncentyp!',
@@ -118,14 +123,14 @@ class AdvertInputFilter extends InputFilter
                 'filters'    => [],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Status eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'InArray',
+                        'name'    => InArray::class,
                         'options' => [
                             'haystack' => $this->companyOptions,
                             'message'  => 'Unbekanntes Unternehmen!',
@@ -140,19 +145,19 @@ class AdvertInputFilter extends InputFilter
                 'name'       => 'title',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Annoncentitel eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
@@ -168,18 +173,18 @@ class AdvertInputFilter extends InputFilter
                 'name'       => 'text',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StringTrim'],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Text der Annonce eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 200,
                             'message'  => 'Mindestens %min% Zeichen eingeben!',
@@ -194,19 +199,19 @@ class AdvertInputFilter extends InputFilter
                 'name'       => 'location',
                 'required'   => true,
                 'filters'    => [
-                    ['name' => 'StripTags'],
-                    ['name' => 'StringTrim'],
+                    ['name' => StripTags::class],
+                    ['name' => StringTrim::class],
                 ],
                 'validators' => [
                     [
-                        'name'                   => 'NotEmpty',
+                        'name'                   => NotEmpty::class,
                         'break_chain_on_failure' => true,
                         'options'                => [
                             'message' => 'Bitte Ort eingeben!',
                         ],
                     ],
                     [
-                        'name'    => 'StringLength',
+                        'name'    => StringLength::class,
                         'options' => [
                             'min'      => 3,
                             'max'      => 64,
