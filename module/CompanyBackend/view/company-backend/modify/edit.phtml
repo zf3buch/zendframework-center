@@ -62,29 +62,25 @@ $this->h1('Unternehmen bearbeiten');
     <span class="hidden-xs hidden-sm">Übersicht</span>
   </a>
 </p>
+<?php
+$staticElements = [
+    [
+        'label' => 'Angelegt',
+        'value' => $company->getRegistered()->format('d.m.Y H:i:s'),
+    ],
+    [
+        'label' => 'Geändert',
+        'value' => $company->getUpdated()->format('d.m.Y H:i:s'),
+    ],
+    [
+        'label' => 'Status',
+        'value' => $company->getStatus(),
+    ],
+];
+?>
 <div class="well" style="position: relative">
   <div style="position: absolute; right: 20px;">
     <img src="<?= $company->getLogo() ?>">
   </div>
-  <div class="form-horizontal">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Angelegt</label>
-      <div class="col-sm-10 form-control-static">
-        <?= $company->getRegistered()->format('d.m.Y H:i:s') ?>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Geändert</label>
-      <div class="col-sm-10 form-control-static">
-        <?= $company->getUpdated()->format('d.m.Y H:i:s')  ?>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-2 control-label">Status</label>
-      <div class="col-sm-10 form-control-static">
-        <?= $company->getStatus() ?>
-      </div>
-    </div>
-  </div>
-  <?= $this->bootstrapForm($form); ?>
+  <?= $this->bootstrapForm($form, $staticElements); ?>
 </div>

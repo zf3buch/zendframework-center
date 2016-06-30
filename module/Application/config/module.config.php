@@ -13,10 +13,11 @@ use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
 use Application\I18n\I18nListener;
 use Application\I18n\I18nListenerFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Segment;
 
 return [
-    'router' => [
+    'router'       => [
         'routes' => [
             'home' => [
                 'type'    => Segment::class,
@@ -35,7 +36,7 @@ return [
         ],
     ],
 
-    'controllers' => [
+    'controllers'  => [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
         ],
@@ -72,7 +73,7 @@ return [
     'navigation' => [
         'default' => [
             'application' => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '100',
                 'label'         => 'Startseite',
                 'route'         => 'home',

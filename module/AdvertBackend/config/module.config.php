@@ -13,6 +13,7 @@ use AdvertBackend\Controller\ModifyController;
 use AdvertBackend\Controller\ModifyControllerFactory;
 use AdvertBackend\Form\AdvertForm;
 use AdvertBackend\Form\AdvertFormFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Segment;
 
 return [
@@ -96,28 +97,28 @@ return [
     'navigation' => [
         'default' => [
             'advert-backend' => [
-                'type'          => 'mvc',
-                'order'         => '900',
-                'label'         => 'Annoncen administrieren',
-                'route'         => 'advert-backend',
-                'controller'    => DisplayController::class,
-                'action'        => 'index',
+                'type'       => Mvc::class,
+                'order'      => '900',
+                'label'      => 'Annoncen administrieren',
+                'route'      => 'advert-backend',
+                'controller' => DisplayController::class,
+                'action'     => 'index',
                 'useRouteMatch' => true,
                 'pages'         => [
                     'edit' => [
-                        'type'    => 'mvc',
-                        'route'   => 'advert-backend/modify',
-                        'visible' => false,
+                        'type'       => Mvc::class,
+                        'route'      => 'advert-backend/modify',
+                        'visible'    => false,
                     ],
                     'show' => [
-                        'type'    => 'mvc',
-                        'route'   => 'advert-backend/show',
-                        'visible' => false,
+                        'type'       => Mvc::class,
+                        'route'      => 'advert-backend/show',
+                        'visible'    => false,
                     ],
                     'page' => [
-                        'type'    => 'mvc',
-                        'route'   => 'advert-backend/page',
-                        'visible' => false,
+                        'type'       => Mvc::class,
+                        'route'      => 'advert-backend/page',
+                        'visible'    => false,
                     ],
                 ],
             ],
