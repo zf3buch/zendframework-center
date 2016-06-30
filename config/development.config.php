@@ -8,13 +8,7 @@
  */
 
 return [
-    'modules'                 => [
-        'Zend\Paginator',
-        'Zend\Navigation',
-        'CompanyModel',
-        'AdvertFrontend',
-        'AdvertBackend',
-        'AdvertModel',
+    'modules' => [
         'ZendDeveloperTools',
         'SanSessionToolbar',
     ],
