@@ -11,10 +11,11 @@ namespace Application;
 
 use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
+use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 
 return [
-    'router' => [
+    'router'       => [
         'routes' => [
             'home' => [
                 'type'    => Literal::class,
@@ -29,7 +30,7 @@ return [
         ],
     ],
 
-    'controllers' => [
+    'controllers'  => [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
         ],
@@ -48,10 +49,10 @@ return [
         ],
     ],
 
-    'navigation' => [
+    'navigation'   => [
         'default' => [
             'application' => [
-                'type'          => 'mvc',
+                'type'          => Mvc::class,
                 'order'         => '100',
                 'label'         => 'Startseite',
                 'route'         => 'home',
