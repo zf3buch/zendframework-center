@@ -10,8 +10,6 @@
 return [
     // navigation texts
     'application_navigation_home'                   => 'Startseite',
-    'application_navigation_german'                 => 'Deutsch',
-    'application_navigation_english'                => 'Englisch',
 
     // title texts
     'application_title_default'                     => 'Zend Framework Center',
