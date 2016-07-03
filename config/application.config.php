@@ -24,6 +24,7 @@ return [
         'Zend\Session',
         'Zend\Router',
         'Zend\Validator',
+        'UserModel',
         'CompanyBackend',
         'CompanyModel',
         'AdvertFrontend',

@@ -49,6 +49,8 @@
       "AdvertModel\\": "module/AdvertModel/src/",
       "CompanyModel\\": "module/CompanyModel/src/",
       "CompanyBackend\\": "module/CompanyBackend/src/",
+      "UserModel\\": "module/UserModel/src/",
+      "UserBackend\\": "module/UserBackend/src/",
       "Scripts\\": "script/"
     }
   },
