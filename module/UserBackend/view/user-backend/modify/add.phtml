@@ -1,0 +1,30 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use UserBackend\Form\UserFormInterface;
+
+/** @var UserFormInterface $form */
+$form = $this->userForm;
+
+$listLink = $this->url('user-backend', [], true);
+
+$this->headTitle('user_backend_title_display_add');
+$this->h1('user_backend_h1_display_add');
+?>
+<p>
+  <a href="<?= $listLink ?>" class="btn btn-default">
+    <i class="fa fa-list"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_overview') ?>
+    </span>
+  </a>
+</p>
+<div class="well">
+  <?= $this->bootstrapForm($form); ?>
+</div>

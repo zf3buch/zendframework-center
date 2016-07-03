@@ -49,7 +49,7 @@ class UserEntity
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $password;
 
@@ -170,7 +170,23 @@ class UserEntity
      */
     public function setPassword($password)
     {
-        $this->password = trim($password);
+        if (empty($password)) {
+            $password = null;
+        }
+
+        $this->password = $password;
+    }
+
+    /**
+     * return void
+     */
+    public function encryptPassword()
+    {
+        if (!is_null($this->password)) {
+            $this->password = password_hash(
+                $this->password, PASSWORD_BCRYPT
+            );
+        }
     }
 
     /**

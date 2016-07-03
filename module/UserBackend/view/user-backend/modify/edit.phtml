@@ -1,0 +1,105 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use UserBackend\Form\UserFormInterface;
+use UserModel\Entity\UserEntity;
+
+/** @var UserFormInterface $form */
+$form = $this->userForm;
+
+/** @var UserEntity $user */
+$user = $this->user;
+
+$listLink    = $this->url('user-backend', [], true);
+$showLink    = $this->url(
+    'user-backend/show', ['id' => $user->getId()], true
+);
+$editLink    = $this->url(
+    'user-backend/modify', ['action' => 'edit', 'id' => $user->getId()], true
+);
+$deleteLink  = $this->url(
+    'user-backend/modify', ['action' => 'delete', 'id' => $user->getId()], true
+);
+$approveLink = $this->url(
+    'user-backend/modify', ['action' => 'approve', 'id' => $user->getId()], true
+);
+$blockLink   = $this->url(
+    'user-backend/modify', ['action' => 'block', 'id' => $user->getId()], true
+);
+
+$this->headTitle('user_backend_title_display_edit');
+$this->h1('user_backend_h1_display_edit');
+?>
+<p>
+  <a href="<?= $showLink ?>" class="btn btn-default">
+    <i class="fa fa-file-text-o"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_show_short') ?>
+    </span>
+  </a>
+  <a href="<?= $editLink ?>" class="btn btn-primary">
+    <i class="fa fa-pencil"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_edit_short') ?>
+    </span>
+  </a>
+  <a href="<?= $deleteLink ?>" class="btn btn-default">
+    <i class="fa fa-trash-o"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_delete_short') ?>
+    </span>
+  </a>
+  <a href="<?= $approveLink ?>" class="btn btn-default">
+    <i class="fa fa-thumbs-o-up"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_approve_short') ?>
+    </span>
+  </a>
+  <a href="<?= $blockLink ?>" class="btn btn-default">
+    <i class="fa fa-thumbs-o-down"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_block_short') ?>
+    </span>
+  </a>
+  <a href="<?= $listLink ?>" class="btn btn-default">
+    <i class="fa fa-list"></i>
+    <span class="hidden-xs hidden-sm">
+      <?= $this->translate('user_backend_action_overview') ?>
+    </span>
+  </a>
+</p>
+<?php
+$staticElements = [
+    [
+        'label' => $this->translate('user_backend_label_registered'),
+        'value' => $this->dateFormat(
+            $user->getRegistered(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ),
+    ],
+    [
+        'label' => $this->translate('user_backend_label_updated'),
+        'value' => $this->dateFormat(
+            $user->getUpdated(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ),
+    ],
+    [
+        'label' => $this->translate('user_backend_label_status'),
+        'value' => $this->translate(
+            'user_model_option_status_' . $user->getStatus()
+        ),
+    ],
+];
+?>
+<div class="well" style="position: relative">
+  <?= $this->bootstrapForm($form, $staticElements); ?>
+</div>

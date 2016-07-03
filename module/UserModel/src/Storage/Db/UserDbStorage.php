@@ -160,6 +160,10 @@ class UserDbStorage implements UserStorageInterface
     {
         $updateData = $this->hydrator->extract($user);
 
+        if (empty($updateData['password'])) {
+            unset($updateData['password']);
+        }
+
         $update = $this->tableGateway->getSql()->update();
         $update->set($updateData);
         $update->where->equalTo('id', $user->getId());

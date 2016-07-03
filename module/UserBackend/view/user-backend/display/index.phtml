@@ -1,0 +1,114 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use UserModel\Entity\UserEntity;
+
+$addLink = $this->url(
+    'user-backend/modify', ['action' => 'add'], true
+);
+
+$this->headTitle('user_backend_title_display_index');
+$this->h1('user_backend_h1_display_index');
+?>
+<table class="table table-condensed table-bordered table-striped">
+  <thead>
+  <tr>
+    <th><?= $this->translate('user_backend_label_status') ?></th>
+    <th><?= $this->translate('user_backend_label_role') ?></th>
+    <th><?= $this->translate('user_backend_label_email') ?></th>
+    <th class="hidden-xs">
+      <?= $this->translate('user_backend_label_updated') ?>
+    </th>
+    <th class="text-center">
+      <a href="<?= $addLink ?>">
+        <i class="fa fa-plus-square-o"></i>
+      </a>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <?php /** @var UserEntity $user */ ?>
+  <?php foreach ($this->userList as $user) : ?>
+    <?php
+    $showLink    = $this->url(
+        'user-backend/show', ['id' => $user->getId()], true
+    );
+    $editLink    = $this->url(
+        'user-backend/modify',
+        ['action' => 'edit', 'id' => $user->getId()], true
+    );
+    $deleteLink  = $this->url(
+        'user-backend/modify',
+        ['action' => 'delete', 'id' => $user->getId()], true
+    );
+    $approveLink = $this->url(
+        'user-backend/modify',
+        ['action' => 'approve', 'id' => $user->getId()], true
+    );
+    $blockLink   = $this->url(
+        'user-backend/modify',
+        ['action' => 'block', 'id' => $user->getId()], true
+    );
+    ?>
+    <tr>
+      <td>
+        <?= $this->translate(
+            'user_model_option_status_' . $user->getStatus()
+        ) ?>
+      </td>
+      <td>
+        <?= $this->translate(
+            'user_model_option_role_' . $user->getRole()
+        ) ?>
+      </td>
+      <td>
+        <a href="<?= $showLink ?>">
+          <?= $user->getEmail() ?>
+        </a>
+      </td>
+      <td class="hidden-xs">
+        <?= $this->dateFormat(
+            $user->getUpdated(),
+            IntlDateFormatter::MEDIUM,
+            IntlDateFormatter::MEDIUM
+        ) ?>
+      </td>
+      <td class="text-center">
+        <a href="<?= $showLink ?>" class="hidden-xs hidden-sm">
+          <i class="fa fa-file-text-o"></i>
+        </a>
+        <a href="<?= $editLink ?>">
+            <i class="fa fa-pencil"></i>
+        </a>
+        <a href="<?= $deleteLink ?>" class="hidden-xs hidden-sm">
+          <i class="fa fa-trash-o"></i>
+        </a>
+        <a href="<?= $approveLink ?>" class="visible-lg-inline">
+          <i class="fa fa-thumbs-o-up"></i>
+        </a>
+        <a href="<?= $blockLink ?>" class="visible-lg-inline">
+         <i class="fa fa-thumbs-o-down"></i>
+        </a>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+<nav class="text-center">
+  <?php
+  echo $this->paginationControl(
+      $this->userList,
+      'Sliding',
+      'pagination/page-navigation',
+      [
+        'route' => 'user-backend/page'
+      ]
+  );
+  ?>
+</nav>

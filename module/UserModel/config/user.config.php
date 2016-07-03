@@ -15,7 +15,7 @@ return [
         'blocked'  => 'user_model_option_status_blocked',
     ],
     'role_options'   => [
-        'company' => 'user_model_option_status_company',
-        'admin'   => 'user_model_option_status_admin',
+        'company' => 'user_model_option_role_company',
+        'admin'   => 'user_model_option_role_admin',
     ],
 ];

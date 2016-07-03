@@ -22,6 +22,6 @@ return [
     'user_model_option_status_new'        => 'neu',
     'user_model_option_status_approved'   => 'genehmigt',
     'user_model_option_status_blocked'    => 'blockiert',
-    'user_model_option_status_company'    => 'Unternehmen',
-    'user_model_option_status_admin'      => 'Administrator',
+    'user_model_option_role_company'      => 'Unternehmen',
+    'user_model_option_role_admin'        => 'Administrator',
 ];
