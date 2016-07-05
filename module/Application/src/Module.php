@@ -11,15 +11,10 @@ namespace Application;
 
 use Application\I18n\I18nListener;
 use Application\View\LayoutListener;
-use UserBackend\Permissions\Resource\DisplayResource;
-use UserBackend\Permissions\Resource\ModifyResource;
-use UserModel\Permissions\Role\AdminRole;
-use UserModel\Permissions\Role\CompanyRole;
-use UserModel\Permissions\Role\GuestRole;
-use UserModel\Permissions\UserAcl;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\Session\Config\ConfigInterface;
 
 /**
  * Class Module
@@ -55,6 +50,9 @@ class Module
         /** @var I18nListener $i18nListener */
         $i18nListener = $serviceManager->get(I18nListener::class);
         $i18nListener->attach($eventManager);
+
+        // start session config
+        $sessionConfig = $serviceManager->get(ConfigInterface::class);
     }
 
     /**
