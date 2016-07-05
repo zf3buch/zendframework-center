@@ -46,31 +46,6 @@ class Module
         // get services
         $serviceManager = $e->getApplication()->getServiceManager();
 
-        /** @var UserAcl $acl */
-        $acl = $serviceManager->get(UserAcl::class);
-
-        var_dump(
-            $acl->isAllowed(
-                GuestRole::NAME,
-                DisplayResource::NAME,
-                DisplayResource::PRIVILEGE_INDEX
-            )
-        );
-        var_dump(
-            $acl->isAllowed(
-                CompanyRole::NAME,
-                DisplayResource::NAME,
-                DisplayResource::PRIVILEGE_INDEX
-            )
-        );
-        var_dump(
-            $acl->isAllowed(
-                AdminRole::NAME,
-                ModifyResource::NAME,
-                ModifyResource::PRIVILEGE_APPROVE
-            )
-        );
-
         // add listeners
         $eventManager = $e->getApplication()->getEventManager();
 
