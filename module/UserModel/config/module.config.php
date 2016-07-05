@@ -12,6 +12,8 @@ use UserModel\Config\UserConfigInterface;
 use UserModel\Hydrator\UserHydrator;
 use UserModel\InputFilter\UserInputFilter;
 use UserModel\InputFilter\UserInputFilterFactory;
+use UserModel\Permissions\UserAcl;
+use UserModel\Permissions\UserAclFactory;
 use UserModel\Repository\UserRepositoryFactory;
 use UserModel\Repository\UserRepositoryInterface;
 use UserModel\Storage\Db\UserDbStorage;
@@ -26,7 +28,9 @@ return [
             UserDbStorage::class => UserDbStorageFactory::class,
 
             UserRepositoryInterface::class =>
-                UserRepositoryFactory::class
+                UserRepositoryFactory::class,
+
+            UserAcl::class => UserAclFactory::class,
         ],
     ],
 

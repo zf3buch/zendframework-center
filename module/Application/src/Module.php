@@ -11,6 +11,12 @@ namespace Application;
 
 use Application\I18n\I18nListener;
 use Application\View\LayoutListener;
+use UserBackend\Permissions\Resource\DisplayResource;
+use UserBackend\Permissions\Resource\ModifyResource;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\CompanyRole;
+use UserModel\Permissions\Role\GuestRole;
+use UserModel\Permissions\UserAcl;
 use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\ModuleManagerInterface;
 use Zend\Mvc\MvcEvent;
@@ -40,6 +46,31 @@ class Module
         // get services
         $serviceManager = $e->getApplication()->getServiceManager();
 
+        /** @var UserAcl $acl */
+        $acl = $serviceManager->get(UserAcl::class);
+
+        var_dump(
+            $acl->isAllowed(
+                GuestRole::NAME,
+                DisplayResource::NAME,
+                DisplayResource::PRIVILEGE_INDEX
+            )
+        );
+        var_dump(
+            $acl->isAllowed(
+                CompanyRole::NAME,
+                DisplayResource::NAME,
+                DisplayResource::PRIVILEGE_INDEX
+            )
+        );
+        var_dump(
+            $acl->isAllowed(
+                AdminRole::NAME,
+                ModifyResource::NAME,
+                ModifyResource::PRIVILEGE_APPROVE
+            )
+        );
+
         // add listeners
         $eventManager = $e->getApplication()->getEventManager();
 
@@ -56,6 +87,7 @@ class Module
      */
     public function getConfig()
     {
-        return include APPLICATION_MODULE_ROOT . '/config/module.config.php';
+        return include APPLICATION_MODULE_ROOT
+            . '/config/module.config.php';
     }
 }

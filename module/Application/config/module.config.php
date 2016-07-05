@@ -13,11 +13,16 @@ use Application\Controller\IndexController;
 use Application\Controller\IndexControllerFactory;
 use Application\I18n\I18nListener;
 use Application\I18n\I18nListenerFactory;
+use Application\Permissions\Resource\IndexResource;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\CompanyRole;
+use UserModel\Permissions\Role\GuestRole;
 use Zend\Navigation\Page\Mvc;
+use Zend\Permissions\Acl\Acl;
 use Zend\Router\Http\Segment;
 
 return [
-    'router'       => [
+    'router' => [
         'routes' => [
             'home' => [
                 'type'    => Segment::class,
@@ -36,7 +41,7 @@ return [
         ],
     ],
 
-    'controllers'  => [
+    'controllers' => [
         'factories' => [
             IndexController::class => IndexControllerFactory::class,
         ],
@@ -55,7 +60,8 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map'             =>
-            include APPLICATION_MODULE_ROOT . '/config/template_map.config.php',
+            include APPLICATION_MODULE_ROOT
+                . '/config/template_map.config.php',
         'template_path_stack'      => [
             APPLICATION_MODULE_ROOT . '/view',
         ],
@@ -70,7 +76,7 @@ return [
         'defaultRoute'   => 'home',
     ],
 
-    'navigation'   => [
+    'navigation' => [
         'default' => [
             'application' => [
                 'type'          => Mvc::class,
@@ -90,6 +96,28 @@ return [
                 'type'     => 'phparray',
                 'base_dir' => APPLICATION_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
+            ],
+        ],
+    ],
+
+    'acl' => [
+        GuestRole::NAME   => [
+            IndexResource::NAME => [
+                Acl::TYPE_ALLOW => [
+                    IndexResource::PRIVILEGE_INDEX,
+                ],
+            ],
+        ],
+        CompanyRole::NAME => [
+            IndexResource::NAME => [
+                Acl::TYPE_ALLOW => [
+                    IndexResource::PRIVILEGE_INDEX,
+                ],
+            ],
+        ],
+        AdminRole::NAME   => [
+            IndexResource::NAME => [
+                Acl::TYPE_ALLOW => null,
             ],
         ],
     ],

@@ -35,7 +35,8 @@
     "ralfeggert/travello-view-helper": "^1.3",
     "ralfeggert/travello-filter": "^1.2",
     "ckeditor/ckeditor": "^4.5",
-    "zendframework/zend-mvc-i18n": "^1.0"
+    "zendframework/zend-mvc-i18n": "^1.0",
+    "zendframework/zend-permissions-acl": "^2.6"
   },
   "require-dev": {
     "zendframework/zend-developer-tools": "^1.1",

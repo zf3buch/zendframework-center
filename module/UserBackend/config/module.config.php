@@ -13,7 +13,12 @@ use UserBackend\Controller\ModifyController;
 use UserBackend\Controller\ModifyControllerFactory;
 use UserBackend\Form\UserForm;
 use UserBackend\Form\UserFormFactory;
+use UserBackend\Permissions\Resource\DisplayResource;
+use UserBackend\Permissions\Resource\ModifyResource;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\GuestRole;
 use Zend\Navigation\Page\Mvc;
+use Zend\Permissions\Acl\Acl;
 use Zend\Router\Http\Segment;
 
 return [
@@ -131,6 +136,17 @@ return [
                 'type'     => 'phparray',
                 'base_dir' => USER_BACKEND_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
+            ],
+        ],
+    ],
+
+    'acl' => [
+        AdminRole::NAME   => [
+            DisplayResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            ModifyResource::NAME => [
+                Acl::TYPE_ALLOW => null,
             ],
         ],
     ],

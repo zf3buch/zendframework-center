@@ -13,7 +13,12 @@ use AdvertBackend\Controller\ModifyController;
 use AdvertBackend\Controller\ModifyControllerFactory;
 use AdvertBackend\Form\AdvertForm;
 use AdvertBackend\Form\AdvertFormFactory;
+use AdvertBackend\Permissions\Resource\DisplayResource;
+use AdvertBackend\Permissions\Resource\ModifyResource;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\GuestRole;
 use Zend\Navigation\Page\Mvc;
+use Zend\Permissions\Acl\Acl;
 use Zend\Router\Http\Segment;
 
 return [
@@ -131,6 +136,17 @@ return [
                 'type'     => 'phparray',
                 'base_dir' => ADVERT_BACKEND_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
+            ],
+        ],
+    ],
+
+    'acl' => [
+        AdminRole::NAME   => [
+            DisplayResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            ModifyResource::NAME => [
+                Acl::TYPE_ALLOW => null,
             ],
         ],
     ],

@@ -13,7 +13,12 @@ use CompanyBackend\Controller\ModifyController;
 use CompanyBackend\Controller\ModifyControllerFactory;
 use CompanyBackend\Form\CompanyForm;
 use CompanyBackend\Form\CompanyFormFactory;
+use CompanyBackend\Permissions\Resource\DisplayResource;
+use CompanyBackend\Permissions\Resource\ModifyResource;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\GuestRole;
 use Zend\Navigation\Page\Mvc;
+use Zend\Permissions\Acl\Acl;
 use Zend\Router\Http\Segment;
 
 return [
@@ -136,6 +141,17 @@ return [
                 'type'     => 'phparray',
                 'base_dir' => COMPANY_BACKEND_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
+            ],
+        ],
+    ],
+
+    'acl' => [
+        AdminRole::NAME   => [
+            DisplayResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            ModifyResource::NAME => [
+                Acl::TYPE_ALLOW => null,
             ],
         ],
     ],

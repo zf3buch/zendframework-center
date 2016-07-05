@@ -11,7 +11,13 @@ use AdvertFrontend\Controller\DisplayController;
 use AdvertFrontend\Controller\DisplayControllerFactory;
 use AdvertFrontend\Controller\ModifyController;
 use AdvertFrontend\Controller\ModifyControllerFactory;
+use AdvertFrontend\Permissions\Resource\DisplayResource;
+use AdvertFrontend\Permissions\Resource\ModifyResource;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\CompanyRole;
+use UserModel\Permissions\Role\GuestRole;
 use Zend\Navigation\Page\Mvc;
+use Zend\Permissions\Acl\Acl;
 use Zend\Router\Http\Segment;
 
 return [
@@ -202,6 +208,37 @@ return [
                 'type'     => 'phparray',
                 'base_dir' => ADVERT_FRONTEND_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
+            ],
+        ],
+    ],
+
+    'acl' => [
+        GuestRole::NAME   => [
+            DisplayResource::NAME => [
+                Acl::TYPE_ALLOW => [
+                    DisplayResource::PRIVILEGE_INDEX,
+                    DisplayResource::PRIVILEGE_DETAIL,
+                ],
+            ],
+        ],
+        CompanyRole::NAME => [
+            DisplayResource::NAME => [
+                Acl::TYPE_ALLOW => [
+                    DisplayResource::PRIVILEGE_INDEX,
+                    DisplayResource::PRIVILEGE_DETAIL,
+                ],
+            ],
+            ModifyResource::NAME => [
+                Acl::TYPE_ALLOW => [
+                    ModifyResource::PRIVILEGE_ADD,
+                    ModifyResource::PRIVILEGE_EDIT,
+                    ModifyResource::PRIVILEGE_DELETE,
+                ],
+            ],
+        ],
+        AdminRole::NAME   => [
+            DisplayResource::NAME => [
+                Acl::TYPE_ALLOW => null,
             ],
         ],
     ],
