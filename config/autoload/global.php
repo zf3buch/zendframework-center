@@ -15,4 +15,11 @@ return [
             Zend\Db\Adapter\Adapter::class => AdapterServiceFactory::class,
         ],
     ],
+
+    'session_config' => [
+        'save_path'       => realpath(PROJECT_ROOT . '/data/session'),
+        'name'            => 'ZFC_SESSION',
+        'cookie_lifetime' => 365 * 24 * 60 * 60,
+        'gc_maxlifetime'  => 720,
+    ],
 ];
