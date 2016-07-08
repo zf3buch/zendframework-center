@@ -10,6 +10,7 @@
 namespace UserFrontend\Controller;
 
 use Interop\Container\ContainerInterface;
+use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Repository\UserRepositoryInterface;
 use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -40,8 +41,14 @@ class LoginControllerFactory implements FactoryInterface
             UserRepositoryInterface::class
         );
 
+        /** @var UserLoginFormInterface $userForm */
+        $userForm = $formElementManager->get(
+            UserLoginFormInterface::class
+        );
+
         $controller = new LoginController();
         $controller->setUserRepository($userRepository);
+        $controller->setUserForm($userForm);
 
         return $controller;
     }

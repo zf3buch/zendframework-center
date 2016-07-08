@@ -9,6 +9,7 @@
 
 namespace UserFrontend\Controller;
 
+use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Repository\UserRepositoryInterface;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -25,9 +26,22 @@ use Zend\View\Model\ViewModel;
 class LoginController extends AbstractActionController
 {
     /**
+     * @var UserLoginFormInterface
+     */
+    private $userForm;
+
+    /**
      * @var UserRepositoryInterface
      */
     private $userRepository;
+
+    /**
+     * @param UserLoginFormInterface $userForm
+     */
+    public function setUserForm(UserLoginFormInterface $userForm)
+    {
+        $this->userForm = $userForm;
+    }
 
     /**
      * @param UserRepositoryInterface $userRepository
@@ -45,6 +59,16 @@ class LoginController extends AbstractActionController
      */
     public function indexAction()
     {
+        if ($this->getRequest()->isPost()) {
+            $this->flashMessenger()->addInfoMessage(
+                'user_frontend_message_check_data'
+            );
+        } else {
+            $this->flashMessenger()->addInfoMessage(
+                'user_frontend_message_login'
+            );
+        }
+        
         $viewModel = new ViewModel();
 
         return $viewModel;
