@@ -22,6 +22,10 @@ class ShowRegisterForm extends AbstractShowForm
     public function __invoke()
     {
         $this->getUserForm()->registerMode();
+        $this->getUserForm()->setAttribute(
+            'action',
+            $this->getView()->url('user-frontend/register', [], true)
+        );
 
         return $this->getView()->bootstrapForm($this->getUserForm());
     }
