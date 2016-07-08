@@ -21,19 +21,6 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
     /**
-     * @var UserRepositoryInterface
-     */
-    private $userRepository;
-
-    /**
-     * @param UserRepositoryInterface $userRepository
-     */
-    public function setUserRepository($userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
-    /**
      * Show user intro
      *
      * @return ViewModel

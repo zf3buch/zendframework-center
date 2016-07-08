@@ -10,13 +10,12 @@
 use UserFrontend\Controller\EditController;
 use UserFrontend\Controller\EditControllerFactory;
 use UserFrontend\Controller\IndexController;
-use UserFrontend\Controller\IndexControllerFactory;
 use UserFrontend\Controller\LoginController;
 use UserFrontend\Controller\LoginControllerFactory;
 use UserFrontend\Controller\RegisterController;
 use UserFrontend\Controller\RegisterControllerFactory;
-use UserFrontend\Form\UserForm;
 use UserFrontend\Form\UserFormFactory;
+use UserFrontend\Form\UserFormInterface;
 use UserFrontend\View\Helper\ShowEditForm;
 use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowFormAbstractFactory;
@@ -24,6 +23,7 @@ use UserFrontend\View\Helper\ShowRegisterForm;
 use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'router' => [
@@ -77,7 +77,7 @@ return [
 
     'controllers' => [
         'factories' => [
-            IndexController::class    => IndexControllerFactory::class,
+            IndexController::class    => InvokableFactory::class,
             EditController::class     => EditControllerFactory::class,
             RegisterController::class => RegisterControllerFactory::class,
             LoginController::class    => LoginControllerFactory::class,
@@ -95,7 +95,10 @@ return [
 
     'form_elements' => [
         'factories' => [
-            UserForm::class => UserFormFactory::class,
+            UserFormInterface::class => UserFormFactory::class,
+        ],
+        'shared' => [
+            UserFormInterface::class => true,
         ],
     ],
 

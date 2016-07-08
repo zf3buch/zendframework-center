@@ -28,6 +28,7 @@ return [
 
     // message texts
     'user_frontend_message_register'     => 'Wenn Sie noch nicht registriert sind, können Sie sich nun neu registrieren!',
+    'user_frontend_message_registered'   => 'Sie haben sich erfolgreich registriert und können sich nun anmelden!',
     'user_frontend_message_login'        => 'Wenn Sie schon registriert sind, können Sie sich nun anmelden!',
     'user_frontend_message_edit'         => 'Sie können die Benutzerdaten nun bearbeiten!',
     'user_frontend_message_check_data'   => 'Bitte überprüfen Sie die Daten des Benutzers!',
