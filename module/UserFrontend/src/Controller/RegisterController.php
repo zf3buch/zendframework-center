@@ -29,10 +29,28 @@ class RegisterController extends AbstractActionController
      * @var UserRegisterFormInterface
      */
     private $userForm;
+
     /**
      * @var UserRepositoryInterface
      */
     private $userRepository;
+
+    /**
+     * @param UserRegisterFormInterface $userForm
+     */
+    public function setUserForm(UserRegisterFormInterface $userForm)
+    {
+        $this->userForm = $userForm;
+    }
+
+    /**
+     * @param UserRepositoryInterface $userRepository
+     */
+    public function setUserRepository(
+        UserRepositoryInterface $userRepository
+    ) {
+        $this->userRepository = $userRepository;
+    }
 
     /**
      * Register user
@@ -93,24 +111,4 @@ class RegisterController extends AbstractActionController
 
         return $viewModel;
     }
-
-    /**
-     * @param UserRegisterFormInterface $userForm
-     */
-    public function setUserForm(UserRegisterFormInterface $userForm)
-    {
-        $this->userForm = $userForm;
-    }
-
-    /**
-     * @param UserRepositoryInterface $userRepository
-     */
-    public function setUserRepository(
-        UserRepositoryInterface $userRepository
-    ) {
-        $this->userRepository = $userRepository;
-    }
 }
-
-// 000000007f40b7b000007f6ab78e01cb
-// 000000007f40b74600007f6ab78e01cb
