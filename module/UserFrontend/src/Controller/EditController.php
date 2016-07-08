@@ -32,8 +32,9 @@ class EditController extends AbstractActionController
     /**
      * @param UserRepositoryInterface $userRepository
      */
-    public function setUserRepository($userRepository)
-    {
+    public function setUserRepository(
+        UserRepositoryInterface $userRepository
+    ) {
         $this->userRepository = $userRepository;
     }
 

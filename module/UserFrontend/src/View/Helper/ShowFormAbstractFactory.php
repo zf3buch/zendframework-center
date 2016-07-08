@@ -53,7 +53,7 @@ class ShowFormAbstractFactory implements AbstractFactoryInterface
         $formElementManager = $container->get('FormElementManager');
 
         /** @var UserFormInterface $userForm */
-        $userForm = $formElementManager->get(UserForm::class);
+        $userForm = $formElementManager->get(UserFormInterface::class);
 
         /** @var AbstractShowForm $viewHelper */
         $viewHelper = new $requestedName();

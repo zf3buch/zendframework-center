@@ -9,9 +9,9 @@
 
 namespace UserModel\Repository;
 
+use DateTime;
 use UserModel\Entity\UserEntity;
 use UserModel\Storage\UserStorageInterface;
-use DateTime;
 use Zend\Paginator\Paginator;
 
 /**
@@ -84,12 +84,15 @@ class UserRepository implements UserRepositoryInterface
     {
         $nextId = $this->userStorage->nextId();
 
+        $status = isset($data['status']) ? $data['status'] : 'new';
+        $role   = isset($data['role']) ? $data['role'] : 'company';
+
         $user = new UserEntity();
         $user->setId($nextId);
         $user->setRegistered(new DateTime());
         $user->setUpdated(new DateTime());
-        $user->setStatus($data['status']);
-        $user->setRole($data['role']);
+        $user->setStatus($status);
+        $user->setRole($role);
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
 
