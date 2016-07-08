@@ -9,7 +9,7 @@
 
 namespace UserFrontend\View\Helper;
 
-use UserFrontend\Form\UserFormInterface;
+use UserFrontend\Form\AbstractUserForm;
 use Zend\View\Helper\AbstractHelper;
 
 /**
@@ -20,12 +20,12 @@ use Zend\View\Helper\AbstractHelper;
 abstract class AbstractShowForm extends AbstractHelper
 {
     /**
-     * @var UserFormInterface
+     * @var AbstractUserForm
      */
     private $userForm;
 
     /**
-     * @return UserFormInterface
+     * @return AbstractUserForm
      */
     protected function getUserForm()
     {
@@ -33,9 +33,9 @@ abstract class AbstractShowForm extends AbstractHelper
     }
 
     /**
-     * @param UserFormInterface $userForm
+     * @param AbstractUserForm $userForm
      */
-    public function setUserForm($userForm)
+    public function setUserForm(AbstractUserForm $userForm)
     {
         $this->userForm = $userForm;
     }

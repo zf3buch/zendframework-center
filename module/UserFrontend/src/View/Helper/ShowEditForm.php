@@ -21,7 +21,10 @@ class ShowEditForm extends AbstractShowForm
      */
     public function __invoke()
     {
-        $this->getUserForm()->editMode();
+        $this->getUserForm()->setAttribute(
+            'action',
+            $this->getView()->url('user-frontend/edit', [], true)
+        );
 
         return $this->getView()->bootstrapForm($this->getUserForm());
     }
