@@ -7,6 +7,10 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
+use UserFrontend\Authentication\Adapter\AdapterFactory;
+use UserFrontend\Authentication\AuthenticationListenerFactory;
+use UserFrontend\Authentication\AuthenticationListenerInterface;
+use UserFrontend\Authentication\AuthenticationServiceFactory;
 use UserFrontend\Controller\EditController;
 use UserFrontend\Controller\EditControllerFactory;
 use UserFrontend\Controller\IndexController;
@@ -17,9 +21,11 @@ use UserFrontend\Controller\RegisterControllerFactory;
 use UserFrontend\Form\UserFormFactory;
 use UserFrontend\Form\UserFormInterface;
 use UserFrontend\View\Helper\ShowEditForm;
-use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowFormAbstractFactory;
+use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowRegisterForm;
+use Zend\Authentication\Adapter\AdapterInterface;
+use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -84,6 +90,18 @@ return [
         ],
     ],
 
+    'service_manager' => [
+        'factories' => [
+            AdapterInterface::class => AdapterFactory::class,
+
+            AuthenticationServiceInterface::class =>
+                AuthenticationServiceFactory::class,
+
+            AuthenticationListenerInterface::class =>
+                AuthenticationListenerFactory::class,
+        ],
+    ],
+
     'view_manager' => [
         'template_map'        =>
             include USER_FRONTEND_MODULE_ROOT
@@ -97,20 +115,20 @@ return [
         'factories' => [
             UserFormInterface::class => UserFormFactory::class,
         ],
-        'shared' => [
+        'shared'    => [
             UserFormInterface::class => true,
         ],
     ],
 
     'view_helpers' => [
         'factories' => [
-            ShowEditForm::class => ShowFormAbstractFactory::class,
-            ShowLoginForm::class => ShowFormAbstractFactory::class,
+            ShowEditForm::class     => ShowFormAbstractFactory::class,
+            ShowLoginForm::class    => ShowFormAbstractFactory::class,
             ShowRegisterForm::class => ShowFormAbstractFactory::class,
         ],
         'aliases'   => [
-            'userShowEditForm' => ShowEditForm::class,
-            'userShowLoginForm' => ShowLoginForm::class,
+            'userShowEditForm'     => ShowEditForm::class,
+            'userShowLoginForm'    => ShowLoginForm::class,
             'userShowRegisterForm' => ShowRegisterForm::class,
         ]
     ],

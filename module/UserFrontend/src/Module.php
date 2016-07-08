@@ -9,10 +9,14 @@
 
 namespace UserFrontend;
 
+use UserFrontend\Authentication\AuthenticationListener;
+use UserFrontend\Authentication\AuthenticationListenerInterface;
 use Zend\Config\Factory;
+use Zend\EventManager\EventInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\InitProviderInterface;
 use Zend\ModuleManager\ModuleManagerInterface;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Class Module
@@ -29,6 +33,22 @@ class Module implements ConfigProviderInterface, InitProviderInterface
     public function init(ModuleManagerInterface $manager)
     {
         define('USER_FRONTEND_MODULE_ROOT', __DIR__ . '/../');
+    }
+
+    /**
+     * @param EventInterface|MvcEvent $e
+     */
+    public function onBootstrap(EventInterface $e)
+    {
+        // get manager
+        $serviceManager = $e->getApplication()->getServiceManager();
+        $eventManager   = $e->getApplication()->getEventManager();
+
+        /** @var AuthenticationListenerInterface $authenticationListener */
+        $authenticationListener = $serviceManager->get(
+            AuthenticationListenerInterface::class
+        );
+        $authenticationListener->attach($eventManager);
     }
 
     /**
