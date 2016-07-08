@@ -9,8 +9,8 @@
 
 namespace UserFrontend\Controller;
 
-use UserModel\Repository\UserRepositoryInterface;
 use Interop\Container\ContainerInterface;
+use UserModel\Repository\UserRepositoryInterface;
 use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
