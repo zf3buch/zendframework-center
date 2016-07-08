@@ -10,6 +10,7 @@
 namespace UserFrontend\Controller;
 
 use Interop\Container\ContainerInterface;
+use UserFrontend\Form\UserEditFormInterface;
 use UserModel\Repository\UserRepositoryInterface;
 use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -40,8 +41,14 @@ class EditControllerFactory implements FactoryInterface
             UserRepositoryInterface::class
         );
 
+        /** @var UserEditFormInterface $userForm */
+        $userForm = $formElementManager->get(
+            UserEditFormInterface::class
+        );
+
         $controller = new EditController();
         $controller->setUserRepository($userRepository);
+        $controller->setUserForm($userForm);
 
         return $controller;
     }
