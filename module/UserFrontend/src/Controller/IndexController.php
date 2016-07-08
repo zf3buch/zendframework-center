@@ -9,13 +9,16 @@
 
 namespace UserFrontend\Controller;
 
+use UserModel\Entity\UserEntity;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\Plugin\Identity\Identity;
 use Zend\View\Model\ViewModel;
 
 /**
  * Class IndexController
  *
  * @package UserFrontend\Controller
+ * @method UserEntity|null identity()
  */
 class IndexController extends AbstractActionController
 {
@@ -26,6 +29,10 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
+        if ($this->identity()) {
+            return $this->redirect()->toRoute('user-frontend/edit');
+        }
+
         $viewModel = new ViewModel();
 
         return $viewModel;

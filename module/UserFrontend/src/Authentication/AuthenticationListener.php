@@ -9,8 +9,15 @@
 
 namespace UserFrontend\Authentication;
 
+use Application\Controller\IndexController;
 use UserFrontend\Form\UserLoginFormInterface;
+use UserModel\Entity\UserEntity;
+use UserModel\Hydrator\UserHydrator;
+use Zend\Authentication\Adapter\DbTable\AbstractAdapter;
+use Zend\Authentication\Adapter\ValidatableAdapterInterface;
+use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\AuthenticationServiceInterface;
+use Zend\Authentication\Result;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Http\PhpEnvironment\Request;
@@ -25,7 +32,7 @@ class AuthenticationListener extends AbstractListenerAggregate
     implements AuthenticationListenerInterface
 {
     /**
-     * @var AuthenticationServiceInterface
+     * @var AuthenticationServiceInterface|AuthenticationService
      */
     private $authService;
 
@@ -35,17 +42,25 @@ class AuthenticationListener extends AbstractListenerAggregate
     private $userLoginForm;
 
     /**
+     * @var UserHydrator
+     */
+    private $userHydrator;
+
+    /**
      * AuthenticationListener constructor.
      *
-     * @param AuthenticationServiceInterface $authService
-     * @param UserLoginFormInterface         $userLoginForm
+     * @param AuthenticationService|AuthenticationServiceInterface $authService
+     * @param UserLoginFormInterface                               $userLoginForm
+     * @param UserHydrator                                         $userHydrator
      */
     public function __construct(
         AuthenticationServiceInterface $authService,
-        UserLoginFormInterface $userLoginForm
+        UserLoginFormInterface $userLoginForm,
+        UserHydrator $userHydrator
     ) {
-        $this->authService = $authService;
+        $this->authService   = $authService;
         $this->userLoginForm = $userLoginForm;
+        $this->userHydrator  = $userHydrator;
     }
 
     /**
@@ -68,6 +83,10 @@ class AuthenticationListener extends AbstractListenerAggregate
      */
     public function authenticate(MvcEvent $e)
     {
+        if ($this->authService->hasIdentity()) {
+            return;
+        }
+
         /** @var Request $request */
         $request = $e->getRequest();
 
@@ -79,7 +98,48 @@ class AuthenticationListener extends AbstractListenerAggregate
             return;
         }
 
-        $this->userLoginForm->setData($request->getPost());
-        $this->userLoginForm->isValid();
+        $userForm = $this->userLoginForm;
+        $userForm->setData($request->getPost());
+
+        if (!$userForm->isValid()) {
+            return;
+        }
+
+        /** @var ValidatableAdapterInterface|AbstractAdapter $authAdapter */
+        $authAdapter = $this->authService->getAdapter();
+        $authAdapter->setIdentity($userForm->getData()['email']);
+        $authAdapter->setCredential($userForm->getData()['password']);
+
+        $result = $this->authService->authenticate();
+
+        if (!$result->isValid()) {
+            switch ($result->getCode()) {
+                case Result::FAILURE_IDENTITY_NOT_FOUND:
+                    $userForm->get('email')->setMessages(
+                        ['user_frontend_auth_identity_wrong']
+                    );
+                    break;
+
+                case Result::FAILURE_CREDENTIAL_INVALID:
+                    $userForm->get('password')->setMessages(
+                        ['user_frontend_auth_credential_wrong']
+                    );
+                    break;
+            }
+        } else {
+            $user = new UserEntity();
+
+            $this->userHydrator->hydrate(
+                (array) $authAdapter->getResultRowObject(
+                    null, ['password']
+                ),
+                $user
+            );
+
+            $this->authService->getStorage()->write($user);
+
+            $routeMatch = $e->getRouteMatch();
+            $routeMatch->setParam('controller', IndexController::class);
+        }
     }
 }

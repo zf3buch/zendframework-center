@@ -9,6 +9,7 @@
 
 return [
     'modules'                 => [
+        'Zend\Mvc\Plugin\Identity',
         'TravelloFilter',
         'TravelloViewHelper',
         'Zend\Mvc\I18n',

@@ -30,6 +30,7 @@ use UserFrontend\View\Helper\ShowFormAbstractFactory;
 use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowRegisterForm;
 use Zend\Authentication\Adapter\AdapterInterface;
+use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
@@ -99,7 +100,7 @@ return [
         'factories' => [
             AdapterInterface::class => AdapterFactory::class,
 
-            AuthenticationServiceInterface::class =>
+            AuthenticationService::class =>
                 AuthenticationServiceFactory::class,
 
             AuthenticationListenerInterface::class =>
