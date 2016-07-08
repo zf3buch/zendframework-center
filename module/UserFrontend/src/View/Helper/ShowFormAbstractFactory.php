@@ -10,8 +10,11 @@
 namespace UserFrontend\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use UserFrontend\Form\UserForm;
+use UserFrontend\Form\AbstractUserForm;
+use UserFrontend\Form\UserEditFormInterface;
 use UserFrontend\Form\UserFormInterface;
+use UserFrontend\Form\UserLoginFormInterface;
+use UserFrontend\Form\UserRegisterFormInterface;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
@@ -49,16 +52,37 @@ class ShowFormAbstractFactory implements AbstractFactoryInterface
         $requestedName,
         array $options = null
     ) {
+        $formName = $this->buildFormName($requestedName);
+
         /** @var FormElementManagerV3Polyfill $formElementManager */
         $formElementManager = $container->get('FormElementManager');
 
-        /** @var UserFormInterface $userForm */
-        $userForm = $formElementManager->get(UserFormInterface::class);
+        /** @var AbstractUserForm $userForm */
+        $userForm = $formElementManager->get($formName);
 
         /** @var AbstractShowForm $viewHelper */
         $viewHelper = new $requestedName();
         $viewHelper->setUserForm($userForm);
 
         return $viewHelper;
+    }
+
+    /**
+     * @param $requestedName
+     *
+     * @return string
+     */
+    private function buildFormName($requestedName)
+    {
+        switch ($requestedName) {
+            case 'UserFrontend\View\Helper\ShowRegisterForm':
+                return UserRegisterFormInterface::class;
+
+            case 'UserFrontend\View\Helper\ShowLoginForm':
+                return UserLoginFormInterface::class;
+
+            case 'UserFrontend\View\Helper\ShowEditForm':
+                return UserEditFormInterface::class;
+        }
     }
 }

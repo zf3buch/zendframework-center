@@ -9,22 +9,32 @@
 
 namespace UserFrontend\Form;
 
-use UserModel\Config\UserConfigInterface;
+use Interop\Container\ContainerInterface;
 use UserModel\Hydrator\UserHydrator;
 use UserModel\InputFilter\UserInputFilter;
-use Interop\Container\ContainerInterface;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterPluginManager;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
 /**
- * Class UserFormFactory
+ * Class UserFormAbstractFactory
  *
  * @package UserFrontend\Form
  */
-class UserFormFactory implements FactoryInterface
+class UserFormAbstractFactory implements AbstractFactoryInterface
 {
+    /**
+     * @param ContainerInterface $container
+     * @param string             $requestedName
+     *
+     * @return mixed
+     */
+    public function canCreate(ContainerInterface $container, $requestedName
+    ) {
+        // TODO: Implement canCreate() method.
+    }
+
     /**
      * @param ContainerInterface $container
      * @param string             $requestedName
@@ -51,7 +61,10 @@ class UserFormFactory implements FactoryInterface
             UserInputFilter::class
         );
 
-        $form = new UserForm();
+        $className = str_replace('Interface', '', $requestedName);
+
+        /** @var AbstractUserForm $form */
+        $form = new $className();
         $form->setHydrator($userHydrator);
         $form->setInputFilter($userInputFilter);
 

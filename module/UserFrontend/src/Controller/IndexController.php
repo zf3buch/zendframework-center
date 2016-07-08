@@ -9,7 +9,6 @@
 
 namespace UserFrontend\Controller;
 
-use UserModel\Repository\UserRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 

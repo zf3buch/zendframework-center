@@ -9,7 +9,7 @@
 
 namespace UserFrontend\Controller;
 
-use UserFrontend\Form\UserFormInterface;
+use UserFrontend\Form\UserRegisterFormInterface;
 use UserModel\Repository\UserRepositoryInterface;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -26,31 +26,13 @@ use Zend\View\Model\ViewModel;
 class RegisterController extends AbstractActionController
 {
     /**
+     * @var UserRegisterFormInterface
+     */
+    private $userForm;
+    /**
      * @var UserRepositoryInterface
      */
     private $userRepository;
-
-    /**
-     * @var UserFormInterface
-     */
-    private $userForm;
-
-    /**
-     * @param UserRepositoryInterface $userRepository
-     */
-    public function setUserRepository(
-        UserRepositoryInterface $userRepository
-    ) {
-        $this->userRepository = $userRepository;
-    }
-
-    /**
-     * @param UserFormInterface $userForm
-     */
-    public function setUserForm(UserFormInterface $userForm)
-    {
-        $this->userForm = $userForm;
-    }
 
     /**
      * Register user
@@ -59,8 +41,6 @@ class RegisterController extends AbstractActionController
      */
     public function indexAction()
     {
-        $this->userForm->registerMode();
-
         if ($this->getRequest()->isPost()) {
             $this->userForm->setData($this->params()->fromPost());
 
@@ -112,6 +92,23 @@ class RegisterController extends AbstractActionController
         $viewModel->setVariable('userForm', $this->userForm);
 
         return $viewModel;
+    }
+
+    /**
+     * @param UserRegisterFormInterface $userForm
+     */
+    public function setUserForm(UserRegisterFormInterface $userForm)
+    {
+        $this->userForm = $userForm;
+    }
+
+    /**
+     * @param UserRepositoryInterface $userRepository
+     */
+    public function setUserRepository(
+        UserRepositoryInterface $userRepository
+    ) {
+        $this->userRepository = $userRepository;
     }
 }
 

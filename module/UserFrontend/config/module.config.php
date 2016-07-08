@@ -14,8 +14,13 @@ use UserFrontend\Controller\LoginController;
 use UserFrontend\Controller\LoginControllerFactory;
 use UserFrontend\Controller\RegisterController;
 use UserFrontend\Controller\RegisterControllerFactory;
+use UserFrontend\Form\UserEditFormInterface;
+use UserFrontend\Form\UserFormAbstractFactory;
 use UserFrontend\Form\UserFormFactory;
 use UserFrontend\Form\UserFormInterface;
+use UserFrontend\Form\UserLoginFormInterface;
+use UserFrontend\Form\UserRegisterForm;
+use UserFrontend\Form\UserRegisterFormInterface;
 use UserFrontend\View\Helper\ShowEditForm;
 use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowFormAbstractFactory;
@@ -95,10 +100,14 @@ return [
 
     'form_elements' => [
         'factories' => [
-            UserFormInterface::class => UserFormFactory::class,
+            UserEditFormInterface::class => UserFormAbstractFactory::class,
+            UserLoginFormInterface::class => UserFormAbstractFactory::class,
+            UserRegisterFormInterface::class => UserFormAbstractFactory::class,
         ],
         'shared' => [
-            UserFormInterface::class => true,
+            UserEditFormInterface::class => true,
+            UserLoginFormInterface::class => true,
+            UserRegisterFormInterface::class => true,
         ],
     ],
 

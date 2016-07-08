@@ -10,7 +10,7 @@
 namespace UserFrontend\Controller;
 
 use Interop\Container\ContainerInterface;
-use UserFrontend\Form\UserFormInterface;
+use UserFrontend\Form\UserRegisterFormInterface;
 use UserModel\Repository\UserRepositoryInterface;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -42,8 +42,10 @@ class RegisterControllerFactory implements FactoryInterface
             UserRepositoryInterface::class
         );
 
-        /** @var UserFormInterface $userForm */
-        $userForm = $formElementManager->get(UserFormInterface::class);
+        /** @var UserRegisterFormInterface $userForm */
+        $userForm = $formElementManager->get(
+            UserRegisterFormInterface::class
+        );
 
         $controller = new RegisterController();
         $controller->setUserRepository($userRepository);
