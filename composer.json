@@ -51,6 +51,7 @@
       "CompanyModel\\": "module/CompanyModel/src/",
       "CompanyBackend\\": "module/CompanyBackend/src/",
       "UserModel\\": "module/UserModel/src/",
+      "UserFrontend\\": "module/UserFrontend/src/",
       "UserBackend\\": "module/UserBackend/src/",
       "Scripts\\": "script/"
     }
