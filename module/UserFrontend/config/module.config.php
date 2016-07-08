@@ -16,14 +16,13 @@ use UserFrontend\Controller\RegisterController;
 use UserFrontend\Controller\RegisterControllerFactory;
 use UserFrontend\Form\UserEditFormInterface;
 use UserFrontend\Form\UserFormAbstractFactory;
-use UserFrontend\Form\UserFormFactory;
-use UserFrontend\Form\UserFormInterface;
 use UserFrontend\Form\UserLoginFormInterface;
-use UserFrontend\Form\UserRegisterForm;
+use UserFrontend\Form\UserLogoutFormInterface;
 use UserFrontend\Form\UserRegisterFormInterface;
 use UserFrontend\View\Helper\ShowEditForm;
-use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowFormAbstractFactory;
+use UserFrontend\View\Helper\ShowLoginForm;
+use UserFrontend\View\Helper\ShowLogoutForm;
 use UserFrontend\View\Helper\ShowRegisterForm;
 use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
@@ -100,26 +99,34 @@ return [
 
     'form_elements' => [
         'factories' => [
-            UserEditFormInterface::class => UserFormAbstractFactory::class,
-            UserLoginFormInterface::class => UserFormAbstractFactory::class,
-            UserRegisterFormInterface::class => UserFormAbstractFactory::class,
+            UserEditFormInterface::class     =>
+                UserFormAbstractFactory::class,
+            UserLoginFormInterface::class    =>
+                UserFormAbstractFactory::class,
+            UserLogoutFormInterface::class   =>
+                InvokableFactory::class,
+            UserRegisterFormInterface::class =>
+                UserFormAbstractFactory::class,
         ],
-        'shared' => [
-            UserEditFormInterface::class => true,
-            UserLoginFormInterface::class => true,
+        'shared'    => [
+            UserEditFormInterface::class     => true,
+            UserLoginFormInterface::class    => true,
+            UserLogoutFormInterface::class   => true,
             UserRegisterFormInterface::class => true,
         ],
     ],
 
     'view_helpers' => [
         'factories' => [
-            ShowEditForm::class => ShowFormAbstractFactory::class,
-            ShowLoginForm::class => ShowFormAbstractFactory::class,
+            ShowEditForm::class     => ShowFormAbstractFactory::class,
+            ShowLoginForm::class    => ShowFormAbstractFactory::class,
+            ShowLogoutForm::class   => ShowFormAbstractFactory::class,
             ShowRegisterForm::class => ShowFormAbstractFactory::class,
         ],
         'aliases'   => [
-            'userShowEditForm' => ShowEditForm::class,
-            'userShowLoginForm' => ShowLoginForm::class,
+            'userShowEditForm'     => ShowEditForm::class,
+            'userShowLoginForm'    => ShowLoginForm::class,
+            'userShowLogoutForm'   => ShowLogoutForm::class,
             'userShowRegisterForm' => ShowRegisterForm::class,
         ]
     ],

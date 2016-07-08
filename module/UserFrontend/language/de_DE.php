@@ -40,6 +40,7 @@ return [
 
     // action texts
     'user_frontend_action_login'         => 'Benutzer anmelden',
+    'user_frontend_action_logout'        => 'Benutzer abmelden',
     'user_frontend_action_register'      => 'Benutzer registrieren',
     'user_frontend_action_edit'          => 'Benutzer bearbeiten',
     'user_frontend_action_cancel'        => 'Abbrechen',
