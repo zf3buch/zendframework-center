@@ -21,6 +21,11 @@ class ShowLoginForm extends AbstractShowForm
      */
     public function __invoke()
     {
+        $this->getUserForm()->setAttribute(
+            'action',
+            $this->getView()->url('user-frontend/login', [], true)
+        );
+
         return $this->getView()->bootstrapForm($this->getUserForm());
     }
 }
