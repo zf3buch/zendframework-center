@@ -40,6 +40,7 @@ return [
 
     // action texts
     'user_frontend_action_login'         => 'Login user',
+    'user_frontend_action_logout'        => 'Logout user',
     'user_frontend_action_register'      => 'Register user',
     'user_frontend_action_edit'          => 'Edit user',
     'user_frontend_action_cancel'        => 'Cancel',

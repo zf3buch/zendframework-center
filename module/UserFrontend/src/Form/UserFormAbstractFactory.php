@@ -30,9 +30,14 @@ class UserFormAbstractFactory implements AbstractFactoryInterface
      *
      * @return mixed
      */
-    public function canCreate(ContainerInterface $container, $requestedName
+    public function canCreate(
+        ContainerInterface $container, $requestedName
     ) {
-        // TODO: Implement canCreate() method.
+        if (!class_exists($requestedName)) {
+            return false;
+        }
+
+        return ($requestedName instanceof AbstractUserForm);
     }
 
     /**
