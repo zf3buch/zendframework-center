@@ -1,0 +1,23 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+$this->headTitle('user_frontend_title_edit_index');
+$this->h1('user_frontend_h1_edit_index');
+?>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <?= $this->translate('user_frontend_h2_edit') ?>
+  </div>
+  <div class="panel-body">
+    <p>
+      <?= $this->translate('user_frontend_message_edit') ?>
+    </p>
+    <?= $this->userShowEditForm(); ?>
+  </div>
+</div>
