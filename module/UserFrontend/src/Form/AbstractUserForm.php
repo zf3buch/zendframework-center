@@ -16,18 +16,17 @@ use Zend\Form\Element\Text;
 use Zend\Form\Form;
 
 /**
- * Class UserForm
+ * Class AbstractUserForm
  *
  * @package UserFrontend\Form
  */
-class UserForm extends Form implements UserFormInterface
+abstract class AbstractUserForm extends Form
 {
     /**
      * Init form
      */
     public function init()
     {
-        $this->setName('user_form');
         $this->setAttribute('class', 'form-horizontal');
 
         $this->add(
@@ -71,44 +70,12 @@ class UserForm extends Form implements UserFormInterface
     }
 
     /**
-     * Switch to edit mode
-     */
-    public function editMode()
-    {
-        if ($this->has('password')) {
-            $this->getInputFilter()->get('password')->setRequired(false);
-        }
-
-        $this->addSubmitElement('edit_user', 'user_frontend_action_edit');
-    }
-
-    /**
-     * Switch to login mode
-     */
-    public function loginMode()
-    {
-        $this->addSubmitElement(
-            'login_user', 'user_frontend_action_login'
-        );
-    }
-
-    /**
-     * Switch to register mode
-     */
-    public function registerMode()
-    {
-        $this->addSubmitElement(
-            'register_user', 'user_frontend_action_register'
-        );
-    }
-
-    /**
      * Add new submit element
      *
      * @param $submitName
      * @param $submitText
      */
-    private function addSubmitElement($submitName, $submitText)
+    protected function addSubmitElement($submitName, $submitText)
     {
         $this->add(
             [
@@ -122,7 +89,5 @@ class UserForm extends Form implements UserFormInterface
                 ],
             ]
         );
-
-        $this->setValidationGroup(array_keys($this->getElements()));
     }
 }

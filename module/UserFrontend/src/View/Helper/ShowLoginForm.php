@@ -21,8 +21,6 @@ class ShowLoginForm extends AbstractShowForm
      */
     public function __invoke()
     {
-        $this->getUserForm()->loginMode();
-
         return $this->getView()->bootstrapForm($this->getUserForm());
     }
 }

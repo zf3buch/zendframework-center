@@ -12,24 +12,10 @@ namespace UserFrontend\Form;
 use Zend\Form\FormInterface;
 
 /**
- * Interface UserFormInterface
+ * Interface UserRegisterFormInterface
  *
  * @package UserFrontend\Form
  */
-interface UserFormInterface extends FormInterface
+interface UserRegisterFormInterface extends FormInterface
 {
-    /**
-     * Switch to edit mode
-     */
-    public function editMode();
-
-    /**
-     * Switch to login mode
-     */
-    public function loginMode();
-
-    /**
-     * Switch to edit mode
-     */
-    public function registerMode();
 }
