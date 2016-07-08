@@ -9,6 +9,7 @@
 
 namespace UserFrontend\Authentication;
 
+use UserFrontend\Form\UserLoginFormInterface;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
@@ -29,14 +30,22 @@ class AuthenticationListener extends AbstractListenerAggregate
     private $authService;
 
     /**
+     * @var UserLoginFormInterface
+     */
+    private $userLoginForm;
+
+    /**
      * AuthenticationListener constructor.
      *
      * @param AuthenticationServiceInterface $authService
+     * @param UserLoginFormInterface         $userLoginForm
      */
     public function __construct(
-        AuthenticationServiceInterface $authService
+        AuthenticationServiceInterface $authService,
+        UserLoginFormInterface $userLoginForm
     ) {
         $this->authService = $authService;
+        $this->userLoginForm = $userLoginForm;
     }
 
     /**
@@ -62,6 +71,15 @@ class AuthenticationListener extends AbstractListenerAggregate
         /** @var Request $request */
         $request = $e->getRequest();
 
-        var_dump($request->isPost());
+        if (!$request->isPost()) {
+            return;
+        }
+
+        if (!$request->getPost('login_user')) {
+            return;
+        }
+
+        $this->userLoginForm->setData($request->getPost());
+        $this->userLoginForm->isValid();
     }
 }

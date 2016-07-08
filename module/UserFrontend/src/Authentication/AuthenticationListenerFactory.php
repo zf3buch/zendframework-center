@@ -10,7 +10,9 @@
 namespace UserFrontend\Authentication;
 
 use Interop\Container\ContainerInterface;
+use UserFrontend\Form\UserLoginFormInterface;
 use Zend\Authentication\AuthenticationServiceInterface;
+use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -32,11 +34,20 @@ class AuthenticationListenerFactory implements FactoryInterface
         $requestedName,
         array $options = null
     ) {
+        /** @var FormElementManagerTrait $formElementManager */
+        $formElementManager = $container->get('FormElementManager');
+
         $authService = $container->get(
             AuthenticationServiceInterface::class
         );
 
-        $authListener = new AuthenticationListener($authService);
+        $userLoginForm = $formElementManager->get(
+            UserLoginFormInterface::class
+        );
+
+        $authListener = new AuthenticationListener(
+            $authService, $userLoginForm
+        );
 
         return $authListener;
     }
