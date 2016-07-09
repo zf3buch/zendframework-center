@@ -33,7 +33,7 @@ abstract class AbstractShowForm extends AbstractHelper
     }
 
     /**
-     * @param AbstractUserForm $userForm
+     * @param AbstractUserForm| $userForm
      */
     public function setUserForm(AbstractUserForm $userForm)
     {

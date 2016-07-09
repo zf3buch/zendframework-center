@@ -10,10 +10,10 @@
 namespace UserFrontend\Authentication;
 
 use Interop\Container\ContainerInterface;
+use UserFrontend\Form\UserLoginForm;
 use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Hydrator\UserHydrator;
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Form\FormElementManager\FormElementManagerTrait;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -46,9 +46,7 @@ class AuthenticationListenerFactory implements FactoryInterface
         $authService = $container->get(AuthenticationService::class);
 
         /** @var UserLoginFormInterface $userLoginForm */
-        $userLoginForm = $formElementManager->get(
-            UserLoginFormInterface::class
-        );
+        $userLoginForm = $formElementManager->get(UserLoginForm::class);
 
         $userHydrator = $hydratorManager->get(UserHydrator::class);
 
