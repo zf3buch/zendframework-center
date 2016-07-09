@@ -15,6 +15,7 @@ use UserFrontend\Authorization\AuthorizationListenerFactory;
 use UserFrontend\Authorization\AuthorizationListenerInterface;
 use UserFrontend\Controller\EditController;
 use UserFrontend\Controller\EditControllerFactory;
+use UserFrontend\Controller\ForbiddenController;
 use UserFrontend\Controller\IndexController;
 use UserFrontend\Controller\IndexControllerFactory;
 use UserFrontend\Controller\LoginController;
@@ -74,12 +75,21 @@ return [
                             ],
                         ],
                     ],
-                    'login'    => [
+                    'login' => [
                         'type'    => Literal::class,
                         'options' => [
                             'route'    => '/login',
                             'defaults' => [
                                 'controller' => LoginController::class,
+                            ],
+                        ],
+                    ],
+                    'forbidden' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/forbidden',
+                            'defaults' => [
+                                'controller' => ForbiddenController::class,
                             ],
                         ],
                     ],
@@ -90,10 +100,11 @@ return [
 
     'controllers' => [
         'factories' => [
-            IndexController::class    => IndexControllerFactory::class,
-            EditController::class     => EditControllerFactory::class,
-            RegisterController::class => RegisterControllerFactory::class,
-            LoginController::class    => LoginControllerFactory::class,
+            IndexController::class     => IndexControllerFactory::class,
+            EditController::class      => EditControllerFactory::class,
+            RegisterController::class  => RegisterControllerFactory::class,
+            LoginController::class     => LoginControllerFactory::class,
+            ForbiddenController::class => InvokableFactory::class,
         ],
     ],
 

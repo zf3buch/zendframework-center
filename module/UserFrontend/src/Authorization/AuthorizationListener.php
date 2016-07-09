@@ -9,12 +9,15 @@
 
 namespace UserFrontend\Authorization;
 
+use UserFrontend\Controller\LoginController;
 use UserModel\Permissions\Role\GuestRole;
 use UserModel\Permissions\UserAcl;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Filter\StaticFilter;
+use Zend\Filter\Word\CamelCaseToDash;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Helper\Navigation;
 
@@ -69,6 +72,59 @@ class AuthorizationListener extends AbstractListenerAggregate
      */
     public function authorize(MvcEvent $e)
     {
-        var_dump(__METHOD__);
+        $role = $this->getCurrentRole();
+
+        $resource = $this->getCurrentResource($e);
+        $privilege = $e->getRouteMatch()->getParam('action');
+
+        var_dump($role, $resource, $privilege);
+
+        if (!$this->userAcl->isAllowed($role, $resource, $privilege)) {
+            if ($role == GuestRole::NAME) {
+                $routeMatch = $e->getRouteMatch();
+                $routeMatch->setParam('controller', LoginController::class);
+                $routeMatch->setParam('action', 'index');
+            } else {
+                $routeMatch = $e->getRouteMatch();
+                $routeMatch->setParam('controller', ForbiddenController::class);
+                $routeMatch->setParam('action', 'index');
+            }
+        }
+    }
+
+    /**
+     * Get the role of the current user
+     *
+     * @return string
+     */
+    private function getCurrentRole()
+    {
+        if ($this->authService->getIdentity()) {
+            $role = $this->authService->getIdentity()->getRole();
+        } else {
+            $role = GuestRole::NAME;
+        }
+
+        return $role;
+    }
+
+    /**
+     * Get the current resource from controller
+     *
+     * @param MvcEvent $e
+     *
+     * @return string
+     */
+    private function getCurrentResource(MvcEvent $e)
+    {
+        $controller = $e->getRouteMatch()->getParam('controller');
+
+        $resource = str_replace(['Controller', '\\'], '', $controller);
+        $resource = StaticFilter::execute(
+            $resource, CamelCaseToDash::class
+        );
+        $resource = strtolower($resource);
+
+        return $resource;
     }
 }

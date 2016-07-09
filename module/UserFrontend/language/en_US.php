@@ -14,12 +14,14 @@ return [
     // title texts
     'user_frontend_title_index_index'     => 'User',
     'user_frontend_title_login_index'     => 'Login user',
+    'user_frontend_title_forbidden_index' => 'Access forbidden',
     'user_frontend_title_register_index'  => 'Register user',
     'user_frontend_title_edit_index'      => 'Edit user',
 
     // heading texts
     'user_frontend_h1_index_index'        => 'User',
     'user_frontend_h1_login_index'        => 'Login user',
+    'user_frontend_h1_forbidden_index'    => 'Access forbidden',
     'user_frontend_h1_register_index'     => 'Register user',
     'user_frontend_h1_edit_index'         => 'Edit user',
     'user_frontend_h2_login'              => 'Login user',
