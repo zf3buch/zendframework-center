@@ -87,8 +87,6 @@ class AuthorizationListener extends AbstractListenerAggregate
         $resource = $this->getCurrentResource($e);
         $privilege = $e->getRouteMatch()->getParam('action');
 
-        var_dump($role, $resource, $privilege);
-
         if (!$this->userAcl->isAllowed($role, $resource, $privilege)) {
             $routeMatch = $e->getRouteMatch();
             $routeMatch->setParam(
@@ -141,8 +139,6 @@ class AuthorizationListener extends AbstractListenerAggregate
      */
     public function prepareNavigation(MvcEvent $e)
     {
-        var_dump(__METHOD__);
-
         if ($this->authService->getIdentity()) {
             $role = $this->authService->getIdentity()->getRole();
         } else {
