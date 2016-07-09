@@ -9,6 +9,7 @@
 
 use UserFrontend\Controller\EditController;
 use UserFrontend\Controller\EditControllerFactory;
+use UserFrontend\Controller\ForbiddenController;
 use UserFrontend\Controller\IndexController;
 use UserFrontend\Controller\LoginController;
 use UserFrontend\Controller\LoginControllerFactory;
@@ -47,7 +48,7 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes'  => [
-                    'edit'     => [
+                    'edit'      => [
                         'type'    => Literal::class,
                         'options' => [
                             'route'    => '/edit',
@@ -56,7 +57,7 @@ return [
                             ],
                         ],
                     ],
-                    'register' => [
+                    'register'  => [
                         'type'    => Literal::class,
                         'options' => [
                             'route'    => '/register',
@@ -65,12 +66,21 @@ return [
                             ],
                         ],
                     ],
-                    'login'    => [
+                    'login'     => [
                         'type'    => Literal::class,
                         'options' => [
                             'route'    => '/login',
                             'defaults' => [
                                 'controller' => LoginController::class,
+                            ],
+                        ],
+                    ],
+                    'forbidden' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/forbidden',
+                            'defaults' => [
+                                'controller' => ForbiddenController::class,
                             ],
                         ],
                     ],
@@ -81,10 +91,11 @@ return [
 
     'controllers' => [
         'factories' => [
-            IndexController::class    => InvokableFactory::class,
-            EditController::class     => EditControllerFactory::class,
-            RegisterController::class => RegisterControllerFactory::class,
-            LoginController::class    => LoginControllerFactory::class,
+            IndexController::class     => InvokableFactory::class,
+            EditController::class      => EditControllerFactory::class,
+            RegisterController::class  => RegisterControllerFactory::class,
+            LoginController::class     => LoginControllerFactory::class,
+            ForbiddenController::class => InvokableFactory::class,
         ],
     ],
 
@@ -138,19 +149,24 @@ return [
                 'action'        => 'index',
                 'useRouteMatch' => true,
                 'pages'         => [
-                    'edit'     => [
+                    'edit'      => [
                         'type'    => Mvc::class,
                         'route'   => 'user-frontend/edit',
                         'visible' => false,
                     ],
-                    'register' => [
+                    'register'  => [
                         'type'    => Mvc::class,
                         'route'   => 'user-frontend/register',
                         'visible' => false,
                     ],
-                    'login'    => [
+                    'login'     => [
                         'type'    => Mvc::class,
                         'route'   => 'user-frontend/login',
+                        'visible' => false,
+                    ],
+                    'forbidden' => [
+                        'type'    => Mvc::class,
+                        'route'   => 'user-frontend/forbidden',
                         'visible' => false,
                     ],
                 ],
