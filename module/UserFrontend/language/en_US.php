@@ -14,16 +14,19 @@ return [
     // title texts
     'user_frontend_title_index_index'     => 'User',
     'user_frontend_title_login_index'     => 'Login user',
+    'user_frontend_title_forbidden_index' => 'Access forbidden',
     'user_frontend_title_register_index'  => 'Register user',
     'user_frontend_title_edit_index'      => 'Edit user',
 
     // heading texts
     'user_frontend_h1_index_index'        => 'User',
     'user_frontend_h1_login_index'        => 'Login user',
+    'user_frontend_h1_forbidden_index'    => 'Access forbidden',
     'user_frontend_h1_register_index'     => 'Register user',
     'user_frontend_h1_edit_index'         => 'Edit user',
     'user_frontend_h2_login'              => 'Login user',
     'user_frontend_h2_logout'             => 'Logout user',
+    'user_frontend_h2_forbidden'          => 'Access not allowed',
     'user_frontend_h2_register'           => 'Register user',
     'user_frontend_h2_edit'               => 'Edit user',
 
@@ -31,6 +34,7 @@ return [
     'user_frontend_message_register'      => 'If you are not registered yet, you can register now!',
     'user_frontend_message_registered'    => 'You registered successfully and can login now!',
     'user_frontend_message_login'         => 'If you are already registered, you can login now!',
+    'user_frontend_message_forbidden'     => 'You are not allowed to access this page!',
     'user_frontend_message_logout'        => 'You can logout now!',
     'user_frontend_message_edit'          => 'You can edit the user data now!',
     'user_frontend_message_edited'        => 'The user was saved now!',

@@ -1,0 +1,27 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+$this->headTitle('user_frontend_title_forbidden_index');
+$this->h1('user_frontend_h1_forbidden_index');
+?>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <?= $this->translate('user_frontend_h2_forbidden') ?>
+    </div>
+    <div class="panel-body">
+        <p>
+            <?= $this->translate('user_frontend_message_forbidden') ?>
+        </p>
+        <p class="pull-center">
+            <a href="/" class="btn btn-success">
+                <?= $this->translate('application_action_homepage'); ?>
+            </a>
+        </p>
+    </div>
+</div>

@@ -9,7 +9,7 @@
 
 namespace UserFrontend\Authentication;
 
-use UserFrontend\Controller\IndexController;
+use Application\Controller\IndexController;
 use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Entity\UserEntity;
 use UserModel\Hydrator\UserHydrator;
@@ -155,6 +155,17 @@ class AuthenticationListener extends AbstractListenerAggregate
     public function logout(MvcEvent $e)
     {
         if (!$this->authService->hasIdentity()) {
+            return;
+        }
+
+        /** @var Request $request */
+        $request = $e->getRequest();
+
+        if (!$request->isPost()) {
+            return;
+        }
+
+        if (!$request->getPost('logout_user')) {
             return;
         }
 
