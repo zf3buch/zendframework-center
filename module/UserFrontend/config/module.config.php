@@ -14,11 +14,11 @@ use UserFrontend\Controller\LoginController;
 use UserFrontend\Controller\LoginControllerFactory;
 use UserFrontend\Controller\RegisterController;
 use UserFrontend\Controller\RegisterControllerFactory;
-use UserFrontend\Form\UserEditFormInterface;
+use UserFrontend\Form\UserEditForm;
 use UserFrontend\Form\UserFormAbstractFactory;
-use UserFrontend\Form\UserLoginFormInterface;
-use UserFrontend\Form\UserLogoutFormInterface;
-use UserFrontend\Form\UserRegisterFormInterface;
+use UserFrontend\Form\UserLoginForm;
+use UserFrontend\Form\UserLogoutForm;
+use UserFrontend\Form\UserRegisterForm;
 use UserFrontend\View\Helper\ShowEditForm;
 use UserFrontend\View\Helper\ShowFormAbstractFactory;
 use UserFrontend\View\Helper\ShowLoginForm;
@@ -99,20 +99,16 @@ return [
 
     'form_elements' => [
         'factories' => [
-            UserEditFormInterface::class     =>
-                UserFormAbstractFactory::class,
-            UserLoginFormInterface::class    =>
-                UserFormAbstractFactory::class,
-            UserLogoutFormInterface::class   =>
-                InvokableFactory::class,
-            UserRegisterFormInterface::class =>
-                UserFormAbstractFactory::class,
+            UserEditForm::class     => UserFormAbstractFactory::class,
+            UserLoginForm::class    => UserFormAbstractFactory::class,
+            UserLogoutForm::class   => InvokableFactory::class,
+            UserRegisterForm::class => UserFormAbstractFactory::class,
         ],
         'shared'    => [
-            UserEditFormInterface::class     => true,
-            UserLoginFormInterface::class    => true,
-            UserLogoutFormInterface::class   => true,
-            UserRegisterFormInterface::class => true,
+            UserEditForm::class     => true,
+            UserLoginForm::class    => true,
+            UserLogoutForm::class   => true,
+            UserRegisterForm::class => true,
         ],
     ],
 
