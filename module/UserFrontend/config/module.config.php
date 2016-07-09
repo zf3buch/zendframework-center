@@ -181,6 +181,8 @@ return [
                 'controller'    => IndexController::class,
                 'action'        => 'index',
                 'useRouteMatch' => true,
+                'resource'      => IndexResource::NAME,
+                'privilege'     => IndexResource::PRIVILEGE_INDEX,
                 'pages'         => [
                     'edit'      => [
                         'type'    => Mvc::class,

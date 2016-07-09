@@ -155,6 +155,8 @@ return [
                 'controller'    => DisplayController::class,
                 'action'        => 'index',
                 'useRouteMatch' => true,
+                'resource'      => DisplayResource::NAME,
+                'privilege'     => DisplayResource::PRIVILEGE_INDEX,
                 'pages'         => [
                     'edit' => [
                         'type'    => Mvc::class,
@@ -181,6 +183,8 @@ return [
                 'controller'    => DisplayController::class,
                 'action'        => 'index',
                 'useRouteMatch' => true,
+                'resource'      => DisplayResource::NAME,
+                'privilege'     => DisplayResource::PRIVILEGE_INDEX,
                 'pages'         => [
                     'edit' => [
                         'type'    => Mvc::class,
