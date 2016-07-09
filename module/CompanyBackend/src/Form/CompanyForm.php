@@ -59,8 +59,11 @@ class CompanyForm extends Form implements CompanyFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'value_options' => $this->statusOptions,
-                    'label'         => 'Status',
+                    'value_options'    => $this->statusOptions,
+                    'label'            => 'Status',
+                    'label_attributes' => [
+                        'class' => 'col-sm-2 control-label',
+                    ],
                 ],
             ]
         );
@@ -73,7 +76,10 @@ class CompanyForm extends Form implements CompanyFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label' => 'Firmenname',
+                    'label'            => 'Firmenname',
+                    'label_attributes' => [
+                        'class' => 'col-sm-2 control-label',
+                    ],
                 ],
             ]
         );
@@ -86,7 +92,10 @@ class CompanyForm extends Form implements CompanyFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label' => 'E-Mail Adresse',
+                    'label'            => 'E-Mail Adresse',
+                    'label_attributes' => [
+                        'class' => 'col-sm-2 control-label',
+                    ],
                 ],
             ]
         );
@@ -99,7 +108,10 @@ class CompanyForm extends Form implements CompanyFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label' => 'Ansprechpartner',
+                    'label'            => 'Ansprechpartner',
+                    'label_attributes' => [
+                        'class' => 'col-sm-2 control-label',
+                    ],
                 ],
             ]
         );
@@ -112,7 +124,10 @@ class CompanyForm extends Form implements CompanyFormInterface
                     'class' => 'form-control-static',
                 ],
                 'options'    => [
-                    'label' => 'Logo',
+                    'label'            => 'Logo',
+                    'label_attributes' => [
+                        'class' => 'col-sm-2 control-label',
+                    ],
                 ],
             ]
         );
