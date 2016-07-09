@@ -9,42 +9,27 @@
 
 namespace UserFrontend\Form;
 
-use Zend\Form\Element\Csrf;
-use Zend\Form\Element\Submit;
-use Zend\Form\Form;
-
 /**
  * Class UserLogoutForm
  *
  * @package UserFrontend\Form
  */
-class UserLogoutForm extends Form implements UserLogoutFormInterface
+class UserLogoutForm extends AbstractUserForm
+    implements UserLogoutFormInterface
 {
     /**
      * Init form
      */
     public function init()
     {
+        $this->setName('user_logout_form');
         $this->setAttribute('class', 'form-horizontal');
 
-        $this->add(
-            [
-                'type' => Csrf::class,
-                'name' => 'csrf',
-            ]
+        $this->addCsrfElement();
+        $this->addSubmitElement(
+            'logout_user', 'user_frontend_action_logout'
         );
 
-        $this->add(
-            [
-                'type'       => Submit::class,
-                'name'       => 'logout_user',
-                'options'    => [],
-                'attributes' => [
-                    'id'    => 'logout_user',
-                    'class' => 'btn btn-primary',
-                    'value' => 'user_frontend_action_logout',
-                ],
-            ]
-        );
+        $this->setValidationGroup(array_keys($this->getElements()));
     }
 }
