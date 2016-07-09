@@ -13,28 +13,52 @@ $this->h1('user_frontend_h1_index_index');
 <div class="row">
   <div class="col-md-6">
     <div class="panel panel-success">
-      <div class="panel-heading">
-        <?= $this->translate('user_frontend_h2_register') ?>
-      </div>
-      <div class="panel-body">
-        <p>
-          <?= $this->translate('user_frontend_message_register') ?>
-        </p>
-        <?= $this->userShowRegisterForm(); ?>
-      </div>
+      <?php if (!$this->identity()): ?>
+        <div class="panel-heading">
+          <?= $this->translate('user_frontend_h2_register') ?>
+        </div>
+        <div class="panel-body">
+          <p>
+            <?= $this->translate('user_frontend_message_register') ?>
+          </p>
+          <?= $this->userShowRegisterForm(); ?>
+        </div>
+      <?php else: ?>
+        <div class="panel-heading">
+          <?= $this->translate('user_frontend_h2_edit') ?>
+        </div>
+        <div class="panel-body">
+          <p>
+            <?= $this->translate('user_frontend_message_edit') ?>
+          </p>
+          <?= $this->userShowEditForm(); ?>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
   <div class="col-md-6">
     <div class="panel panel-success">
-      <div class="panel-heading">
-        <?= $this->translate('user_frontend_h2_login') ?>
-      </div>
-      <div class="panel-body">
-        <p>
-          <?= $this->translate('user_frontend_message_login') ?>
-        </p>
-        <?= $this->userShowLoginForm(); ?>
-      </div>
+      <?php if (!$this->identity()): ?>
+        <div class="panel-heading">
+          <?= $this->translate('user_frontend_h2_login') ?>
+        </div>
+        <div class="panel-body">
+          <p>
+            <?= $this->translate('user_frontend_message_login') ?>
+          </p>
+          <?= $this->userShowLoginForm(); ?>
+        </div>
+      <?php else: ?>
+        <div class="panel-heading">
+          <?= $this->translate('user_frontend_h2_logout') ?>
+        </div>
+        <div class="panel-body">
+          <p>
+            <?= $this->translate('user_frontend_message_logout') ?>
+          </p>
+          <?= $this->userShowLogoutForm(); ?>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </div>
