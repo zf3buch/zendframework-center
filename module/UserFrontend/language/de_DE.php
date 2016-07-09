@@ -14,16 +14,18 @@ return [
     // title texts
     'user_frontend_title_index_index'     => 'Benutzer',
     'user_frontend_title_login_index'     => 'Benutzer anmelden',
+    'user_frontend_title_forbidden_index' => 'Zugriff nicht erlaubt',
     'user_frontend_title_register_index'  => 'Benutzer registrieren',
     'user_frontend_title_edit_index'      => 'Benutzer bearbeiten',
 
     // heading texts
     'user_frontend_h1_index_index'        => 'Benutzer',
     'user_frontend_h1_login_index'        => 'Benutzer anmelden',
+    'user_frontend_h1_forbidden_index'    => 'Zugriff nicht erlaubt',
     'user_frontend_h1_register_index'     => 'Benutzer registrieren',
     'user_frontend_h1_edit_index'         => 'Benutzer bearbeiten',
     'user_frontend_h2_login'              => 'Benutzer anmelden',
-    'user_frontend_h2_logout'             => 'Benutzer abmelden',
+    'user_frontend_h2_forbidden'          => 'Zugriff verboten',
     'user_frontend_h2_register'           => 'Benutzer registrieren',
     'user_frontend_h2_edit'               => 'Benutzer bearbeiten',
 
@@ -32,6 +34,7 @@ return [
     'user_frontend_message_registered'    => 'Sie haben sich erfolgreich registriert und können sich nun anmelden!',
     'user_frontend_message_login'         => 'Wenn Sie schon registriert sind, können Sie sich nun anmelden!',
     'user_frontend_message_logout'        => 'Sie können sich nun abmelden!',
+    'user_frontend_message_forbidden'     => 'Der Zugriff auf diese Seite ist Ihnen nicht erlaubt! Sie können sich aber nun abmelden und mit einem Benutzerkonto anmelden, der Ihnen den Zugang erlaubt!',
     'user_frontend_message_edit'          => 'Sie können die Benutzerdaten nun bearbeiten!',
     'user_frontend_message_edited'        => 'Der Benutzer wurde gespeichert!',
     'user_frontend_message_check_data'    => 'Bitte überprüfen Sie die Daten des Benutzers!',
