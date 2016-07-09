@@ -11,10 +11,9 @@ namespace UserFrontend\View\Helper;
 
 use Interop\Container\ContainerInterface;
 use UserFrontend\Form\AbstractUserForm;
-use UserFrontend\Form\UserEditFormInterface;
-use UserFrontend\Form\UserFormInterface;
-use UserFrontend\Form\UserLoginFormInterface;
-use UserFrontend\Form\UserRegisterFormInterface;
+use UserFrontend\Form\UserEditForm;
+use UserFrontend\Form\UserLoginForm;
+use UserFrontend\Form\UserRegisterForm;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
 
@@ -76,13 +75,13 @@ class ShowFormAbstractFactory implements AbstractFactoryInterface
     {
         switch ($requestedName) {
             case 'UserFrontend\View\Helper\ShowRegisterForm':
-                return UserRegisterFormInterface::class;
+                return UserRegisterForm::class;
 
             case 'UserFrontend\View\Helper\ShowLoginForm':
-                return UserLoginFormInterface::class;
+                return UserLoginForm::class;
 
             case 'UserFrontend\View\Helper\ShowEditForm':
-                return UserEditFormInterface::class;
+                return UserEditForm::class;
         }
     }
 }
