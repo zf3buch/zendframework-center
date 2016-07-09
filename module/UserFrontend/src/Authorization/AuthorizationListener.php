@@ -9,7 +9,7 @@
 
 namespace UserFrontend\Authorization;
 
-use UserFrontend\Controller\LoginController;
+use UserFrontend\Controller\ForbiddenController;
 use UserModel\Permissions\Role\GuestRole;
 use UserModel\Permissions\UserAcl;
 use Zend\Authentication\AuthenticationService;
@@ -80,15 +80,11 @@ class AuthorizationListener extends AbstractListenerAggregate
         var_dump($role, $resource, $privilege);
 
         if (!$this->userAcl->isAllowed($role, $resource, $privilege)) {
-            if ($role == GuestRole::NAME) {
-                $routeMatch = $e->getRouteMatch();
-                $routeMatch->setParam('controller', LoginController::class);
-                $routeMatch->setParam('action', 'index');
-            } else {
-                $routeMatch = $e->getRouteMatch();
-                $routeMatch->setParam('controller', ForbiddenController::class);
-                $routeMatch->setParam('action', 'index');
-            }
+            $routeMatch = $e->getRouteMatch();
+            $routeMatch->setParam(
+                'controller', ForbiddenController::class
+            );
+            $routeMatch->setParam('action', 'index');
         }
     }
 
