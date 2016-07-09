@@ -15,6 +15,11 @@ $identity = $this->identity;
 <?php if (!$identity) : ?>
   <?= $this->userShowLoginForm('form-inline'); ?>
 <?php else: ?>
-  <?= $identity->getEmail() ?>
   <?= $this->userShowLogoutForm('form-inline'); ?>
+  <div class="form-inline text-right">
+    <div class="form-control">
+      <p><?= $identity->getEmail() ?></p>
+    </div>
+    &nbsp;
+  </div>
 <?php endif; ?>
