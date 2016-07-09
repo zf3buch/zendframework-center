@@ -66,10 +66,8 @@ class UserFormAbstractFactory implements AbstractFactoryInterface
             UserInputFilter::class
         );
 
-        $className = str_replace('Interface', '', $requestedName);
-
         /** @var AbstractUserForm $form */
-        $form = new $className();
+        $form = new $requestedName();
         $form->setHydrator($userHydrator);
         $form->setInputFilter($userInputFilter);
 
