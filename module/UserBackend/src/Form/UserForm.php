@@ -72,11 +72,8 @@ class UserForm extends Form implements UserFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'value_options'    => $this->statusOptions,
-                    'label'            => 'user_backend_label_status',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'value_options' => $this->statusOptions,
+                    'label'         => 'user_backend_label_status',
                 ],
             ]
         );
@@ -89,11 +86,8 @@ class UserForm extends Form implements UserFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'value_options'    => $this->roleOptions,
-                    'label'            => 'user_backend_label_role',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'value_options' => $this->roleOptions,
+                    'label'         => 'user_backend_label_role',
                 ],
             ]
         );
@@ -106,10 +100,7 @@ class UserForm extends Form implements UserFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'user_backend_label_email',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'user_backend_label_email',
                 ],
             ]
         );
@@ -122,10 +113,7 @@ class UserForm extends Form implements UserFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'user_backend_label_password',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'user_backend_label_password',
                 ],
             ]
         );
