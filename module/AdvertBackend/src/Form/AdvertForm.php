@@ -85,11 +85,8 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'value_options'    => $this->typeOptions,
-                    'label'            => 'advert_backend_label_type',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'value_options' => $this->typeOptions,
+                    'label'         => 'advert_backend_label_type',
                 ],
             ]
         );
@@ -102,11 +99,8 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'value_options'    => $this->statusOptions,
-                    'label'            => 'advert_backend_label_status',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'value_options' => $this->statusOptions,
+                    'label'         => 'advert_backend_label_status',
                 ],
             ]
         );
@@ -119,11 +113,8 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'value_options'    => $this->companyOptions,
-                    'label'            => 'advert_backend_label_company',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'value_options' => $this->companyOptions,
+                    'label'         => 'advert_backend_label_company',
                 ],
             ]
         );
@@ -136,10 +127,7 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'advert_backend_label_location',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'advert_backend_label_location',
                 ],
             ]
         );
@@ -152,10 +140,7 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'advert_backend_label_title',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'advert_backend_label_title',
                 ],
             ]
         );
@@ -169,10 +154,7 @@ class AdvertForm extends Form implements AdvertFormInterface
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'advert_backend_label_text',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'advert_backend_label_text',
                 ],
             ]
         );
