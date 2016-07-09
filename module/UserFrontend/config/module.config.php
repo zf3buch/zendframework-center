@@ -20,12 +20,21 @@ use UserFrontend\Form\UserFormAbstractFactory;
 use UserFrontend\Form\UserLoginForm;
 use UserFrontend\Form\UserLogoutForm;
 use UserFrontend\Form\UserRegisterForm;
+use UserFrontend\Permissions\Resource\EditResource;
+use UserFrontend\Permissions\Resource\ForbiddenResource;
+use UserFrontend\Permissions\Resource\IndexResource;
+use UserFrontend\Permissions\Resource\LoginResource;
+use UserFrontend\Permissions\Resource\RegisterResource;
 use UserFrontend\View\Helper\ShowEditForm;
 use UserFrontend\View\Helper\ShowFormAbstractFactory;
 use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowLogoutForm;
 use UserFrontend\View\Helper\ShowRegisterForm;
+use UserModel\Permissions\Role\AdminRole;
+use UserModel\Permissions\Role\CompanyRole;
+use UserModel\Permissions\Role\GuestRole;
 use Zend\Navigation\Page\Mvc;
+use Zend\Permissions\Acl\Acl;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -180,6 +189,42 @@ return [
                 'type'     => 'phparray',
                 'base_dir' => USER_FRONTEND_MODULE_ROOT . '/language',
                 'pattern'  => '%s.php',
+            ],
+        ],
+    ],
+
+    'acl' => [
+        GuestRole::NAME   => [
+            IndexResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            LoginResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            RegisterResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+        ],
+        CompanyRole::NAME   => [
+            IndexResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            EditResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            ForbiddenResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+        ],
+        AdminRole::NAME   => [
+            IndexResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            EditResource::NAME => [
+                Acl::TYPE_ALLOW => null,
+            ],
+            ForbiddenResource::NAME => [
+                Acl::TYPE_ALLOW => null,
             ],
         ],
     ],
