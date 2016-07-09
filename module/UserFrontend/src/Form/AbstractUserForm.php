@@ -48,10 +48,7 @@ abstract class AbstractUserForm extends Form
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'user_frontend_label_email',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'user_frontend_label_email',
                 ],
             ]
         );
@@ -70,10 +67,7 @@ abstract class AbstractUserForm extends Form
                     'class' => 'form-control',
                 ],
                 'options'    => [
-                    'label'            => 'user_frontend_label_password',
-                    'label_attributes' => [
-                        'class' => 'col-sm-2 control-label',
-                    ],
+                    'label' => 'user_frontend_label_password',
                 ],
             ]
         );
