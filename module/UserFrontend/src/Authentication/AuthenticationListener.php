@@ -9,7 +9,7 @@
 
 namespace UserFrontend\Authentication;
 
-use Application\Controller\IndexController;
+use UserFrontend\Controller\IndexController;
 use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Entity\UserEntity;
 use UserModel\Hydrator\UserHydrator;
