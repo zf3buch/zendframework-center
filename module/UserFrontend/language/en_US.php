@@ -25,6 +25,7 @@ return [
     'user_frontend_h1_register_index'     => 'Register user',
     'user_frontend_h1_edit_index'         => 'Edit user',
     'user_frontend_h2_login'              => 'Login user',
+    'user_frontend_h2_logout'             => 'Logout user',
     'user_frontend_h2_forbidden'          => 'Access not allowed',
     'user_frontend_h2_register'           => 'Register user',
     'user_frontend_h2_edit'               => 'Edit user',
