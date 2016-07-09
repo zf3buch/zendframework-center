@@ -11,6 +11,8 @@ use UserFrontend\Authentication\Adapter\AdapterFactory;
 use UserFrontend\Authentication\AuthenticationListenerFactory;
 use UserFrontend\Authentication\AuthenticationListenerInterface;
 use UserFrontend\Authentication\AuthenticationServiceFactory;
+use UserFrontend\Authorization\AuthorizationListenerFactory;
+use UserFrontend\Authorization\AuthorizationListenerInterface;
 use UserFrontend\Controller\EditController;
 use UserFrontend\Controller\EditControllerFactory;
 use UserFrontend\Controller\IndexController;
@@ -31,7 +33,6 @@ use UserFrontend\View\Helper\ShowLogoutForm;
 use UserFrontend\View\Helper\ShowRegisterForm;
 use Zend\Authentication\Adapter\AdapterInterface;
 use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Navigation\Page\Mvc;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -105,6 +106,9 @@ return [
 
             AuthenticationListenerInterface::class =>
                 AuthenticationListenerFactory::class,
+
+            AuthorizationListenerInterface::class =>
+                AuthorizationListenerFactory::class,
         ],
     ],
 
