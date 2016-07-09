@@ -34,11 +34,14 @@ class AuthorizationListenerFactory implements FactoryInterface
         $requestedName,
         array $options = null
     ) {
-        $authService = $container->get(AuthenticationService::class);
-        $userAcl     = $container->get(UserAcl::class);
+        $viewHelperManager = $container->get('HelperPluginManager');
+
+        $authService      = $container->get(AuthenticationService::class);
+        $userAcl          = $container->get(UserAcl::class);
+        $navigationHelper = $viewHelperManager->get(Navigation::class);
 
         $authorizationListener = new AuthorizationListener(
-            $authService, $userAcl
+            $authService, $userAcl, $navigationHelper
         );
 
         return $authorizationListener;
