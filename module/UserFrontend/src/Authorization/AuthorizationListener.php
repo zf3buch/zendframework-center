@@ -77,8 +77,6 @@ class AuthorizationListener extends AbstractListenerAggregate
         $resource = $this->getCurrentResource($e);
         $privilege = $e->getRouteMatch()->getParam('action');
 
-        var_dump($role, $resource, $privilege);
-
         if (!$this->userAcl->isAllowed($role, $resource, $privilege)) {
             $routeMatch = $e->getRouteMatch();
             $routeMatch->setParam(
