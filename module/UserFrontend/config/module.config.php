@@ -37,6 +37,8 @@ use UserFrontend\View\Helper\ShowFormAbstractFactory;
 use UserFrontend\View\Helper\ShowLoginForm;
 use UserFrontend\View\Helper\ShowLogoutForm;
 use UserFrontend\View\Helper\ShowRegisterForm;
+use UserFrontend\View\Helper\ShowUserWidget;
+use UserFrontend\View\Helper\ShowUserWidgetFactory;
 use UserModel\Permissions\Role\AdminRole;
 use UserModel\Permissions\Role\CompanyRole;
 use UserModel\Permissions\Role\GuestRole;
@@ -162,12 +164,14 @@ return [
             ShowLoginForm::class    => ShowFormAbstractFactory::class,
             ShowLogoutForm::class   => ShowFormAbstractFactory::class,
             ShowRegisterForm::class => ShowFormAbstractFactory::class,
+            ShowUserWidget::class   => ShowUserWidgetFactory::class,
         ],
         'aliases'   => [
             'userShowEditForm'     => ShowEditForm::class,
             'userShowLoginForm'    => ShowLoginForm::class,
             'userShowLogoutForm'   => ShowLogoutForm::class,
             'userShowRegisterForm' => ShowRegisterForm::class,
+            'userShowUserWidget'   => ShowUserWidget::class,
         ]
     ],
 
@@ -221,21 +225,21 @@ return [
 
     'acl' => [
         GuestRole::NAME   => [
-            IndexResource::NAME => [
+            IndexResource::NAME    => [
                 Acl::TYPE_ALLOW => null,
             ],
-            LoginResource::NAME => [
+            LoginResource::NAME    => [
                 Acl::TYPE_ALLOW => null,
             ],
             RegisterResource::NAME => [
                 Acl::TYPE_ALLOW => null,
             ],
         ],
-        CompanyRole::NAME   => [
-            IndexResource::NAME => [
+        CompanyRole::NAME => [
+            IndexResource::NAME     => [
                 Acl::TYPE_ALLOW => null,
             ],
-            EditResource::NAME => [
+            EditResource::NAME      => [
                 Acl::TYPE_ALLOW => null,
             ],
             ForbiddenResource::NAME => [
@@ -243,10 +247,10 @@ return [
             ],
         ],
         AdminRole::NAME   => [
-            IndexResource::NAME => [
+            IndexResource::NAME     => [
                 Acl::TYPE_ALLOW => null,
             ],
-            EditResource::NAME => [
+            EditResource::NAME      => [
                 Acl::TYPE_ALLOW => null,
             ],
             ForbiddenResource::NAME => [

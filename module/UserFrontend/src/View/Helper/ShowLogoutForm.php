@@ -18,14 +18,20 @@ class ShowLogoutForm extends AbstractShowForm
 {
     /**
      * Output the logout form
+     *
+     * @param string $formClass
+     *
+     * @return
      */
-    public function __invoke()
+    public function __invoke($formClass = 'form-horizontal')
     {
         $this->getUserForm()->setAttribute(
             'action',
             $this->getView()->url('user-frontend', [], true)
         );
 
-        return $this->getView()->bootstrapForm($this->getUserForm());
+        return $this->getView()->bootstrapForm(
+            $this->getUserForm(), [], $formClass
+        );
     }
 }

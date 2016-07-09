@@ -1,0 +1,20 @@
+<?php
+/**
+ * ZF3 book Zend Framework Center Example Application
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @link       https://github.com/zf3buch/zendframework-center
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+
+use UserModel\Entity\UserEntity;
+
+/** @var UserEntity $identity */
+$identity = $this->identity;
+?>
+<?php if (!$identity) : ?>
+  <?= $this->userShowLoginForm('form-inline'); ?>
+<?php else: ?>
+  <?= $identity->getEmail() ?>
+  <?= $this->userShowLogoutForm('form-inline'); ?>
+<?php endif; ?>

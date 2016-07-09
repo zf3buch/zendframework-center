@@ -12,9 +12,16 @@ use Zend\View\Helper\Navigation\Menu;
 ?>
 <div class="container">
   <header>
-    <a href="<?= $this->url('home', [], true); ?>">
-      <img src="/assets/custom/img/logo.png" class="logo">
-    </a>
+    <div class="row">
+      <div class="col-md-4">
+        <a href="<?= $this->url('home', [], true); ?>">
+          <img src="/assets/custom/img/logo.png" class="logo">
+        </a>
+      </div>
+      <div class="col-md-8">
+        <?php echo $this->userShowUserWidget(); ?>
+      </div>
+    </div>
   </header>
   <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
