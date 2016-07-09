@@ -18,14 +18,20 @@ class ShowLoginForm extends AbstractShowForm
 {
     /**
      * Output the login form
+     *
+     * @param string $formClass
+     *
+     * @return
      */
-    public function __invoke()
+    public function __invoke($formClass = 'form-horizontal')
     {
         $this->getUserForm()->setAttribute(
             'action',
             $this->getView()->url('user-frontend/login', [], true)
         );
 
-        return $this->getView()->bootstrapForm($this->getUserForm());
+        return $this->getView()->bootstrapForm(
+            $this->getUserForm(), [], $formClass
+        );
     }
 }
