@@ -25,6 +25,7 @@ return [
     'user_frontend_h1_register_index'     => 'Benutzer registrieren',
     'user_frontend_h1_edit_index'         => 'Benutzer bearbeiten',
     'user_frontend_h2_login'              => 'Benutzer anmelden',
+    'user_frontend_h2_logout'             => 'Benutzer abmelden',
     'user_frontend_h2_forbidden'          => 'Zugriff verboten',
     'user_frontend_h2_register'           => 'Benutzer registrieren',
     'user_frontend_h2_edit'               => 'Benutzer bearbeiten',
