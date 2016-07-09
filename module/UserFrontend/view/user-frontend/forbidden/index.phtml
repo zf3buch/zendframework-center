@@ -10,3 +10,14 @@
 $this->headTitle('user_frontend_title_forbidden_index');
 $this->h1('user_frontend_h1_forbidden_index');
 ?>
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <?= $this->translate('user_frontend_h2_forbidden') ?>
+    </div>
+    <div class="panel-body">
+        <p>
+            <?= $this->translate('user_frontend_message_forbidden') ?>
+        </p>
+        <?= $this->userShowLogoutForm(); ?>
+    </div>
+</div>
