@@ -23,19 +23,23 @@ use Zend\Form\Form;
 abstract class AbstractUserForm extends Form
 {
     /**
-     * Init form
+     * Add new csrf element
      */
-    public function init()
+    protected function addCsrfElement()
     {
-        $this->setAttribute('class', 'form-horizontal');
-
         $this->add(
             [
                 'type' => Csrf::class,
                 'name' => 'csrf',
             ]
         );
+    }
 
+    /**
+     * Add new email element
+     */
+    protected function addEmailElement()
+    {
         $this->add(
             [
                 'type'       => Text::class,
@@ -51,7 +55,13 @@ abstract class AbstractUserForm extends Form
                 ],
             ]
         );
+    }
 
+    /**
+     * Add new password element
+     */
+    protected function addPasswordElement()
+    {
         $this->add(
             [
                 'type'       => Password::class,

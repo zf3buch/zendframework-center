@@ -22,10 +22,12 @@ class UserLoginForm extends AbstractUserForm
      */
     public function init()
     {
-        parent::init();
-
         $this->setName('user_login_form');
+        $this->setAttribute('class', 'form-horizontal');
 
+        $this->addCsrfElement();
+        $this->addEmailElement();
+        $this->addPasswordElement();
         $this->addSubmitElement(
             'login_user', 'user_frontend_action_login'
         );
