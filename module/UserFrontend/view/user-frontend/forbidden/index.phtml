@@ -18,6 +18,10 @@ $this->h1('user_frontend_h1_forbidden_index');
         <p>
             <?= $this->translate('user_frontend_message_forbidden') ?>
         </p>
-        <?= $this->userShowLogoutForm(); ?>
+        <p class="pull-center">
+            <a href="/" class="btn btn-success">
+                <?= $this->translate('application_action_homepage'); ?>
+            </a>
+        </p>
     </div>
 </div>

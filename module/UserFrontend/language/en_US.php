@@ -33,7 +33,7 @@ return [
     'user_frontend_message_register'      => 'If you are not registered yet, you can register now!',
     'user_frontend_message_registered'    => 'You registered successfully and can login now!',
     'user_frontend_message_login'         => 'If you are already registered, you can login now!',
-    'user_frontend_message_forbidden'     => 'You are not allowed to access this page! You can logout now and login again with another user account with sufficient access right!',
+    'user_frontend_message_forbidden'     => 'You are not allowed to access this page!',
     'user_frontend_message_edit'          => 'You can edit the user data now!',
     'user_frontend_message_check_data'    => 'Please check the user data!',
     'user_frontend_message_form_timeout'  => 'Timeout! Please send the form again!',
