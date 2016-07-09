@@ -13,6 +13,7 @@ use Interop\Container\ContainerInterface;
 use UserFrontend\Form\AbstractUserForm;
 use UserFrontend\Form\UserEditForm;
 use UserFrontend\Form\UserLoginForm;
+use UserFrontend\Form\UserLogoutForm;
 use UserFrontend\Form\UserRegisterForm;
 use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
@@ -79,6 +80,9 @@ class ShowFormAbstractFactory implements AbstractFactoryInterface
 
             case 'UserFrontend\View\Helper\ShowLoginForm':
                 return UserLoginForm::class;
+
+            case 'UserFrontend\View\Helper\ShowLogoutForm':
+                return UserLogoutForm::class;
 
             case 'UserFrontend\View\Helper\ShowEditForm':
                 return UserEditForm::class;
