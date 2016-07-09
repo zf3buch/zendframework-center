@@ -14,6 +14,7 @@ use UserFrontend\Authentication\AuthenticationServiceFactory;
 use UserFrontend\Controller\EditController;
 use UserFrontend\Controller\EditControllerFactory;
 use UserFrontend\Controller\IndexController;
+use UserFrontend\Controller\IndexControllerFactory;
 use UserFrontend\Controller\LoginController;
 use UserFrontend\Controller\LoginControllerFactory;
 use UserFrontend\Controller\RegisterController;
@@ -88,7 +89,7 @@ return [
 
     'controllers' => [
         'factories' => [
-            IndexController::class    => InvokableFactory::class,
+            IndexController::class    => IndexControllerFactory::class,
             EditController::class     => EditControllerFactory::class,
             RegisterController::class => RegisterControllerFactory::class,
             LoginController::class    => LoginControllerFactory::class,

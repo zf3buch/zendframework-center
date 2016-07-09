@@ -9,6 +9,7 @@
 
 namespace UserFrontend\Controller;
 
+use UserFrontend\Form\UserEditFormInterface;
 use UserModel\Entity\UserEntity;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -22,12 +23,29 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController
 {
     /**
+     * @var UserEditFormInterface
+     */
+    private $userForm;
+
+    /**
+     * @param UserEditFormInterface $userForm
+     */
+    public function setUserForm($userForm)
+    {
+        $this->userForm = $userForm;
+    }
+
+    /**
      * Show user intro
      *
      * @return ViewModel
      */
     public function indexAction()
     {
+        if ($this->identity()) {
+            $this->userForm->bind($this->identity());
+        }
+
         $viewModel = new ViewModel();
 
         return $viewModel;

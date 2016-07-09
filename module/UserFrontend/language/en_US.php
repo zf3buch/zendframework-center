@@ -23,6 +23,7 @@ return [
     'user_frontend_h1_register_index'     => 'Register user',
     'user_frontend_h1_edit_index'         => 'Edit user',
     'user_frontend_h2_login'              => 'Login user',
+    'user_frontend_h2_logout'             => 'Logout user',
     'user_frontend_h2_register'           => 'Register user',
     'user_frontend_h2_edit'               => 'Edit user',
 
@@ -30,7 +31,9 @@ return [
     'user_frontend_message_register'      => 'If you are not registered yet, you can register now!',
     'user_frontend_message_registered'    => 'You registered successfully and can login now!',
     'user_frontend_message_login'         => 'If you are already registered, you can login now!',
+    'user_frontend_message_logout'        => 'You can logout now!',
     'user_frontend_message_edit'          => 'You can edit the user data now!',
+    'user_frontend_message_edited'        => 'The user was saved now!',
     'user_frontend_message_check_data'    => 'Please check the user data!',
     'user_frontend_message_form_timeout'  => 'Timeout! Please send the form again!',
     'user_frontend_auth_identity_wrong'   => 'There is no known user for this email address!',

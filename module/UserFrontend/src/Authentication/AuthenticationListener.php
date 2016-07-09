@@ -9,7 +9,7 @@
 
 namespace UserFrontend\Authentication;
 
-use Application\Controller\IndexController;
+use UserFrontend\Controller\IndexController;
 use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Entity\UserEntity;
 use UserModel\Hydrator\UserHydrator;
@@ -49,9 +49,9 @@ class AuthenticationListener extends AbstractListenerAggregate
     /**
      * AuthenticationListener constructor.
      *
-     * @param AuthenticationService|AuthenticationServiceInterface $authService
-     * @param UserLoginFormInterface                               $userLoginForm
-     * @param UserHydrator                                         $userHydrator
+     * @param AuthenticationServiceInterface $authService
+     * @param UserLoginFormInterface         $userLoginForm
+     * @param UserHydrator                   $userHydrator
      */
     public function __construct(
         AuthenticationServiceInterface $authService,
@@ -72,7 +72,10 @@ class AuthenticationListener extends AbstractListenerAggregate
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(
-            MvcEvent::EVENT_ROUTE, [$this, 'authenticate'], -1000
+            MvcEvent::EVENT_ROUTE, [$this, 'authenticate'], -2000
+        );
+        $this->listeners[] = $events->attach(
+            MvcEvent::EVENT_ROUTE, [$this, 'logout'], -1000
         );
     }
 
@@ -130,7 +133,7 @@ class AuthenticationListener extends AbstractListenerAggregate
             $user = new UserEntity();
 
             $this->userHydrator->hydrate(
-                (array) $authAdapter->getResultRowObject(
+                (array)$authAdapter->getResultRowObject(
                     null, ['password']
                 ),
                 $user
@@ -140,6 +143,25 @@ class AuthenticationListener extends AbstractListenerAggregate
 
             $routeMatch = $e->getRouteMatch();
             $routeMatch->setParam('controller', IndexController::class);
+            $routeMatch->setParam('action', 'index');
         }
+    }
+
+    /**
+     * Logout user
+     *
+     * @param MvcEvent $e
+     */
+    public function logout(MvcEvent $e)
+    {
+        if (!$this->authService->hasIdentity()) {
+            return;
+        }
+
+        $this->authService->clearIdentity();
+
+        $routeMatch = $e->getRouteMatch();
+        $routeMatch->setParam('controller', IndexController::class);
+        $routeMatch->setParam('action', 'index');
     }
 }
