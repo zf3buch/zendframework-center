@@ -22,10 +22,12 @@ class UserEditForm extends AbstractUserForm
      */
     public function init()
     {
-        parent::init();
-
         $this->setName('user_edit_form');
+        $this->setAttribute('class', 'form-horizontal');
 
+        $this->addCsrfElement();
+        $this->addEmailElement();
+        $this->addPasswordElement();
         $this->addSubmitElement(
             'edit_user', 'user_frontend_action_edit'
         );
