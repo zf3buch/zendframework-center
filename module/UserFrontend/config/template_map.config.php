@@ -13,4 +13,5 @@ return [
     'user-frontend/index/index' => __DIR__ . '/../view/user-frontend/index/index.phtml',
     'user-frontend/forbidden/index' => __DIR__ . '/../view/user-frontend/forbidden/index.phtml',
     'user-frontend/edit/index' => __DIR__ . '/../view/user-frontend/edit/index.phtml',
+    'user-frontend/widget/user-widget' => __DIR__ . '/../view/user-frontend/widget/user-widget.phtml',
 ];
