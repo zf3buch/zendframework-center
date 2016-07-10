@@ -219,25 +219,15 @@ return [
     'acl' => [
         GuestRole::NAME   => [
             DisplayResource::NAME => [
-                Acl::TYPE_ALLOW => [
-                    DisplayResource::PRIVILEGE_INDEX,
-                    DisplayResource::PRIVILEGE_DETAIL,
-                ],
+                Acl::TYPE_ALLOW => null,
             ],
         ],
         CompanyRole::NAME => [
             DisplayResource::NAME => [
-                Acl::TYPE_ALLOW => [
-                    DisplayResource::PRIVILEGE_INDEX,
-                    DisplayResource::PRIVILEGE_DETAIL,
-                ],
+                Acl::TYPE_ALLOW => null,
             ],
             ModifyResource::NAME => [
-                Acl::TYPE_ALLOW => [
-                    ModifyResource::PRIVILEGE_ADD,
-                    ModifyResource::PRIVILEGE_EDIT,
-                    ModifyResource::PRIVILEGE_DELETE,
-                ],
+                Acl::TYPE_ALLOW => null,
             ],
         ],
         AdminRole::NAME   => [
