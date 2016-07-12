@@ -138,11 +138,11 @@ return [
     ],
 
     'form_elements' => [
+        'abstract_factories' => [
+            UserFormAbstractFactory::class,
+        ],
         'factories' => [
-            UserEditForm::class     => UserFormAbstractFactory::class,
-            UserLoginForm::class    => UserFormAbstractFactory::class,
             UserLogoutForm::class   => InvokableFactory::class,
-            UserRegisterForm::class => UserFormAbstractFactory::class,
         ],
         'shared'    => [
             UserEditForm::class     => true,
@@ -153,11 +153,8 @@ return [
     ],
 
     'view_helpers' => [
-        'factories' => [
-            ShowEditForm::class     => ShowFormAbstractFactory::class,
-            ShowLoginForm::class    => ShowFormAbstractFactory::class,
-            ShowLogoutForm::class   => ShowFormAbstractFactory::class,
-            ShowRegisterForm::class => ShowFormAbstractFactory::class,
+        'abstract_factories' => [
+            ShowFormAbstractFactory::class,
         ],
         'aliases'   => [
             'userShowEditForm'     => ShowEditForm::class,
