@@ -37,7 +37,7 @@ class ShowFormAbstractFactory implements AbstractFactoryInterface
             return false;
         }
 
-        return ($requestedName instanceof AbstractShowForm);
+        return (is_subclass_of($requestedName, AbstractShowForm::class));
     }
 
     /**
