@@ -37,7 +37,7 @@ class UserFormAbstractFactory implements AbstractFactoryInterface
             return false;
         }
 
-        return ($requestedName instanceof AbstractUserForm);
+        return (is_subclass_of($requestedName, AbstractUserForm::class));
     }
 
     /**
