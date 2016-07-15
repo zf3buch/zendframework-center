@@ -27,7 +27,7 @@ class ShowLogoutForm extends AbstractShowForm
     {
         $this->getUserForm()->setAttribute(
             'action',
-            $this->getView()->url('user-frontend', [], true)
+            $this->getView()->url(null, [], true)
         );
 
         return $this->getView()->bootstrapForm(
