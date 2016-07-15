@@ -9,7 +9,6 @@
 
 namespace UserFrontend\Authentication;
 
-use UserFrontend\Controller\IndexController;
 use UserFrontend\Form\UserLoginFormInterface;
 use UserModel\Entity\UserEntity;
 use UserModel\Hydrator\UserHydrator;
@@ -140,10 +139,6 @@ class AuthenticationListener extends AbstractListenerAggregate
             );
 
             $this->authService->getStorage()->write($user);
-
-            $routeMatch = $e->getRouteMatch();
-            $routeMatch->setParam('controller', IndexController::class);
-            $routeMatch->setParam('action', 'index');
         }
     }
 
@@ -170,9 +165,5 @@ class AuthenticationListener extends AbstractListenerAggregate
         }
 
         $this->authService->clearIdentity();
-
-        $routeMatch = $e->getRouteMatch();
-        $routeMatch->setParam('controller', IndexController::class);
-        $routeMatch->setParam('action', 'index');
     }
 }
