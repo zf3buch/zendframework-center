@@ -18,8 +18,6 @@ use UserFrontend\Controller\EditControllerFactory;
 use UserFrontend\Controller\ForbiddenController;
 use UserFrontend\Controller\IndexController;
 use UserFrontend\Controller\IndexControllerFactory;
-use UserFrontend\Controller\LoginController;
-use UserFrontend\Controller\LoginControllerFactory;
 use UserFrontend\Controller\RegisterController;
 use UserFrontend\Controller\RegisterControllerFactory;
 use UserFrontend\Form\UserEditForm;
@@ -86,15 +84,6 @@ return [
                             ],
                         ],
                     ],
-                    'login'     => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => '/login',
-                            'defaults' => [
-                                'controller' => LoginController::class,
-                            ],
-                        ],
-                    ],
                     'forbidden' => [
                         'type'    => Literal::class,
                         'options' => [
@@ -114,7 +103,6 @@ return [
             IndexController::class     => IndexControllerFactory::class,
             EditController::class      => EditControllerFactory::class,
             RegisterController::class  => RegisterControllerFactory::class,
-            LoginController::class     => LoginControllerFactory::class,
             ForbiddenController::class => InvokableFactory::class,
         ],
     ],
@@ -195,11 +183,6 @@ return [
                     'register'  => [
                         'type'    => Mvc::class,
                         'route'   => 'user-frontend/register',
-                        'visible' => false,
-                    ],
-                    'login'     => [
-                        'type'    => Mvc::class,
-                        'route'   => 'user-frontend/login',
                         'visible' => false,
                     ],
                     'forbidden' => [
