@@ -139,13 +139,7 @@ class AuthorizationListener extends AbstractListenerAggregate
      */
     public function prepareNavigation(MvcEvent $e)
     {
-        if ($this->authService->getIdentity()) {
-            $role = $this->authService->getIdentity()->getRole();
-        } else {
-            $role = GuestRole::NAME;
-        }
-
-        $this->navigationHelper->setRole($role);
+        $this->navigationHelper->setRole($this->getCurrentRole());
         $this->navigationHelper->setAcl($this->userAcl);
     }
 }
