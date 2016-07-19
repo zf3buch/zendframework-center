@@ -24,6 +24,8 @@ return [
     'application_h2_error_404'                      => 'Die angeforderte Seite konnte nicht gefunden werden',
     'application_h1_error_index'                    => 'Server Fehler',
     'application_h2_error_index'                    => 'Ein interner Server Fehler ist aufgetreten.',
+    'application_h2_jobs'                           => 'Jobs',
+    'application_h2_projects'                       => 'Projekte',
     'application_h4_footer_skeleton'                => 'Zend Framework Center',
     'application_h4_footer_links1'                  => 'Zend Framework Links',
     'application_h4_footer_links2'                  => 'ZF3buch Links',
