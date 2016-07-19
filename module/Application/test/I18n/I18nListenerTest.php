@@ -69,7 +69,7 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
             [$this->i18nListener, 'redirectHomeRoute'],
             100
         );
-        $method->willReturn([$this, 'redirectHomeRoute']);
+        $method->willReturn([$this->i18nListener, 'redirectHomeRoute']);
         $method->shouldBeCalled();
 
         /** @var MethodProphecy $method */
@@ -78,7 +78,7 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
             [$this->i18nListener, 'setupLocalization'],
             -100
         );
-        $method->willReturn([$this, 'redirectHomeRoute']);
+        $method->willReturn([$this->i18nListener, 'redirectHomeRoute']);
         $method->shouldBeCalled();
 
         $this->i18nListener->attach($events->reveal());
