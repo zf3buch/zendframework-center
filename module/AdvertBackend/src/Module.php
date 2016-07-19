@@ -28,7 +28,9 @@ class Module implements ConfigProviderInterface, InitProviderInterface
      */
     public function init(ModuleManagerInterface $manager)
     {
-        define('ADVERT_BACKEND_MODULE_ROOT', __DIR__ . '/..');
+        if (!defined('ADVERT_BACKEND_MODULE_ROOT')) {
+            define('ADVERT_BACKEND_MODULE_ROOT', __DIR__ . '/..');
+        }
     }
 
     /**
