@@ -39,7 +39,8 @@
     "zendframework/zend-permissions-acl": "^2.6",
     "zendframework/zend-authentication": "^2.5",
     "zendframework/zend-mvc-plugin-identity": "^1.0",
-    "zendframework/zend-test": "^3.0"
+    "zendframework/zend-test": "^3.0",
+    "phpunit/dbunit": "^2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.0",
