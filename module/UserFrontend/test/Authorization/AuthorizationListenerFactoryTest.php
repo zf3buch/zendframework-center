@@ -7,52 +7,49 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace UserFrontendTest\Authentication;
+namespace UserFrontendTest\Authorization;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit_Framework_TestCase;
 use Prophecy\Prophecy\MethodProphecy;
-use UserFrontend\Authentication\AuthenticationListener;
-use UserFrontend\Authentication\AuthenticationListenerFactory;
+use UserFrontend\Authorization\AuthorizationListener;
+use UserFrontend\Authorization\AuthorizationListenerFactory;
 use UserFrontend\Form\UserLoginForm;
 use UserModel\Hydrator\UserHydrator;
+use UserModel\Permissions\UserAcl;
 use Zend\Authentication\AuthenticationService;
+use Zend\View\Helper\Navigation;
 
 /**
- * Class AuthenticationListenerFactoryTest
+ * Class AuthorizationListenerFactoryTest
  *
- * @package UserFrontendTest\Authentication
+ * @package UserFrontendTest\Authorization
  */
-class AuthenticationListenerFactoryTest extends PHPUnit_Framework_TestCase
+class AuthorizationListenerFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test factory
      */
     public function testFactory()
     {
-        $userLoginForm = new UserLoginForm();
-        $userHydrator  = new UserHydrator();
+        /** @var Navigation $navigationViewHelper */
+        $navigationViewHelper = $this->prophesize(Navigation::class);
 
-        /** @var ContainerInterface $formElementManager */
-        $formElementManager = $this->prophesize(ContainerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $formElementManager->get(UserLoginForm::class);
-        $method->willReturn($userLoginForm);
-        $method->shouldBeCalled();
-
-        /** @var ContainerInterface $hydratorManager */
-        $hydratorManager = $this->prophesize(ContainerInterface::class);
+        /** @var ContainerInterface $viewHelperManager */
+        $viewHelperManager = $this->prophesize(ContainerInterface::class);
 
         /** @var MethodProphecy $method */
-        $method = $hydratorManager->get(UserHydrator::class);
-        $method->willReturn($userHydrator);
+        $method = $viewHelperManager->get(Navigation::class);
+        $method->willReturn($navigationViewHelper);
         $method->shouldBeCalled();
 
         /** @var AuthenticationService $authenticationService */
         $authenticationService = $this->prophesize(
             AuthenticationService::class
         );
+
+        /** @var UserAcl $userAcl */
+        $userAcl = $this->prophesize(UserAcl::class);
 
         /** @var ContainerInterface $container */
         $container = $this->prophesize(ContainerInterface::class);
@@ -63,36 +60,36 @@ class AuthenticationListenerFactoryTest extends PHPUnit_Framework_TestCase
         $method->shouldBeCalled();
 
         /** @var MethodProphecy $method */
-        $method = $container->get('FormElementManager');
-        $method->willReturn($formElementManager);
+        $method = $container->get(UserAcl::class);
+        $method->willReturn($userAcl);
         $method->shouldBeCalled();
 
         /** @var MethodProphecy $method */
-        $method = $container->get('HydratorManager');
-        $method->willReturn($hydratorManager);
+        $method = $container->get('ViewHelperManager');
+        $method->willReturn($viewHelperManager);
         $method->shouldBeCalled();
 
-        $factory = new AuthenticationListenerFactory();
+        $factory = new AuthorizationListenerFactory();
 
         $this->assertTrue(
-            $factory instanceof AuthenticationListenerFactory
+            $factory instanceof AuthorizationListenerFactory
         );
 
-        /** @var AuthenticationListener $table */
+        /** @var AuthorizationListener $table */
         $listener = $factory(
-            $container->reveal(), AuthenticationListener::class
+            $container->reveal(), AuthorizationListener::class
         );
 
-        $this->assertTrue($listener instanceof AuthenticationListener);
+        $this->assertTrue($listener instanceof AuthorizationListener);
 
         $this->assertAttributeEquals(
             $authenticationService->reveal(), 'authService', $listener
         );
         $this->assertAttributeEquals(
-            $userLoginForm, 'userLoginForm', $listener
+            $userAcl->reveal(), 'userAcl', $listener
         );
         $this->assertAttributeEquals(
-            $userHydrator, 'userHydrator', $listener
+            $navigationViewHelper->reveal(), 'navigationHelper', $listener
         );
     }
 }

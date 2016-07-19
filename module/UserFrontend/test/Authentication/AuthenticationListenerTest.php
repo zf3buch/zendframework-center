@@ -7,52 +7,84 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace ApplicationTest\I18n;
+namespace UserFrontendTest\Authentication;
 
-use Application\I18n\I18nListener;
-use Locale;
 use PHPUnit_Framework_TestCase;
 use Prophecy\Prophecy\MethodProphecy;
+use UserFrontend\Authentication\AuthenticationListener;
+use UserFrontend\Form\UserLoginForm;
+use UserModel\Entity\UserEntity;
+use UserModel\Hydrator\UserHydrator;
+use Zend\Authentication\Adapter\AdapterInterface;
+use Zend\Authentication\Adapter\DbTable\AbstractAdapter;
+use Zend\Authentication\Adapter\ValidatableAdapterInterface;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Result;
+use Zend\Authentication\Storage\StorageInterface;
 use Zend\EventManager\EventManagerInterface;
-use Zend\Http\Headers;
 use Zend\Http\PhpEnvironment\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\I18n\Translator\Translator;
 use Zend\Mvc\MvcEvent;
-use Zend\Router\RouteMatch;
 
 /**
- * Class I18nListenerTest
+ * Class AuthenticationListenerTest
  *
- * @package ApplicationTest\I18n
+ * @package UserFrontendTest\Authentication
  */
-class I18nListenerTest extends PHPUnit_Framework_TestCase
+class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var I18nListener
+     * @var AuthenticationListener
      */
-    private $i18nListener;
+    private $authenticationListener;
 
     /**
-     * @var Translator
+     * @var AuthenticationService
      */
-    private $translator;
+    private $authService;
+
+    /**
+     * @var UserLoginForm
+     */
+    private $userLoginForm;
+
+    /**
+     * @var UserHydrator
+     */
+    private $userHydrator;
+
+    /**
+     * @var AdapterInterface|ValidatableAdapterInterface|AbstractAdapter
+     */
+    protected $authAdapter;
+
+    /**
+     * @var StorageInterface
+     */
+    protected $authStorage;
+
+    /**
+     * @var Result
+     */
+    protected $authResult;
 
     /**
      * Setup test cases
      */
     protected function setUp()
     {
-        $this->translator = $this->prophesize(Translator::class);
+        $this->authService   = $this->prophesize(
+            AuthenticationService::class
+        );
+        $this->userLoginForm = $this->prophesize(UserLoginForm::class);
+        $this->userHydrator  = $this->prophesize(UserHydrator::class);
+        $this->authAdapter   = $this->prophesize(AbstractAdapter::class);
+        $this->authStorage   = $this->prophesize(StorageInterface::class);
+        $this->authResult    = $this->prophesize(Result::class);
 
-        $this->i18nListener = new I18nListener();
-        $this->i18nListener->setTranslator($this->translator->reveal());
-        $this->i18nListener->setDefaultLang('de');
-        $this->i18nListener->setAllowedLocales(
-            [
-                'de' => 'de_DE',
-                'en' => 'en_US',
-            ]
+        $this->authenticationListener = new AuthenticationListener(
+            $this->authService->reveal(),
+            $this->userLoginForm->reveal(),
+            $this->userHydrator->reveal()
         );
     }
 
@@ -66,40 +98,68 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
         /** @var MethodProphecy $method */
         $method = $events->attach(
             MvcEvent::EVENT_ROUTE,
-            [$this->i18nListener, 'redirectHomeRoute'],
-            100
+            [$this->authenticationListener, 'authenticate'],
+            -2000
         );
-        $method->willReturn([$this->i18nListener, 'redirectHomeRoute']);
+        $method->willReturn(
+            [$this->authenticationListener, 'authenticate']
+        );
         $method->shouldBeCalled();
 
         /** @var MethodProphecy $method */
         $method = $events->attach(
             MvcEvent::EVENT_ROUTE,
-            [$this->i18nListener, 'setupLocalization'],
-            -100
+            [$this->authenticationListener, 'logout'],
+            -1000
         );
-        $method->willReturn([$this->i18nListener, 'redirectHomeRoute']);
+        $method->willReturn([$this->authenticationListener, 'logout']);
         $method->shouldBeCalled();
 
-        $this->i18nListener->attach($events->reveal());
+        $this->authenticationListener->attach($events->reveal());
     }
 
     /**
-     * Test redirect to home route with request uri /whatever
+     * Test authenticate with identity
      */
-    public function testRedirectHomeRouteWhatever()
+    public function testAuthenticateWithIdentity()
     {
+        /** @var MethodProphecy $method */
+        $method = $this->authService->hasIdentity();
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        $request = $this->prophesize(Request::class);
+
+        $mvcEvent = $this->prophesize(MvcEvent::class);
+
+        /** @var MethodProphecy $method */
+        $method = $mvcEvent->getRequest();
+        $method->willReturn($request);
+        $method->shouldNotBeCalled();
+
+        $this->authenticationListener->authenticate($mvcEvent->reveal());
+    }
+
+    /**
+     * Test authenticate no post
+     */
+    public function testAuthenticateNoPost()
+    {
+        /** @var MethodProphecy $method */
+        $method = $this->authService->hasIdentity();
+        $method->willReturn(false);
+        $method->shouldBeCalled();
+
         $request = $this->prophesize(Request::class);
 
         /** @var MethodProphecy $method */
-        $method = $request->getRequestUri();
-        $method->willReturn('/whatever');
+        $method = $request->isPost();
+        $method->willReturn(false);
         $method->shouldBeCalled();
 
-        $response = $this->prophesize(Response::class);
-
         /** @var MethodProphecy $method */
-        $method = $response->setStatusCode();
+        $method = $request->getPost('login_user');
+        $method->willReturn(false);
         $method->shouldNotBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
@@ -109,36 +169,188 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
         $method->willReturn($request);
         $method->shouldBeCalled();
 
-        $this->i18nListener->redirectHomeRoute($mvcEvent->reveal());
+        $this->authenticationListener->authenticate($mvcEvent->reveal());
     }
 
     /**
-     * Test redirect to home route with request uri /
+     * Test authenticate post wrong button
      */
-    public function testRedirectHomeRouteRoot()
+    public function testAuthenticateWithPostWrongButton()
     {
+        /** @var MethodProphecy $method */
+        $method = $this->authService->hasIdentity();
+        $method->willReturn(false);
+        $method->shouldBeCalled();
+
         $request = $this->prophesize(Request::class);
 
         /** @var MethodProphecy $method */
-        $method = $request->getRequestUri();
-        $method->willReturn('/');
-        $method->shouldBeCalled();
-
-        $headers = $this->prophesize(Headers::class);
-
-        /** @var MethodProphecy $method */
-        $method = $headers->addHeaderLine('Location', '/de');
-        $method->shouldBeCalled();
-
-        $response = $this->prophesize(Response::class);
-
-        /** @var MethodProphecy $method */
-        $method = $response->getHeaders();
-        $method->willReturn($headers);
+        $method = $request->isPost();
+        $method->willReturn(true);
         $method->shouldBeCalled();
 
         /** @var MethodProphecy $method */
-        $method = $response->setStatusCode(Response::STATUS_CODE_301);
+        $method = $request->getPost('login_user');
+        $method->willReturn(false);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $request->getPost();
+        $method->willReturn(false);
+        $method->shouldNotBeCalled();
+
+        $mvcEvent = $this->prophesize(MvcEvent::class);
+
+        /** @var MethodProphecy $method */
+        $method = $mvcEvent->getRequest();
+        $method->willReturn($request);
+        $method->shouldBeCalled();
+
+        $this->authenticationListener->authenticate($mvcEvent->reveal());
+    }
+
+    /**
+     * Test authenticate post invalid form
+     */
+    public function testAuthenticateWithPostInvalidForm()
+    {
+        $postData = [
+            'email'      => 'Email',
+            'password'   => 'password',
+            'login_user' => 'login_user',
+        ];
+
+        /** @var MethodProphecy $method */
+        $method = $this->authService->hasIdentity();
+        $method->willReturn(false);
+        $method->shouldBeCalled();
+
+        $request = $this->prophesize(Request::class);
+
+        /** @var MethodProphecy $method */
+        $method = $request->isPost();
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $request->getPost('login_user');
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $request->getPost();
+        $method->willReturn($postData);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->userLoginForm->setData($postData);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->userLoginForm->isValid();
+        $method->willReturn(false);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authService->getAdapter();
+        $method->shouldNotBeCalled();
+
+        $mvcEvent = $this->prophesize(MvcEvent::class);
+
+        /** @var MethodProphecy $method */
+        $method = $mvcEvent->getRequest();
+        $method->willReturn($request);
+        $method->shouldBeCalled();
+
+        $this->authenticationListener->authenticate($mvcEvent->reveal());
+    }
+
+    /**
+     * Test authenticate post valid result
+     */
+    public function testAuthenticateWithPostValidResult()
+    {
+        $postData = [
+            'email'      => 'Email',
+            'password'   => 'password',
+            'login_user' => 'login_user',
+        ];
+
+        /** @var MethodProphecy $method */
+        $method = $this->authService->hasIdentity();
+        $method->willReturn(false);
+        $method->shouldBeCalled();
+
+        $request = $this->prophesize(Request::class);
+
+        /** @var MethodProphecy $method */
+        $method = $request->isPost();
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $request->getPost('login_user');
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $request->getPost();
+        $method->willReturn($postData);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->userLoginForm->setData($postData);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->userLoginForm->isValid();
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->userLoginForm->getData();
+        $method->willReturn($postData);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authService->getAdapter();
+        $method->willReturn($this->authAdapter);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authService->authenticate();
+        $method->willReturn($this->authResult);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authService->getStorage();
+        $method->willReturn($this->authStorage);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authAdapter->setIdentity($postData['email']);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authAdapter->setCredential($postData['password']);
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authAdapter->getResultRowObject(
+            null, ['password']
+        );
+        $method->shouldBeCalled();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authResult->isValid();
+        $method->willReturn(true);
+        $method->shouldBeCalled();
+
+        $user = new UserEntity();
+
+        /** @var MethodProphecy $method */
+        $method = $this->authStorage->write($user);
+        $method->willReturn(true);
         $method->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
@@ -148,57 +360,6 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
         $method->willReturn($request);
         $method->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getResponse();
-        $method->willReturn($response);
-        $method->shouldBeCalled();
-
-        $this->i18nListener->redirectHomeRoute($mvcEvent->reveal());
-    }
-
-    /**
-     * Test setup the localization
-     *
-     * @param string $locale
-     * @param string $lang
-     *
-     * @dataProvider provideSetupLocalization
-     */
-    public function testSetupLocalization($locale, $lang)
-    {
-        /** @var MethodProphecy $method */
-        $method = $this->translator->setLocale($locale);
-        $method->shouldBeCalled();
-
-        $routeMatch = $this->prophesize(RouteMatch::class);
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('lang', 'de');
-        $method->willReturn($lang);
-        $method->shouldBeCalled();
-
-        $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRouteMatch();
-        $method->willReturn($routeMatch);
-        $method->shouldBeCalled();
-
-        $this->i18nListener->setupLocalization($mvcEvent->reveal());
-
-        $this->assertEquals($locale, Locale::getDefault());
-    }
-
-    /**
-     * Data provider for setup the localization
-     *
-     * @return array
-     */
-    public function provideSetupLocalization()
-    {
-        return [
-            ['de_DE', 'de'],
-            ['en_US', 'en'],
-        ];
+        $this->authenticationListener->authenticate($mvcEvent->reveal());
     }
 }
