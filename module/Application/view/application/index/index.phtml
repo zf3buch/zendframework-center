@@ -35,13 +35,15 @@ $jobListLink = $this->url('advert-job', [], true);
 
 $projectListLink = $this->url('advert-project', [], true);
 
-$this->h1('Willkommen zum Zend Framework Center!');
+$this->h1('application_h1_index_index');
 ?>
 
 <div class="row">
   <div class="col-sm-6">
     <h2>
-      <a href="<?= $jobListLink; ?>">Jobs</a>
+      <a href="<?= $jobListLink; ?>">
+        <?= $this->translate('application_h2_jobs') ?>
+      </a>
     </h2>
 
     <div class="panel panel-primary">
@@ -89,15 +91,17 @@ $this->h1('Willkommen zum Zend Framework Center!');
   </div>
   <div class="col-sm-6">
     <h2>
-      <a href="<?= $projectListLink; ?>">Projekte</a>
+      <a href="<?= $projectListLink; ?>">
+        <?= $this->translate('application_h2_projects') ?>
+      </a>
     </h2>
 
     <div class="panel panel-success">
       <div class="panel-heading clearfix">
         <strong>
-          <a href="<?= $projectDetailLink; ?>">
-            <?= $project->getTitle(); ?>
-          </a>
+          <a href="<?= $projectDetailLink; ?>"><?=
+            $project->getTitle();
+          ?></a>
         </strong>
       </div>
       <div class="panel-body">
