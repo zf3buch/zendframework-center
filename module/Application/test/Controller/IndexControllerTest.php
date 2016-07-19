@@ -119,9 +119,9 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
     }
 
     /**
-     * Test index action with lang
+     * Test index action with de lang
      */
-    public function testIndexActionWithLangCanBeAccessed()
+    public function testIndexActionWithDeLangCanBeAccessed()
     {
         $this->dispatch('/de', 'GET');
         $this->assertResponseStatusCode(200);
@@ -131,20 +131,45 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertControllerName(IndexController::class);
         $this->assertControllerClass('IndexController');
         $this->assertActionName('index');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            $this->translator->translate(
+                'application_h1_index_index', 'default', 'de_DE'
+            )
+        );
+    }
+
+    /**
+     * Test index action with en lang
+     */
+    public function testIndexActionWithEnLangCanBeAccessed()
+    {
+        $this->dispatch('/en', 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertMatchedRouteName('home');
+        $this->assertModuleName('application');
+        $this->assertControllerName(IndexController::class);
+        $this->assertControllerClass('IndexController');
+        $this->assertActionName('index');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            $this->translator->translate(
+                'application_h1_index_index', 'default', 'en_US'
+            )
+        );
     }
 
     /**
      * Test index action output
      */
-    public function testIndexActionOutput()
+    public function testIndexActionRandomAdverts()
     {
         $this->dispatch('/de', 'GET');
-
-        $this->assertQuery('.page-header h1');
-        $this->assertQueryContentContains(
-            '.page-header h1',
-            $this->translator->translate('application_h1_index_index')
-        );
 
         $queryJob = $this->getConnection()->createQueryTable(
             'fetchJob',
