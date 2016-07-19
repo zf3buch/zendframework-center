@@ -1,4 +1,5 @@
 .vagrant
+phpunit.xml
 .idea
 vendor
 composer.lock
