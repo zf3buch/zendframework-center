@@ -84,7 +84,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
     /**
      * Setup test cases
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
