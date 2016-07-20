@@ -114,6 +114,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
      * Test index action without lang
      *
      * @group controller
+     * @group application
      */
     public function testIndexActionWithoutLangCannotBeAccessed()
     {
@@ -127,7 +128,8 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
      * @param $url
      * @param $locale
      *
-     * @group controller
+     * @group        controller
+     * @group        application
      * @dataProvider provideIndexActionCanBeAccessed
      */
     public function testIndexActionCanBeAccessed($url, $locale)
@@ -165,6 +167,7 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
      * Test index action output
      *
      * @group controller
+     * @group application
      */
     public function testIndexActionRandomAdverts()
     {

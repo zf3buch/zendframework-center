@@ -28,6 +28,7 @@ class DisplayControllerFactoryTest extends PHPUnit_Framework_TestCase
      *
      * @group controller
      * @group factory
+     * @group advert-backend
      */
     public function testFactory()
     {

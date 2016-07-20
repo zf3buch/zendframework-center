@@ -36,6 +36,7 @@ class ModifyControllerFactoryTest extends PHPUnit_Framework_TestCase
      *
      * @group controller
      * @group factory
+     * @group advert-frontend
      */
     public function testFactory()
     {

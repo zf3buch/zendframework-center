@@ -119,6 +119,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $h1
      *
      * @group        controller
+     * @group        advert-frontend
      * @dataProvider provideIndexActionCanBeAccessed
      */
     public function testIndexActionCanBeAccessed($url, $locale, $route, $h1
@@ -171,6 +172,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $page
      *
      * @group        controller
+     * @group        advert-frontend
      * @dataProvider provideIndexActionAdvertOutput
      */
     public function testIndexActionAdvertOutput($type, $page, $class)
@@ -219,6 +221,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $id
      *
      * @group        controller
+     * @group        advert-frontend
      * @dataProvider provideDetailActionCanBeAccessed
      */
     public function testDetailActionCanBeAccessed($id)
@@ -268,6 +271,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $redirect
      *
      * @group        controller
+     * @group        advert-frontend
      * @dataProvider provideDetailActionIsRedirected
      */
     public function testDetailActionIsRedirected($url, $redirect)
