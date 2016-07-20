@@ -16,6 +16,7 @@ use PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection;
 use PHPUnit_Extensions_Database_DB_IDatabaseConnection;
 use PHPUnit_Extensions_Database_TestCase_Trait;
 use Zend\Db\Adapter\Adapter;
+use Zend\Db\Sql\Sql;
 use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 
@@ -111,6 +112,8 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
 
     /**
      * Test index action without lang
+     *
+     * @group integration
      */
     public function testIndexActionWithoutLangCannotBeAccessed()
     {
@@ -120,10 +123,16 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
 
     /**
      * Test index action with de lang
+     *
+     * @param $url
+     * @param $locale
+     *
+     * @group integration
+     * @dataProvider provideIndexActionCanBeAccessed
      */
-    public function testIndexActionWithDeLangCanBeAccessed()
+    public function testIndexActionCanBeAccessed($url, $locale)
     {
-        $this->dispatch('/de', 'GET');
+        $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
 
         $this->assertMatchedRouteName('home');
@@ -136,59 +145,83 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
         $this->assertQueryContentContains(
             '.page-header h1',
             $this->translator->translate(
-                'application_h1_index_index', 'default', 'de_DE'
+                'application_h1_index_index', 'default', $locale
             )
         );
     }
 
     /**
-     * Test index action with en lang
+     * @return array
      */
-    public function testIndexActionWithEnLangCanBeAccessed()
+    public function provideIndexActionCanBeAccessed()
     {
-        $this->dispatch('/en', 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $this->assertMatchedRouteName('home');
-        $this->assertModuleName('application');
-        $this->assertControllerName(IndexController::class);
-        $this->assertControllerClass('IndexController');
-        $this->assertActionName('index');
-
-        $this->assertQuery('.page-header h1');
-        $this->assertQueryContentContains(
-            '.page-header h1',
-            $this->translator->translate(
-                'application_h1_index_index', 'default', 'en_US'
-            )
-        );
+        return [
+            ['/de', 'de_DE'],
+            ['/en', 'en_US'],
+        ];
     }
 
     /**
      * Test index action output
+     *
+     * @group integration
      */
     public function testIndexActionRandomAdverts()
     {
         $this->dispatch('/de', 'GET');
 
-        $queryJob = $this->getConnection()->createQueryTable(
+        $queryAdvert = $this->getConnection()->createQueryTable(
             'fetchJob',
-            'SELECT * FROM advert WHERE id = "1";'
+            $this->generateQueryAdvertRandomByType('job')
         );
 
-        $this->assertQueryContentContains(
+        $row = $queryAdvert->getRow(0);
+
+        $this->assertQueryContentRegex(
             '.panel-primary .panel-heading strong a',
-            $queryJob->getRow(0)['title']
+            '#' . preg_quote($row['title']) . '#'
         );
 
         $queryProject = $this->getConnection()->createQueryTable(
             'fetchProject',
-            'SELECT * FROM advert WHERE id = "3";'
+            $this->generateQueryAdvertRandomByType('project')
         );
 
-        $this->assertQueryContentContains(
+        $row = $queryProject->getRow(0);
+
+        $this->assertQueryContentRegex(
             '.panel-success .panel-heading strong a',
-            $queryProject->getRow(0)['title']
+            '#' . preg_quote($row['title']) . '#'
         );
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    private function generateQueryAdvertRandomByType($type = 'job')
+    {
+        $sql = new Sql($this->adapter);
+
+        $select = $sql->select('advert');
+        $select->limit(1);
+        $select->where->equalTo('advert.type', $type);
+        $select->join(
+            'company',
+            'advert.company = company.id',
+            [
+                'company_id'         => 'id',
+                'company_registered' => 'registered',
+                'company_updated'    => 'updated',
+                'company_status'     => 'status',
+                'company_name'       => 'name',
+                'company_email'      => 'email',
+                'company_contact'    => 'contact',
+                'company_logo'       => 'logo',
+            ]
+        );
+
+        return $sql->buildSqlString($select);
     }
 }

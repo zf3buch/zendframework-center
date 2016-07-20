@@ -111,14 +111,22 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
     }
 
     /**
-     * Test index action jobs with de lang
+     * Test index action can be accessed
+     *
+     * @param $url
+     * @param $locale
+     * @param $route
+     * @param $h1
+     *
+     * @group integration
+     * @dataProvider provideIndexActionCanBeAccessed
      */
-    public function testIndexActionJobsWithDeLangCanBeAccessed()
-    {
-        $this->dispatch('/de/job', 'GET');
+    public function testIndexActionCanBeAccessed($url, $locale, $route, $h1
+    ) {
+        $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
 
-        $this->assertMatchedRouteName('advert-job');
+        $this->assertMatchedRouteName($route);
         $this->assertModuleName('advertfrontend');
         $this->assertControllerName(DisplayController::class);
         $this->assertControllerClass('DisplayController');
@@ -127,109 +135,157 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
         $this->assertQuery('.page-header h1');
         $this->assertQueryContentContains(
             '.page-header h1',
-            $this->translator->translate(
-                'advert_frontend_h1_display_jobs', 'default', 'de_DE'
-            )
+            $this->translator->translate($h1, 'default', $locale)
         );
     }
 
     /**
-     * Test index action jobs with en lang
+     * @return array
      */
-    public function testIndexActionJobsWithEnLangCanBeAccessed()
+    public function provideIndexActionCanBeAccessed()
     {
-        $this->dispatch('/en/job', 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $this->assertMatchedRouteName('advert-job');
-        $this->assertModuleName('advertfrontend');
-        $this->assertControllerName(DisplayController::class);
-        $this->assertControllerClass('DisplayController');
-        $this->assertActionName('index');
-
-        $this->assertQuery('.page-header h1');
-        $this->assertQueryContentContains(
-            '.page-header h1',
-            $this->translator->translate(
-                'advert_frontend_h1_display_jobs', 'default', 'en_US'
-            )
-        );
-    }
-
-    /**
-     * Test index action projects with de lang
-     */
-    public function testIndexActionProjectsWithDeLangCanBeAccessed()
-    {
-        $this->dispatch('/de/job', 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $this->assertMatchedRouteName('advert-job');
-        $this->assertModuleName('advertfrontend');
-        $this->assertControllerName(DisplayController::class);
-        $this->assertControllerClass('DisplayController');
-        $this->assertActionName('index');
-
-        $this->assertQuery('.page-header h1');
-        $this->assertQueryContentContains(
-            '.page-header h1',
-            $this->translator->translate(
-                'advert_frontend_h1_display_jobs', 'default', 'de_DE'
-            )
-        );
-    }
-
-    /**
-     * Test index action projects with en lang
-     */
-    public function testIndexActionProjectsWithEnLangCanBeAccessed()
-    {
-        $this->dispatch('/en/job', 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $this->assertMatchedRouteName('advert-job');
-        $this->assertModuleName('advertfrontend');
-        $this->assertControllerName(DisplayController::class);
-        $this->assertControllerClass('DisplayController');
-        $this->assertActionName('index');
-
-        $this->assertQuery('.page-header h1');
-        $this->assertQueryContentContains(
-            '.page-header h1',
-            $this->translator->translate(
-                'advert_frontend_h1_display_jobs', 'default', 'en_US'
-            )
-        );
+        return [
+            [
+                '/de/job', 'de_DE', 'advert-job',
+                'advert_frontend_h1_display_jobs'
+            ],
+            [
+                '/en/job', 'en_US', 'advert-job',
+                'advert_frontend_h1_display_jobs'
+            ],
+            [
+                '/de/project', 'de_DE', 'advert-project',
+                'advert_frontend_h1_display_projects'
+            ],
+            [
+                '/en/project', 'en_US', 'advert-project',
+                'advert_frontend_h1_display_projects'
+            ],
+        ];
     }
 
     /**
      * Test index action output
+     *
+     * @param $type
+     * @param $page
+     *
+     * @group integration
+     * @dataProvider provideIndexActionAdvertOutput
      */
-    public function testIndexActionJobOutput()
+    public function testIndexActionAdvertOutput($type, $page, $class)
     {
-        $type = 'job';
-        $page = 1;
+        $url = $page == 1 ? '/de/' . $type : '/de/' . $type . '/' . $page;
 
-        $this->dispatch('/de/job', 'GET');
+        $this->dispatch($url, 'GET');
 
-        $queryJob = $this->getConnection()->createQueryTable(
-            'fetchJob',
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
             $this->generateQueryAdvertsByPage($type, $page)
         );
 
-        for ($count = 0; $count < $queryJob->getRowCount(); $count++) {
-            $row = $queryJob->getRow($count);
+        for ($count = 0; $count < $queryAdvert->getRowCount(); $count++) {
+            $row = $queryAdvert->getRow($count);
 
             $this->assertQueryContentRegex(
-                '.panel-primary .panel-heading .left-text strong a',
+                '.' . $class . ' .panel-heading .left-text strong a',
                 '#' . preg_quote($row['title']) . '#'
             );
             $this->assertQueryContentRegex(
-                '.panel-primary .panel-heading .right-text',
+                '.' . $class . ' .panel-heading .right-text',
                 '#' . preg_quote($row['company_name']) . '#'
             );
         }
+    }
 
+    /**
+     * @return array
+     */
+    public function provideIndexActionAdvertOutput()
+    {
+        return [
+            ['job', 1, 'panel-primary'],
+            ['job', 2, 'panel-primary'],
+            ['job', 3, 'panel-primary'],
+            ['project', 1, 'panel-success'],
+            ['project', 2, 'panel-success'],
+            ['project', 3, 'panel-success'],
+        ];
+    }
+
+    /**
+     * Test detail action can be accessed
+     *
+     * @param $id
+     *
+     * @group integration
+     * @dataProvider provideDetailActionCanBeAccessed
+     */
+    public function testDetailActionCanBeAccessed($id)
+    {
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $row = $queryAdvert->getRow(0);
+
+        $url = '/de/' . $row['type'] . '/detail/' . $id;
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertMatchedRouteName('advert-' . $row['type'] . '/detail');
+        $this->assertModuleName('advertfrontend');
+        $this->assertControllerName(DisplayController::class);
+        $this->assertControllerClass('DisplayController');
+        $this->assertActionName('detail');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            utf8_encode($row['title'])
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function provideDetailActionCanBeAccessed()
+    {
+        return [
+            [1], [2], [3], [4], [5], [6], [7], [8], [9], [10],
+            [11], [12], [13], [14], [15], [16], [18],
+        ];
+    }
+
+    /**
+     * Test detail action is redirected
+     *
+     * @param $url
+     * @param $redirect
+     *
+     * @group integration
+     * @dataProvider provideDetailActionIsRedirected
+     */
+    public function testDetailActionIsRedirected($url, $redirect)
+    {
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirectTo($redirect);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideDetailActionIsRedirected()
+    {
+        return [
+            ['/de/job/detail', '/de/job'],
+            ['/de/job/detail/17', '/de/job'],
+            ['/de/project/detail/19', '/de/project'],
+            ['/de/job/detail/20', '/de/job'],
+        ];
     }
 
     /**
@@ -251,6 +307,36 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
         $select->order(['advert.created' => 'DESC']);
         $select->where->equalTo('advert.status', 'approved');
         $select->where->equalTo('advert.type', $type);
+        $select->join(
+            'company',
+            'advert.company = company.id',
+            [
+                'company_id'         => 'id',
+                'company_registered' => 'registered',
+                'company_updated'    => 'updated',
+                'company_status'     => 'status',
+                'company_name'       => 'name',
+                'company_email'      => 'email',
+                'company_contact'    => 'contact',
+                'company_logo'       => 'logo',
+            ]
+        );
+
+        return $sql->buildSqlString($select);
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return string
+     */
+    private function generateQueryAdvertById($id)
+    {
+        $sql = new Sql($this->adapter);
+
+        $select = $sql->select('advert');
+        $select->where->equalTo('advert.status', 'approved');
+        $select->where->equalTo('advert.id', $id);
         $select->join(
             'company',
             'advert.company = company.id',

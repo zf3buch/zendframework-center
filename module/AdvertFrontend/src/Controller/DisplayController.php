@@ -70,7 +70,7 @@ class DisplayController extends AbstractActionController
 
         $advert = $this->advertRepository->getSingleAdvertById($id);
 
-        if (!$advert || $advert->getType() != $type) {
+        if (!$advert || $advert->getType() != $type || $advert->getStatus() != 'approved') {
             return $this->redirect()->toRoute('advert-' . $type, [], true);
         }
 
