@@ -79,27 +79,21 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
     {
         $events = $this->prophesize(EventManagerInterface::class);
 
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_ROUTE,
             [$this->authorizationListener, 'authorize'],
             -3000
-        );
-        $method->willReturn(
+        )->willReturn(
             [$this->authorizationListener, 'authorize']
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_DISPATCH,
             [$this->authorizationListener, 'prepareNavigation'],
             -1000
-        );
-        $method->willReturn(
+        )->willReturn(
             [$this->authorizationListener, 'prepareNavigation']
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
 
         $this->authorizationListener->attach($events->reveal());
     }
@@ -117,43 +111,28 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
         $action     = 'index';
 
         $routeMatch = $this->prophesize(RouteMatch::class);
+        $routeMatch->getParam('controller')
+            ->willReturn($controller)
+            ->shouldBeCalled();
+        $routeMatch->getParam('action')
+            ->willReturn($action)
+            ->shouldBeCalled();
+        $routeMatch->setParam('controller')->shouldNotBeCalled();
+        $routeMatch->setParam('action')->shouldNotBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('controller');
-        $method->willReturn($controller);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('action');
-        $method->willReturn($action);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam('controller');
-        $method->shouldNotBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam('action');
-        $method->shouldNotBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userAcl->isAllowed(
+        $this->userAcl->isAllowed(
             $role, 'application-index', $action
-        );
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        )->willReturn(true)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getIdentity();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $this->authService->getIdentity()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRouteMatch();
-        $method->willReturn($routeMatch);
-        $method->shouldBeCalled();
+        $mvcEvent->getRouteMatch()
+            ->willReturn($routeMatch)
+            ->shouldBeCalled();
 
         $this->authorizationListener->authorize($mvcEvent->reveal());
     }
@@ -171,45 +150,30 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
         $action     = 'index';
 
         $routeMatch = $this->prophesize(RouteMatch::class);
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('controller');
-        $method->willReturn($controller);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('action');
-        $method->willReturn($action);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam(
+        $routeMatch->getParam('controller')
+            ->willReturn($controller)
+            ->shouldBeCalled();
+        $routeMatch->getParam('action')
+            ->willReturn($action)
+            ->shouldBeCalled();
+        $routeMatch->setParam(
             'controller', ForbiddenController::class
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
+        $routeMatch->setParam('action', 'index')->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam('action', 'index');
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userAcl->isAllowed(
+        $this->userAcl->isAllowed(
             $role, 'user-backend-display', $action
-        );
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        )->willReturn(false)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getIdentity();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $this->authService->getIdentity()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRouteMatch();
-        $method->willReturn($routeMatch);
-        $method->shouldBeCalled();
+        $mvcEvent->getRouteMatch()
+            ->willReturn($routeMatch)
+            ->shouldBeCalled();
 
         $this->authorizationListener->authorize($mvcEvent->reveal());
     }
@@ -227,46 +191,31 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
         $action     = 'index';
 
         $routeMatch = $this->prophesize(RouteMatch::class);
+        $routeMatch->getParam('controller')
+            ->willReturn($controller)
+            ->shouldBeCalled();
+        $routeMatch->getParam('action')
+            ->willReturn($action)
+            ->shouldBeCalled();
+        $routeMatch->setParam('controller')->shouldNotBeCalled();
+        $routeMatch->setParam('action')->shouldNotBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('controller');
-        $method->willReturn($controller);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('action');
-        $method->willReturn($action);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam('controller');
-        $method->shouldNotBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam('action');
-        $method->shouldNotBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userAcl->isAllowed(
+        $this->userAcl->isAllowed(
             $role, 'application-index', $action
-        );
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        )->willReturn(true)
+            ->shouldBeCalled();
 
         $identity = new UserEntity();
         $identity->setRole($role);
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getIdentity();
-        $method->willReturn($identity);
-        $method->shouldBeCalled();
+        $this->authService->getIdentity()
+            ->willReturn($identity)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRouteMatch();
-        $method->willReturn($routeMatch);
-        $method->shouldBeCalled();
+        $mvcEvent->getRouteMatch()
+            ->willReturn($routeMatch)
+            ->shouldBeCalled();
 
         $this->authorizationListener->authorize($mvcEvent->reveal());
     }
@@ -284,48 +233,33 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
         $action     = 'index';
 
         $routeMatch = $this->prophesize(RouteMatch::class);
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('controller');
-        $method->willReturn($controller);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('action');
-        $method->willReturn($action);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam(
+        $routeMatch->getParam('controller')
+            ->willReturn($controller)
+            ->shouldBeCalled();
+        $routeMatch->getParam('action')
+            ->willReturn($action)
+            ->shouldBeCalled();
+        $routeMatch->setParam(
             'controller', ForbiddenController::class
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
+        $routeMatch->setParam('action', 'index')->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->setParam('action', 'index');
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userAcl->isAllowed(
+        $this->userAcl->isAllowed(
             $role, 'user-backend-display', $action
-        );
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        )->willReturn(false)
+            ->shouldBeCalled();
 
         $identity = new UserEntity();
         $identity->setRole($role);
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getIdentity();
-        $method->willReturn($identity);
-        $method->shouldBeCalled();
+        $this->authService->getIdentity()
+            ->willReturn($identity)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRouteMatch();
-        $method->willReturn($routeMatch);
-        $method->shouldBeCalled();
+        $mvcEvent->getRouteMatch()
+            ->willReturn($routeMatch)
+            ->shouldBeCalled();
 
         $this->authorizationListener->authorize($mvcEvent->reveal());
     }
@@ -343,20 +277,16 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
         $identity = new UserEntity();
         $identity->setRole($role);
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getIdentity();
-        $method->willReturn($identity);
-        $method->shouldBeCalled();
+        $this->authService->getIdentity()
+            ->willReturn($identity)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $this->navigationHelper->setRole($role);
-        $method->shouldBeCalled();
+        $this->navigationHelper->setRole($role)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $this->navigationHelper->setAcl(
+        $this->navigationHelper->setAcl(
             $this->userAcl->reveal()
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
 

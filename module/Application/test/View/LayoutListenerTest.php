@@ -41,17 +41,13 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
         $layoutListener = new LayoutListener($layoutSegments);
 
         $events = $this->prophesize(EventManagerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_RENDER,
             [$layoutListener, 'renderLayoutSegments'],
             -100
-        );
-        $method->willReturn(
+        )->willReturn(
             [$layoutListener, 'renderLayoutSegments']
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
 
         $layoutListener->attach($events->reveal());
     }
@@ -71,11 +67,9 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
         $viewModel = new JsonModel();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getViewModel();
-        $method->willReturn($viewModel);
-        $method->shouldBeCalled();
+        $mvcEvent->getViewModel()
+            ->willReturn($viewModel)
+            ->shouldBeCalled();
 
         $layoutListener->renderLayoutSegments($mvcEvent->reveal());
 
@@ -97,42 +91,32 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
         $layoutListener = new LayoutListener($layoutSegments);
 
         $resolver = $this->prophesize(ResolverInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $resolver->resolve('layout/header');
-        $method->willReturn(true);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $resolver->resolve('layout/footer');
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $resolver->resolve('layout/header')
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $resolver->resolve('layout/footer')
+            ->willReturn(true)
+            ->shouldBeCalled();
 
         $serviceManager = $this->prophesize(ServiceManager::class);;
-
-        $method = $serviceManager->get('ViewResolver');
-        $method->willReturn($resolver->reveal());
-        $method->shouldBeCalled();
+        $serviceManager->get('ViewResolver')
+            ->willReturn($resolver->reveal())
+            ->shouldBeCalled();
 
         $application = $this->prophesize(Application::class);;
-
-        $method = $application->getServiceManager();
-        $method->willReturn($serviceManager->reveal());
-        $method->shouldBeCalled();
+        $application->getServiceManager()
+            ->willReturn($serviceManager->reveal())
+            ->shouldBeCalled();
 
         $viewModel = new ViewModel();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getViewModel();
-        $method->willReturn($viewModel);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getApplication();
-        $method->willReturn($application);
-        $method->shouldBeCalled();
+        $mvcEvent->getViewModel()
+            ->willReturn($viewModel)
+            ->shouldBeCalled();
+        $mvcEvent->getApplication()
+            ->willReturn($application)
+            ->shouldBeCalled();
 
         $layoutListener->renderLayoutSegments($mvcEvent->reveal());
 
@@ -165,47 +149,35 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
         $layoutListener = new LayoutListener($layoutSegments);
 
         $resolver = $this->prophesize(ResolverInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $resolver->resolve('layout/header');
-        $method->willReturn(true);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $resolver->resolve('layout/footer');
-        $method->willReturn(true);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $resolver->resolve('layout/sidebar');
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $resolver->resolve('layout/header')
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $resolver->resolve('layout/footer')
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $resolver->resolve('layout/sidebar')
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $serviceManager = $this->prophesize(ServiceManager::class);;
-
-        $method = $serviceManager->get('ViewResolver');
-        $method->willReturn($resolver->reveal());
-        $method->shouldBeCalled();
+        $serviceManager->get('ViewResolver')
+            ->willReturn($resolver->reveal())
+            ->shouldBeCalled();
 
         $application = $this->prophesize(Application::class);;
-
-        $method = $application->getServiceManager();
-        $method->willReturn($serviceManager->reveal());
-        $method->shouldBeCalled();
+        $application->getServiceManager()
+            ->willReturn($serviceManager->reveal())
+            ->shouldBeCalled();
 
         $viewModel = new ViewModel();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getViewModel();
-        $method->willReturn($viewModel);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getApplication();
-        $method->willReturn($application);
-        $method->shouldBeCalled();
+        $mvcEvent->getViewModel()
+            ->willReturn($viewModel)
+            ->shouldBeCalled();
+        $mvcEvent->getApplication()
+            ->willReturn($application)
+            ->shouldBeCalled();
 
         $layoutListener->renderLayoutSegments($mvcEvent->reveal());
 

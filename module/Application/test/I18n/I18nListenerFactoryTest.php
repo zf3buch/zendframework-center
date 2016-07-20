@@ -48,15 +48,13 @@ class I18nListenerFactoryTest extends PHPUnit_Framework_TestCase
         /** @var TranslatorInterface $translator */
         $translator = $this->prophesize(TranslatorInterface::class);
 
-        /** @var MethodProphecy $method */
-        $method = $container->get(TranslatorInterface::class);
-        $method->willReturn($translator);
-        $method->shouldBeCalled();
+        $container->get(TranslatorInterface::class)
+            ->willReturn($translator)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $container->get('config');
-        $method->willReturn($config);
-        $method->shouldBeCalled();
+        $container->get('config')
+            ->willReturn($config)
+            ->shouldBeCalled();
 
         $factory = new I18nListenerFactory();
 
