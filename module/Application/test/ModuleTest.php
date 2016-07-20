@@ -35,6 +35,8 @@ class ModuleTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test initialization
+     *
+     * @group module
      */
     public function testInit()
     {
@@ -55,6 +57,8 @@ class ModuleTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test get config
+     *
+     * @group module
      */
     public function testGetConfig()
     {
