@@ -28,6 +28,7 @@ class I18nListenerFactoryTest extends PHPUnit_Framework_TestCase
      *
      * @group listener
      * @group factory
+     * @group application
      */
     public function testFactory()
     {

@@ -92,6 +92,7 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      * Test attaching listeners
      *
      * @group listener
+     * @group user-frontend
      */
     public function testAttach()
     {
@@ -124,6 +125,7 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      * Test authenticate with identity
      *
      * @group listener
+     * @group user-frontend
      */
     public function testAuthenticateWithIdentity()
     {
@@ -148,6 +150,7 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      * Test authenticate no post
      *
      * @group listener
+     * @group user-frontend
      */
     public function testAuthenticateNoPost()
     {
@@ -182,6 +185,7 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      * Test authenticate post wrong button
      *
      * @group listener
+     * @group user-frontend
      */
     public function testAuthenticateWithPostWrongButton()
     {
@@ -221,6 +225,7 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      * Test authenticate post invalid form
      *
      * @group listener
+     * @group user-frontend
      */
     public function testAuthenticateWithPostInvalidForm()
     {
@@ -279,6 +284,7 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      * Test authenticate post valid result
      *
      * @group listener
+     * @group user-frontend
      */
     public function testAuthenticateWithPostValidResult()
     {

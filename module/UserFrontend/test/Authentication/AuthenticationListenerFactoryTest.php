@@ -30,6 +30,7 @@ class AuthenticationListenerFactoryTest extends PHPUnit_Framework_TestCase
      *
      * @group listener
      * @group factory
+     * @group user-frontend
      */
     public function testFactory()
     {
