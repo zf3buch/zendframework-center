@@ -25,6 +25,9 @@ class IndexControllerFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test factory
+     *
+     * @group controller
+     * @group factory
      */
     public function testFactory()
     {

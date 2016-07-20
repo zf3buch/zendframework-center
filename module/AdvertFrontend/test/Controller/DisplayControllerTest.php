@@ -118,7 +118,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $route
      * @param $h1
      *
-     * @group integration
+     * @group        controller
      * @dataProvider provideIndexActionCanBeAccessed
      */
     public function testIndexActionCanBeAccessed($url, $locale, $route, $h1
@@ -170,7 +170,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $type
      * @param $page
      *
-     * @group integration
+     * @group        controller
      * @dataProvider provideIndexActionAdvertOutput
      */
     public function testIndexActionAdvertOutput($type, $page, $class)
@@ -218,7 +218,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      *
      * @param $id
      *
-     * @group integration
+     * @group        controller
      * @dataProvider provideDetailActionCanBeAccessed
      */
     public function testDetailActionCanBeAccessed($id)
@@ -235,7 +235,9 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
 
-        $this->assertMatchedRouteName('advert-' . $row['type'] . '/detail');
+        $this->assertMatchedRouteName(
+            'advert-' . $row['type'] . '/detail'
+        );
         $this->assertModuleName('advertfrontend');
         $this->assertControllerName(DisplayController::class);
         $this->assertControllerClass('DisplayController');
@@ -265,7 +267,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $url
      * @param $redirect
      *
-     * @group integration
+     * @group        controller
      * @dataProvider provideDetailActionIsRedirected
      */
     public function testDetailActionIsRedirected($url, $redirect)

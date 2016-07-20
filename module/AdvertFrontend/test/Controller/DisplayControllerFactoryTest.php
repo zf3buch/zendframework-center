@@ -9,9 +9,9 @@
 
 namespace AdvertFrontendTest\Controller;
 
-use AdvertModel\Repository\AdvertRepositoryInterface;
 use AdvertFrontend\Controller\DisplayController;
 use AdvertFrontend\Controller\DisplayControllerFactory;
+use AdvertModel\Repository\AdvertRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use PHPUnit_Framework_TestCase;
 use Prophecy\Prophecy\MethodProphecy;
@@ -25,6 +25,9 @@ class DisplayControllerFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test factory
+     *
+     * @group controller
+     * @group factory
      */
     public function testFactory()
     {

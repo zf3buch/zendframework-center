@@ -17,9 +17,9 @@
 
 namespace AdvertFrontendTest\Controller;
 
-use AdvertModel\Repository\AdvertRepositoryInterface;
 use AdvertFrontend\Controller\ModifyController;
 use AdvertFrontend\Controller\ModifyControllerFactory;
+use AdvertModel\Repository\AdvertRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use PHPUnit_Framework_TestCase;
 use Prophecy\Prophecy\MethodProphecy;
@@ -33,6 +33,9 @@ class ModifyControllerFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test factory
+     *
+     * @group controller
+     * @group factory
      */
     public function testFactory()
     {
