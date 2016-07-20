@@ -259,8 +259,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
     public function provideDetailActionCanBeAccessed()
     {
         return [
-            [1], [2], [3], [4], [5], [6], [7], [8], [9], [10],
-            [11], [12], [13], [14], [15], [16], [18],
+            [1], [3], [7], [10], [15], [18],
         ];
     }
 

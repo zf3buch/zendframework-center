@@ -148,7 +148,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      * @param $route
      * @param $h1
      *
-     * @group        controllerBackend
+     * @group        controller
      * @group        advert-backend
      * @dataProvider provideIndexActionCanBeAccessed
      */
@@ -192,35 +192,36 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
     /**
      * Test index action output
      *
-     * @param $type
      * @param $page
      *
      * @group        controller
      * @group        advert-backend
      * @dataProvider provideIndexActionAdvertOutput
      */
-    public function testIndexActionAdvertOutput($type, $page, $class)
+    public function testIndexActionAdvertOutput($page)
     {
-        return;
+        $this->mockLogin(AdminRole::NAME);
 
-        $url = $page == 1 ? '/de/' . $type : '/de/' . $type . '/' . $page;
+        $url = $page == 1
+            ? '/de/advert-backend'
+            : '/de/advert-backend/' . $page;
 
         $this->dispatch($url, 'GET');
 
         $queryAdvert = $this->getConnection()->createQueryTable(
             'fetchAdvertsByPage',
-            $this->generateQueryAdvertsByPage($type, $page)
+            $this->generateQueryAdvertsByPage($page)
         );
 
         for ($count = 0; $count < $queryAdvert->getRowCount(); $count++) {
             $row = $queryAdvert->getRow($count);
 
             $this->assertQueryContentRegex(
-                '.' . $class . ' .panel-heading .left-text strong a',
+                'table tbody tr td a',
                 '#' . preg_quote($row['title']) . '#'
             );
             $this->assertQueryContentRegex(
-                '.' . $class . ' .panel-heading .right-text',
+                'table tbody tr td',
                 '#' . preg_quote($row['company_name']) . '#'
             );
         }
@@ -232,12 +233,8 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
     public function provideIndexActionAdvertOutput()
     {
         return [
-            ['job', 1, 'panel-primary'],
-            ['job', 2, 'panel-primary'],
-            ['job', 3, 'panel-primary'],
-            ['project', 1, 'panel-success'],
-            ['project', 2, 'panel-success'],
-            ['project', 3, 'panel-success'],
+            [1],
+            [2],
         ];
     }
 
@@ -252,7 +249,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
      */
     public function testDetailActionCanBeAccessed($id)
     {
-        return;
+        $this->mockLogin(AdminRole::NAME);
 
         $queryAdvert = $this->getConnection()->createQueryTable(
             'fetchAdvertsByPage',
@@ -261,23 +258,23 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
 
         $row = $queryAdvert->getRow(0);
 
-        $url = '/de/' . $row['type'] . '/detail/' . $id;
+        $url = '/de/advert-backend/show/' . $id;
 
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
 
         $this->assertMatchedRouteName(
-            'advert-' . $row['type'] . '/detail'
+            'advert-backend/show'
         );
         $this->assertModuleName('advertbackend');
         $this->assertControllerName(DisplayController::class);
         $this->assertControllerClass('DisplayController');
-        $this->assertActionName('detail');
+        $this->assertActionName('show');
 
         $this->assertQuery('.page-header h1');
         $this->assertQueryContentContains(
             '.page-header h1',
-            utf8_encode($row['title'])
+            $this->translator->translate('advert_backend_h1_display_show')
         );
     }
 
@@ -287,20 +284,18 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
     public function provideDetailActionCanBeAccessed()
     {
         return [
-            [1], [2], [3], [4], [5], [6], [7], [8], [9], [10],
-            [11], [12], [13], [14], [15], [16], [18],
+            [1], [3], [15], [17], [18], [19],
         ];
     }
 
     /**
-     * @param string $type
      * @param int    $page
      *
      * @return string
      */
-    private function generateQueryAdvertsByPage($type = 'job', $page = 1)
+    private function generateQueryAdvertsByPage($page = 1)
     {
-        $limit  = 5;
+        $limit  = 15;
         $offset = ($page - 1) * $limit;
 
         $sql = new Sql($this->adapter);
@@ -309,8 +304,6 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
         $select->limit($limit);
         $select->offset($offset);
         $select->order(['advert.created' => 'DESC']);
-        $select->where->equalTo('advert.status', 'approved');
-        $select->where->equalTo('advert.type', $type);
         $select->join(
             'company',
             'advert.company = company.id',
@@ -339,7 +332,6 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
         $sql = new Sql($this->adapter);
 
         $select = $sql->select('advert');
-        $select->where->equalTo('advert.status', 'approved');
         $select->where->equalTo('advert.id', $id);
         $select->join(
             'company',
