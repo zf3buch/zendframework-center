@@ -71,6 +71,8 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test attaching listeners
+     *
+     * @group listener
      */
     public function testAttach()
     {
@@ -103,6 +105,8 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test authorize guest success
+     *
+     * @group listener
      */
     public function testAuthorizeGuestSuccess()
     {
@@ -154,6 +158,8 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test authorize guest failed
+     *
+     * @group listener
      */
     public function testAuthorizeGuestFailed()
     {
@@ -207,6 +213,8 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test authorize admin success
+     *
+     * @group listener
      */
     public function testAuthorizeAdminSuccess()
     {
@@ -261,6 +269,8 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test authorize admin failed
+     *
+     * @group listener
      */
     public function testAuthorizeAdminFailed()
     {
@@ -317,6 +327,8 @@ class AuthorizationListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test prepare navigation
+     *
+     * @group listener
      */
     public function testPrepareNavigation()
     {
