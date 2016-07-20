@@ -32,18 +32,16 @@ class IndexControllerFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testFactory()
     {
-        /** @var ContainerInterface $container */
-        $container = $this->prophesize(ContainerInterface::class);
-
         /** @var AdvertRepositoryInterface $advertRepository */
         $advertRepository = $this->prophesize(
             AdvertRepositoryInterface::class
         );
 
-        /** @var MethodProphecy $method */
-        $method = $container->get(AdvertRepositoryInterface::class);
-        $method->willReturn($advertRepository);
-        $method->shouldBeCalled();
+        /** @var ContainerInterface $container */
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->get(AdvertRepositoryInterface::class)
+            ->willReturn($advertRepository)
+            ->shouldBeCalled();
 
         $factory = new IndexControllerFactory();
 
