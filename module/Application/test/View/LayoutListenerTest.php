@@ -32,6 +32,7 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
      * Test attaching listeners
      *
      * @group listener
+     * @group application
      */
     public function testAttach()
     {
@@ -59,6 +60,7 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
      * Test render layout segments json
      *
      * @group listener
+     * @group application
      */
     public function testRenderLayoutSegmentsJson()
     {
@@ -86,6 +88,7 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
      * Test render layout segments existing segments
      *
      * @group listener
+     * @group application
      */
     public function testRenderLayoutSegmentsExistingSegments()
     {
@@ -153,6 +156,7 @@ class LayoutListenerTest extends PHPUnit_Framework_TestCase
      * Test render layout segments wrong segments
      *
      * @group listener
+     * @group application
      */
     public function testRenderLayoutSegmentsWrongSegment()
     {
