@@ -39,19 +39,15 @@ class AuthenticationListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         /** @var ContainerInterface $formElementManager */
         $formElementManager = $this->prophesize(ContainerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $formElementManager->get(UserLoginForm::class);
-        $method->willReturn($userLoginForm);
-        $method->shouldBeCalled();
+        $formElementManager->get(UserLoginForm::class)
+            ->willReturn($userLoginForm)
+            ->shouldBeCalled();
 
         /** @var ContainerInterface $hydratorManager */
         $hydratorManager = $this->prophesize(ContainerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $hydratorManager->get(UserHydrator::class);
-        $method->willReturn($userHydrator);
-        $method->shouldBeCalled();
+        $hydratorManager->get(UserHydrator::class)
+            ->willReturn($userHydrator)
+            ->shouldBeCalled();
 
         /** @var AuthenticationService $authenticationService */
         $authenticationService = $this->prophesize(
@@ -60,21 +56,15 @@ class AuthenticationListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         /** @var ContainerInterface $container */
         $container = $this->prophesize(ContainerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $container->get(AuthenticationService::class);
-        $method->willReturn($authenticationService);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $container->get('FormElementManager');
-        $method->willReturn($formElementManager);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $container->get('HydratorManager');
-        $method->willReturn($hydratorManager);
-        $method->shouldBeCalled();
+        $container->get(AuthenticationService::class)
+            ->willReturn($authenticationService)
+            ->shouldBeCalled();
+        $container->get('FormElementManager')
+            ->willReturn($formElementManager)
+            ->shouldBeCalled();
+        $container->get('HydratorManager')
+            ->willReturn($hydratorManager)
+            ->shouldBeCalled();
 
         $factory = new AuthenticationListenerFactory();
 

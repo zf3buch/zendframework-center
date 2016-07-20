@@ -66,23 +66,19 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
     {
         $events = $this->prophesize(EventManagerInterface::class);
 
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_ROUTE,
             [$this->i18nListener, 'redirectHomeRoute'],
             100
-        );
-        $method->willReturn([$this->i18nListener, 'redirectHomeRoute']);
-        $method->shouldBeCalled();
+        )->willReturn([$this->i18nListener, 'redirectHomeRoute'])
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_ROUTE,
             [$this->i18nListener, 'setupLocalization'],
             -100
-        );
-        $method->willReturn([$this->i18nListener, 'redirectHomeRoute']);
-        $method->shouldBeCalled();
+        )->willReturn([$this->i18nListener, 'redirectHomeRoute'])
+            ->shouldBeCalled();
 
         $this->i18nListener->attach($events->reveal());
     }
@@ -96,24 +92,16 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
     public function testRedirectHomeRouteWhatever()
     {
         $request = $this->prophesize(Request::class);
-
-        /** @var MethodProphecy $method */
-        $method = $request->getRequestUri();
-        $method->willReturn('/whatever');
-        $method->shouldBeCalled();
+        $request->getRequestUri()
+            ->willReturn('/whatever')
+            ->shouldBeCalled();
 
         $response = $this->prophesize(Response::class);
-
-        /** @var MethodProphecy $method */
-        $method = $response->setStatusCode();
-        $method->shouldNotBeCalled();
+        $response->setStatusCode()->shouldNotBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldBeCalled();
+        $mvcEvent->getRequest()
+            ->willReturn($request)->shouldBeCalled();
 
         $this->i18nListener->redirectHomeRoute($mvcEvent->reveal());
     }
@@ -127,40 +115,19 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
     public function testRedirectHomeRouteRoot()
     {
         $request = $this->prophesize(Request::class);
-
-        /** @var MethodProphecy $method */
-        $method = $request->getRequestUri();
-        $method->willReturn('/');
-        $method->shouldBeCalled();
+        $request->getRequestUri()->willReturn('/')->shouldBeCalled();
 
         $headers = $this->prophesize(Headers::class);
-
-        /** @var MethodProphecy $method */
-        $method = $headers->addHeaderLine('Location', '/de');
-        $method->shouldBeCalled();
+        $headers->addHeaderLine('Location', '/de')->shouldBeCalled();
 
         $response = $this->prophesize(Response::class);
-
-        /** @var MethodProphecy $method */
-        $method = $response->getHeaders();
-        $method->willReturn($headers);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $response->setStatusCode(Response::STATUS_CODE_301);
-        $method->shouldBeCalled();
+        $response->getHeaders()->willReturn($headers)->shouldBeCalled();
+        $response->setStatusCode(Response::STATUS_CODE_301)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getResponse();
-        $method->willReturn($response);
-        $method->shouldBeCalled();
+        $mvcEvent->getRequest()->willReturn($request)->shouldBeCalled();
+        $mvcEvent->getResponse()->willReturn($response)->shouldBeCalled();
 
         $this->i18nListener->redirectHomeRoute($mvcEvent->reveal());
     }
@@ -177,23 +144,17 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
      */
     public function testSetupLocalization($locale, $lang)
     {
-        /** @var MethodProphecy $method */
-        $method = $this->translator->setLocale($locale);
-        $method->shouldBeCalled();
+        $this->translator->setLocale($locale)->shouldBeCalled();
 
         $routeMatch = $this->prophesize(RouteMatch::class);
-
-        /** @var MethodProphecy $method */
-        $method = $routeMatch->getParam('lang', 'de');
-        $method->willReturn($lang);
-        $method->shouldBeCalled();
+        $routeMatch->getParam('lang', 'de')
+            ->willReturn($lang)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRouteMatch();
-        $method->willReturn($routeMatch);
-        $method->shouldBeCalled();
+        $mvcEvent->getRouteMatch()
+            ->willReturn($routeMatch)
+            ->shouldBeCalled();
 
         $this->i18nListener->setupLocalization($mvcEvent->reveal());
 

@@ -98,25 +98,21 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
     {
         $events = $this->prophesize(EventManagerInterface::class);
 
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_ROUTE,
             [$this->authenticationListener, 'authenticate'],
             -2000
-        );
-        $method->willReturn(
+        )->willReturn(
             [$this->authenticationListener, 'authenticate']
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $events->attach(
+        $events->attach(
             MvcEvent::EVENT_ROUTE,
             [$this->authenticationListener, 'logout'],
             -1000
-        );
-        $method->willReturn([$this->authenticationListener, 'logout']);
-        $method->shouldBeCalled();
+        )->willReturn(
+            [$this->authenticationListener, 'logout']
+        )->shouldBeCalled();
 
         $this->authenticationListener->attach($events->reveal());
     }
@@ -129,19 +125,16 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      */
     public function testAuthenticateWithIdentity()
     {
-        /** @var MethodProphecy $method */
-        $method = $this->authService->hasIdentity();
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $this->authService->hasIdentity()
+            ->willReturn(true)
+            ->shouldBeCalled();
 
         $request = $this->prophesize(Request::class);
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldNotBeCalled();
+        $mvcEvent->getRequest()
+            ->willReturn($request)
+            ->shouldNotBeCalled();
 
         $this->authenticationListener->authenticate($mvcEvent->reveal());
     }
@@ -154,29 +147,18 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      */
     public function testAuthenticateNoPost()
     {
-        /** @var MethodProphecy $method */
-        $method = $this->authService->hasIdentity();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $this->authService->hasIdentity()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $request = $this->prophesize(Request::class);
-
-        /** @var MethodProphecy $method */
-        $method = $request->isPost();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $request->getPost('login_user');
-        $method->willReturn(false);
-        $method->shouldNotBeCalled();
+        $request->isPost()->willReturn(false)->shouldBeCalled();
+        $request->getPost('login_user')
+            ->willReturn(false)
+            ->shouldNotBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldBeCalled();
+        $mvcEvent->getRequest()->willReturn($request)->shouldBeCalled();
 
         $this->authenticationListener->authenticate($mvcEvent->reveal());
     }
@@ -189,34 +171,19 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
      */
     public function testAuthenticateWithPostWrongButton()
     {
-        /** @var MethodProphecy $method */
-        $method = $this->authService->hasIdentity();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $this->authService->hasIdentity()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $request = $this->prophesize(Request::class);
-
-        /** @var MethodProphecy $method */
-        $method = $request->isPost();
-        $method->willReturn(true);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $request->getPost('login_user');
-        $method->willReturn(false);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $request->getPost();
-        $method->willReturn(false);
-        $method->shouldNotBeCalled();
+        $request->isPost()->willReturn(true)->shouldBeCalled();
+        $request->getPost('login_user')
+            ->willReturn(false)
+            ->shouldBeCalled();
+        $request->getPost()->willReturn(false)->shouldNotBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldBeCalled();
+        $mvcEvent->getRequest()->willReturn($request)->shouldBeCalled();
 
         $this->authenticationListener->authenticate($mvcEvent->reveal());
     }
@@ -235,47 +202,26 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
             'login_user' => 'login_user',
         ];
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->hasIdentity();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $this->authService->hasIdentity()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $request = $this->prophesize(Request::class);
+        $request->isPost()->willReturn(true)->shouldBeCalled();
+        $request->getPost('login_user')
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $request->getPost()->willReturn($postData)->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $request->isPost();
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $this->userLoginForm->setData($postData)->shouldBeCalled();
+        $this->userLoginForm->isValid()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $request->getPost('login_user');
-        $method->willReturn(true);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $request->getPost();
-        $method->willReturn($postData);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userLoginForm->setData($postData);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userLoginForm->isValid();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getAdapter();
-        $method->shouldNotBeCalled();
+        $this->authService->getAdapter()->shouldNotBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldBeCalled();
+        $mvcEvent->getRequest()->willReturn($request)->shouldBeCalled();
 
         $this->authenticationListener->authenticate($mvcEvent->reveal());
     }
@@ -294,89 +240,57 @@ class AuthenticationListenerTest extends PHPUnit_Framework_TestCase
             'login_user' => 'login_user',
         ];
 
-        /** @var MethodProphecy $method */
-        $method = $this->authService->hasIdentity();
-        $method->willReturn(false);
-        $method->shouldBeCalled();
+        $this->authService->hasIdentity()
+            ->willReturn(false)
+            ->shouldBeCalled();
 
         $request = $this->prophesize(Request::class);
+        $request->isPost()->willReturn(true)->shouldBeCalled();
+        $request->getPost('login_user')
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $request->getPost()->willReturn($postData)->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $request->isPost();
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $this->userLoginForm->setData($postData)->shouldBeCalled();
+        $this->userLoginForm->isValid()
+            ->willReturn(true)
+            ->shouldBeCalled();
+        $this->userLoginForm->getData()
+            ->willReturn($postData)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $request->getPost('login_user');
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $this->authService->getAdapter()
+            ->willReturn($this->authAdapter)
+            ->shouldBeCalled();
+        $this->authService->authenticate()
+            ->willReturn($this->authResult)
+            ->shouldBeCalled();
+        $this->authService->getStorage()
+            ->willReturn($this->authStorage)
+            ->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $request->getPost();
-        $method->willReturn($postData);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userLoginForm->setData($postData);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userLoginForm->isValid();
-        $method->willReturn(true);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->userLoginForm->getData();
-        $method->willReturn($postData);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getAdapter();
-        $method->willReturn($this->authAdapter);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authService->authenticate();
-        $method->willReturn($this->authResult);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authService->getStorage();
-        $method->willReturn($this->authStorage);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authAdapter->setIdentity($postData['email']);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authAdapter->setCredential($postData['password']);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $this->authAdapter->getResultRowObject(
+        $this->authAdapter->setIdentity($postData['email'])
+            ->shouldBeCalled();
+        $this->authAdapter->setCredential($postData['password'])
+            ->shouldBeCalled();
+        $this->authAdapter->getResultRowObject(
             null, ['password']
-        );
-        $method->shouldBeCalled();
+        )->shouldBeCalled();
 
-        /** @var MethodProphecy $method */
-        $method = $this->authResult->isValid();
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $this->authResult->isValid()
+            ->willReturn(true)
+            ->shouldBeCalled();
 
         $user = new UserEntity();
 
-        /** @var MethodProphecy $method */
-        $method = $this->authStorage->write($user);
-        $method->willReturn(true);
-        $method->shouldBeCalled();
+        $this->authStorage->write($user)
+            ->willReturn(true)
+            ->shouldBeCalled();
 
         $mvcEvent = $this->prophesize(MvcEvent::class);
-
-        /** @var MethodProphecy $method */
-        $method = $mvcEvent->getRequest();
-        $method->willReturn($request);
-        $method->shouldBeCalled();
+        $mvcEvent->getRequest()
+            ->willReturn($request)
+            ->shouldBeCalled();
 
         $this->authenticationListener->authenticate($mvcEvent->reveal());
     }

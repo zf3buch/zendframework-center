@@ -41,11 +41,9 @@ class AuthorizationListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         /** @var ContainerInterface $viewHelperManager */
         $viewHelperManager = $this->prophesize(ContainerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $viewHelperManager->get(Navigation::class);
-        $method->willReturn($navigationViewHelper);
-        $method->shouldBeCalled();
+        $viewHelperManager->get(Navigation::class)
+            ->willReturn($navigationViewHelper)
+            ->shouldBeCalled();
 
         /** @var AuthenticationService $authenticationService */
         $authenticationService = $this->prophesize(
@@ -57,21 +55,15 @@ class AuthorizationListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         /** @var ContainerInterface $container */
         $container = $this->prophesize(ContainerInterface::class);
-
-        /** @var MethodProphecy $method */
-        $method = $container->get(AuthenticationService::class);
-        $method->willReturn($authenticationService);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $container->get(UserAcl::class);
-        $method->willReturn($userAcl);
-        $method->shouldBeCalled();
-
-        /** @var MethodProphecy $method */
-        $method = $container->get('ViewHelperManager');
-        $method->willReturn($viewHelperManager);
-        $method->shouldBeCalled();
+        $container->get(AuthenticationService::class)
+            ->willReturn($authenticationService)
+            ->shouldBeCalled();
+        $container->get(UserAcl::class)
+            ->willReturn($userAcl)
+            ->shouldBeCalled();
+        $container->get('ViewHelperManager')
+            ->willReturn($viewHelperManager)
+            ->shouldBeCalled();
 
         $factory = new AuthorizationListenerFactory();
 
