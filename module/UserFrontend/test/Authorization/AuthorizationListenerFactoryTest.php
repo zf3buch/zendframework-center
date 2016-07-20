@@ -29,6 +29,9 @@ class AuthorizationListenerFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test factory
+     *
+     * @group listener
+     * @group factory
      */
     public function testFactory()
     {

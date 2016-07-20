@@ -58,6 +58,8 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test attaching listeners
+     *
+     * @group listener
      */
     public function testAttach()
     {
@@ -86,6 +88,8 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test redirect to home route with request uri /whatever
+     *
+     * @group listener
      */
     public function testRedirectHomeRouteWhatever()
     {
@@ -114,6 +118,8 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test redirect to home route with request uri /
+     *
+     * @group listener
      */
     public function testRedirectHomeRouteRoot()
     {
@@ -162,6 +168,7 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
      * @param string $locale
      * @param string $lang
      *
+     * @group listener
      * @dataProvider provideSetupLocalization
      */
     public function testSetupLocalization($locale, $lang)
