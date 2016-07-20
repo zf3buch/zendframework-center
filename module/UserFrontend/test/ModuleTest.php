@@ -28,7 +28,7 @@ class ModuleTest extends PHPUnit_Framework_TestCase
     /**
      * Setup test cases
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->moduleRoot = realpath(__DIR__ . '/../');
     }
