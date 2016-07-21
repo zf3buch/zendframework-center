@@ -525,6 +525,176 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
     }
 
     /**
+     * Test approve action can be accessed
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testApproveActionCanBeAccessed()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 19;
+        $url = '/de/advert-backend/approve/' . $id;
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertMatchedRouteName('advert-backend/modify');
+        $this->assertModuleName('advertbackend');
+        $this->assertControllerName(ModifyController::class);
+        $this->assertControllerClass('ModifyController');
+        $this->assertActionName('approve');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            utf8_encode(
+                $this->translator->translate(
+                    'advert_backend_h1_display_approve', 'default', 'de_DE'
+                )
+            )
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group .form-control-static',
+            '#' . preg_quote($oldData['title']) . '#'
+        );
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $this->assertEquals(1, $queryAdvert->getRowCount());
+    }
+
+    /**
+     * Test approve action successful handling
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testApproveActionSuccessfulHandling()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 19;
+        $url = '/de/advert-backend/approve/' . $id . '?approve=yes';
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
+        $this->assertEquals('new', $oldData['status']);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirect();
+        $this->assertRedirectTo('/de/advert-backend/show/' . $id);
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $row = $queryAdvert->getRow(0);
+
+        $this->assertEquals('approved', $row['status']);
+    }
+
+    /**
+     * Test block action can be accessed
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testBlockActionCanBeAccessed()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 19;
+        $url = '/de/advert-backend/block/' . $id;
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertMatchedRouteName('advert-backend/modify');
+        $this->assertModuleName('advertbackend');
+        $this->assertControllerName(ModifyController::class);
+        $this->assertControllerClass('ModifyController');
+        $this->assertActionName('block');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            utf8_encode(
+                $this->translator->translate(
+                    'advert_backend_h1_display_block', 'default', 'de_DE'
+                )
+            )
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group .form-control-static',
+            '#' . preg_quote($oldData['title']) . '#'
+        );
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $this->assertEquals(1, $queryAdvert->getRowCount());
+    }
+
+    /**
+     * Test block action successful handling
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testBlockActionSuccessfulHandling()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 19;
+        $url = '/de/advert-backend/block/' . $id . '?block=yes';
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
+        $this->assertEquals('new', $oldData['status']);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirect();
+        $this->assertRedirectTo('/de/advert-backend/show/' . $id);
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $row = $queryAdvert->getRow(0);
+
+        $this->assertEquals('blocked', $row['status']);
+    }
+
+    /**
      * @param int $id
      *
      * @return string
