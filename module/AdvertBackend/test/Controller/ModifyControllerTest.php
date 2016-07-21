@@ -64,24 +64,131 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
                 'advert_backend_h1_display_add', 'default', 'de_DE'
             )
         );
+
+        $this->assertFormElementsExist(
+            'advert_form',
+            [
+                'csrf', 'type', 'status', 'company', 'location', 'title',
+                'text', 'save_advert'
+            ]
+        );
     }
 
     /**
-     * Test add action handling
-     *
-     * @param $postArray
+     * Test add action invalid data
      *
      * @group        controller
      * @group        advert-backend
-     * @dataProvider provideAddActionHandling
      */
-    public function testAddActionHandling($postArray)
+    public function testAddActionInvalidData()
     {
-        var_dump('Timeout testen');
-        var_dump('Ungültige Daten testen');
-        var_dump('Leeres Formular testen');
-
         $url = '/de/advert-backend/add';
+
+        $postArray = [
+            'id'          => 20,
+            'type'        => 'job',
+            'status'      => 'approved',
+            'company'     => '99',
+            'location'    => '',
+            'title'       => 'Test advert',
+            'text'        => '<p>Description for test advert</p>',
+            'save_advert' => 'save_advert',
+        ];
+
+        $this->mockLogin(AdminRole::NAME);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $postArray['csrf'] = '123456';
+
+        $this->getRequest()
+            ->setMethod('POST')
+            ->setPost(new Parameters($postArray));
+
+        $this->dispatch($url, 'POST');
+        $this->assertResponseStatusCode(200);
+        $this->assertNotRedirect();
+
+        $this->assertQueryContentRegex(
+            '.alert-danger p',
+            '#' . preg_quote(
+                $this->translator->translate(
+                    'advert_backend_message_form_timeout',
+                    'default',
+                    'de_DE'
+                )
+            ) . '#'
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group ul li',
+            '#' . preg_quote(
+                $this->translator->translate(
+                    'advert_model_message_company_invalid',
+                    'default',
+                    'de_DE'
+                )
+            ) . '#'
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group ul li',
+            '#' . preg_quote(
+                $this->translator->translate(
+                    'advert_model_message_company_invalid',
+                    'default',
+                    'de_DE'
+                )
+            ) . '#'
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group ul li',
+            '#' . preg_quote(
+                str_replace(
+                    '%min%',
+                    200,
+                    $this->translator->translate(
+                        'advert_model_message_text_invalid',
+                        'default',
+                        'de_DE'
+                    )
+                )
+            ) . '#'
+        );
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($postArray['id'])
+        );
+
+        $this->assertEquals(0, $queryAdvert->getRowCount());
+
+    }
+
+    /**
+     * Test add action successful handling
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testAddActionSuccessfulHandling()
+    {
+        $url = '/de/advert-backend/add';
+
+        $postArray = [
+            'id'          => 20,
+            'type'        => 'job',
+            'status'      => 'approved',
+            'company'     => '3',
+            'location'    => 'Hamburg',
+            'title'       => 'Test advert',
+            'text'        => str_repeat(
+                '<p>Description for test advert</p>', 10
+            ),
+            'save_advert' => 'save_advert',
+        ];
 
         $this->mockLogin(AdminRole::NAME);
 
@@ -113,43 +220,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         $this->assertEquals($postArray['location'], $row['location']);
         $this->assertEquals($postArray['title'], $row['title']);
         $this->assertEquals($postArray['text'], $row['text']);
-    }
-
-    /**
-     * @return array
-     */
-    public function provideAddActionHandling()
-    {
-        return [
-            [
-                [
-                    'id'          => 20,
-                    'type'        => 'job',
-                    'status'      => 'approved',
-                    'company'     => '3',
-                    'location'    => 'Hamburg',
-                    'title'       => 'Test advert',
-                    'text'        => str_repeat(
-                        '<p>Description for test advert</p>', 10
-                    ),
-                    'save_advert' => 'save_advert',
-                ]
-            ],
-            [
-                [
-                    'id'          => 20,
-                    'type'        => 'project',
-                    'status'      => 'new',
-                    'company'     => '8',
-                    'location'    => 'Berlin',
-                    'title'       => 'Another test advert',
-                    'text'        => str_repeat(
-                        '<p>Description for another test advert</p>', 10
-                    ),
-                    'save_advert' => 'save_advert',
-                ]
-            ],
-        ];
     }
 
     /**

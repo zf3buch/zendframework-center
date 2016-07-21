@@ -142,8 +142,8 @@ trait HttpControllerTestCaseTrait
      */
     protected function getCsrfValue($formId)
     {
-        $dom    = new Document($this->getResponse()->getBody());
-        $form   = $dom->getDomDocument()->getElementById($formId);
+        $dom  = new Document($this->getResponse()->getBody());
+        $form = $dom->getDomDocument()->getElementById($formId);
 
         $csrfValue = null;
 
@@ -157,6 +157,41 @@ trait HttpControllerTestCaseTrait
         }
 
         return $csrfValue;
+    }
+
+    /**
+     * @param string $formId
+     * @param array  $elementsToCheck
+     *
+     * @return array
+     */
+    protected function assertFormElementsExist(
+        $formId, array $elementsToCheck = []
+    ) {
+        $dom  = new Document($this->getResponse()->getBody());
+        $form = $dom->getDomDocument()->getElementById($formId);
+
+        $elementsFound = [];
+
+        /** @var DOMElement $node */
+        foreach ($form->getElementsByTagName('input') as $key => $node) {
+            $elementsFound[] = $node->getAttribute('name');
+        }
+        foreach ($form->getElementsByTagName('select') as $key => $node) {
+            $elementsFound[] = $node->getAttribute('name');
+        }
+        foreach ($form->getElementsByTagName('textarea') as $key => $node)
+        {
+            $elementsFound[] = $node->getAttribute('name');
+        }
+
+        foreach ($elementsToCheck as $element) {
+            $this->assertTrue(
+                in_array($element, $elementsFound),
+                'Form element "' . $element . '" not found in form "'
+                . $formId . '"'
+            );
+        }
     }
 
     /**
