@@ -82,6 +82,8 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
      */
     public function testAddActionInvalidData()
     {
+        $this->mockLogin(AdminRole::NAME);
+
         $url = '/de/advert-backend/add';
 
         $postArray = [
@@ -94,8 +96,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             'text'        => '<p>Description for test advert</p>',
             'save_advert' => 'save_advert',
         ];
-
-        $this->mockLogin(AdminRole::NAME);
 
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
@@ -136,7 +136,7 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             'form .form-group ul li',
             '#' . preg_quote(
                 $this->translator->translate(
-                    'advert_model_message_company_invalid',
+                    'advert_model_message_location_missing',
                     'default',
                     'de_DE'
                 )
@@ -175,6 +175,8 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
      */
     public function testAddActionSuccessfulHandling()
     {
+        $this->mockLogin(AdminRole::NAME);
+
         $url = '/de/advert-backend/add';
 
         $postArray = [
@@ -189,8 +191,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             ),
             'save_advert' => 'save_advert',
         ];
-
-        $this->mockLogin(AdminRole::NAME);
 
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
@@ -220,6 +220,149 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         $this->assertEquals($postArray['location'], $row['location']);
         $this->assertEquals($postArray['title'], $row['title']);
         $this->assertEquals($postArray['text'], $row['text']);
+    }
+
+    /**
+     * Test edit action can be accessed
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testEditActionCanBeAccessed()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 1;
+        $url = '/de/advert-backend/edit/' . $id;
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertMatchedRouteName('advert-backend/modify');
+        $this->assertModuleName('advertbackend');
+        $this->assertControllerName(ModifyController::class);
+        $this->assertControllerClass('ModifyController');
+        $this->assertActionName('edit');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            $this->translator->translate(
+                'advert_backend_h1_display_edit', 'default', 'de_DE'
+            )
+        );
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $row = $queryAdvert->getRow(0);
+
+        $this->assertFormElementsExist(
+            'advert_form',
+            [
+                'csrf', 'location', 'title', 'text', 'save_advert'
+            ]
+        );
+
+        $this->assertFormElementValues(
+            'advert_form',
+            [
+                'location' => $row['location'],
+                'title'    => $row['title'],
+                'text'     => $row['text'],
+            ]
+        );
+    }
+
+    /**
+     * Test edit action invalid data
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testEditActionInvalidData()
+    {
+        $id  = 1;
+        $url = '/de/advert-backend/edit/' . $id;
+
+        $postArray = [
+            'location'    => '',
+            'title'       => 'Test advert',
+            'text'        => '<p>Description for test advert</p>',
+            'save_advert' => 'save_advert',
+        ];
+
+        $this->mockLogin(AdminRole::NAME);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $postArray['csrf'] = '123456';
+
+        $this->getRequest()
+            ->setMethod('POST')
+            ->setPost(new Parameters($postArray));
+
+        $this->dispatch($url, 'POST');
+        $this->assertResponseStatusCode(200);
+        $this->assertNotRedirect();
+
+        $this->assertQueryContentRegex(
+            '.alert-danger p',
+            '#' . preg_quote(
+                $this->translator->translate(
+                    'advert_backend_message_form_timeout',
+                    'default',
+                    'de_DE'
+                )
+            ) . '#'
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group ul li',
+            '#' . preg_quote(
+                $this->translator->translate(
+                    'advert_model_message_location_missing',
+                    'default',
+                    'de_DE'
+                )
+            ) . '#'
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group ul li',
+            '#' . preg_quote(
+                str_replace(
+                    '%min%',
+                    200,
+                    $this->translator->translate(
+                        'advert_model_message_text_invalid',
+                        'default',
+                        'de_DE'
+                    )
+                )
+            ) . '#'
+        );
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($postArray['id'])
+        );
+
+        $row = $queryAdvert->getRow(0);
+
+        $data = fgetcsv();
+
+        $this->assertEquals($postArray['id'], $row['id']);
+        $this->assertEquals($postArray['type'], $row['type']);
+        $this->assertEquals($postArray['status'], $row['status']);
+        $this->assertEquals($postArray['company'], $row['company']);
+        $this->assertEquals($postArray['location'], $row['location']);
+        $this->assertEquals($postArray['title'], $row['title']);
+        $this->assertEquals($postArray['text'], $row['text']);
+
     }
 
     /**

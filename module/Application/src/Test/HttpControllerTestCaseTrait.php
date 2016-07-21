@@ -195,6 +195,46 @@ trait HttpControllerTestCaseTrait
     }
 
     /**
+     * @param string $formId
+     * @param array  $elementValues
+     *
+     * @return array
+     */
+    protected function assertFormElementValues(
+        $formId, array $elementValues = []
+    ) {
+        $dom  = new Document($this->getResponse()->getBody());
+        $form = $dom->getDomDocument()->getElementById($formId);
+
+        $valuesFound = [];
+
+        /** @var DOMElement $node */
+        foreach ($form->getElementsByTagName('input') as $key => $node) {
+            $valuesFound[$node->getAttribute('name')]
+                = $node->getAttribute('value');
+        }
+        foreach ($form->getElementsByTagName('select') as $key => $node) {
+            $valuesFound[$node->getAttribute('name')]
+                = $node->getAttribute('value');
+        }
+        foreach ($form->getElementsByTagName('textarea') as $key => $node)
+        {
+            $valuesFound[$node->getAttribute('name')]
+                = $node->childNodes->item(0)->textContent;
+        }
+
+        foreach ($elementValues as $element => $value) {
+            $this->assertEquals(
+                $value,
+                $valuesFound[$element],
+                'Form element "' . $element . '" does not contain value "'
+                . $value . '". Contains value "' . $valuesFound[$element]
+                . '".'
+            );
+        }
+    }
+
+    /**
      * @param $select
      */
     protected function addCompanyJoinToQuery(Select $select)
