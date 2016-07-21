@@ -15,10 +15,16 @@ return [
     // title texts
     'advert_frontend_title_display_jobs'     => 'Latest Zend Framework Jobs',
     'advert_frontend_title_display_projects' => 'Latest Zend Framework Projects',
+    'advert_frontend_title_modify_edit'      => 'Edit advert',
+    'advert_frontend_title_modify_delete'    => 'Delete advert',
+    'advert_frontend_title_modify_add'       => 'Add advert',
 
     // heading texts
     'advert_frontend_h1_display_jobs'        => 'Latest Zend Framework Jobs',
     'advert_frontend_h1_display_projects'    => 'Latest Zend Framework Projects',
+    'advert_frontend_h1_modify_edit'         => 'Edit advert',
+    'advert_frontend_h1_modify_delete'       => 'Delete advert',
+    'advert_frontend_h1_modify_add'          => 'Add advert',
 
     // message texts
     'advert_frontend_message_type_job'       => 'Zend Framework Job in %1$s',

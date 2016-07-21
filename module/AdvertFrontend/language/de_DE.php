@@ -15,10 +15,16 @@ return [
     // title texts
     'advert_frontend_title_display_jobs'     => 'Aktuelle Zend Framework Jobs',
     'advert_frontend_title_display_projects' => 'Aktuelle Zend Framework Projekte',
+    'advert_frontend_title_modify_edit'      => 'Annonce bearbeiten',
+    'advert_frontend_title_modify_delete'    => 'Annonce löschen',
+    'advert_frontend_title_modify_add'       => 'Annonce anlegen',
 
     // heading texts
     'advert_frontend_h1_display_jobs'        => 'Aktuelle Zend Framework Jobs',
     'advert_frontend_h1_display_projects'    => 'Aktuelle Zend Framework Projekte',
+    'advert_frontend_h1_modify_edit'         => 'Annonce bearbeiten',
+    'advert_frontend_h1_modify_delete'       => 'Annonce löschen',
+    'advert_frontend_h1_modify_add'          => 'Annonce anlegen',
 
     // message texts
     'advert_frontend_message_type_job'       => 'Zend Framework Job in %1$s',
