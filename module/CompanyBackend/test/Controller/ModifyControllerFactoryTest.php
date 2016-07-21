@@ -7,19 +7,19 @@
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-namespace AdvertBackendTest\Controller;
+namespace CompanyBackendTest\Controller;
 
-use AdvertBackend\Controller\ModifyController;
-use AdvertBackend\Controller\ModifyControllerFactory;
-use AdvertBackend\Form\AdvertForm;
-use AdvertModel\Repository\AdvertRepositoryInterface;
+use CompanyBackend\Controller\ModifyController;
+use CompanyBackend\Controller\ModifyControllerFactory;
+use CompanyBackend\Form\CompanyForm;
+use CompanyModel\Repository\CompanyRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use PHPUnit_Framework_TestCase;
 
 /**
  * Class ModifyControllerFactoryTest
  *
- * @package AdvertBackendTest\Controller
+ * @package CompanyBackendTest\Controller
  */
 class ModifyControllerFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -28,30 +28,30 @@ class ModifyControllerFactoryTest extends PHPUnit_Framework_TestCase
      *
      * @group controller
      * @group factory
-     * @group advert-backend
+     * @group company-backend
      */
     public function testFactory()
     {
         /** @var ContainerInterface $formElementManager */
         $formElementManager = $this->prophesize(ContainerInterface::class);
 
-        /** @var AdvertForm $advertForm */
-        $advertForm = $this->prophesize(AdvertForm::class);
+        /** @var CompanyForm $companyForm */
+        $companyForm = $this->prophesize(CompanyForm::class);
 
-        $formElementManager->get(AdvertForm::class)
-            ->willReturn($advertForm)
+        $formElementManager->get(CompanyForm::class)
+            ->willReturn($companyForm)
             ->shouldBeCalled();
 
         /** @var ContainerInterface $container */
         $container = $this->prophesize(ContainerInterface::class);
 
-        /** @var AdvertRepositoryInterface $advertRepository */
-        $advertRepository = $this->prophesize(
-            AdvertRepositoryInterface::class
+        /** @var CompanyRepositoryInterface $companyRepository */
+        $companyRepository = $this->prophesize(
+            CompanyRepositoryInterface::class
         );
 
-        $container->get(AdvertRepositoryInterface::class)
-            ->willReturn($advertRepository)
+        $container->get(CompanyRepositoryInterface::class)
+            ->willReturn($companyRepository)
             ->shouldBeCalled();
 
         $container->get('FormElementManager')
@@ -72,11 +72,11 @@ class ModifyControllerFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($controller instanceof ModifyController);
 
         $this->assertAttributeEquals(
-            $advertRepository->reveal(), 'advertRepository', $controller
+            $companyRepository->reveal(), 'companyRepository', $controller
         );
 
         $this->assertAttributeEquals(
-            $advertForm->reveal(), 'advertForm', $controller
+            $companyForm->reveal(), 'companyForm', $controller
         );
     }
 }
