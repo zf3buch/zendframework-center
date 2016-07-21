@@ -1,3 +1,4 @@
 "id","registered","updated","status","role","email","password"
 "1","2016-07-03 11:21:32","2016-07-09 11:31:22","approved","company","company@zendframework.center","$2y$10$/ZWVBKC/BHLpV2Y969RLau2K2CQRQv2DLaOrsYrE.0BHbvGmHLA6a"
 "2","2016-07-03 11:21:45","2016-07-03 11:22:12","approved","admin","admin@zendframework.center","$2y$10$/ZWVBKC/BHLpV2Y969RLau2K2CQRQv2DLaOrsYrE.0BHbvGmHLA6a"
+"3","2016-07-03 11:22:03","2016-07-03 11:22:52","new","company","new-company@zendframework.center","$2y$10$/ZWVBKC/BHLpV2Y969RLau2K2CQRQv2DLaOrsYrE.0BHbvGmHLA6a"
