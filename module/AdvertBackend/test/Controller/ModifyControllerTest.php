@@ -235,6 +235,11 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         $id  = 1;
         $url = '/de/advert-backend/edit/' . $id;
 
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
 
@@ -252,13 +257,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             )
         );
 
-        $queryAdvert = $this->getConnection()->createQueryTable(
-            'fetchAdvertsByPage',
-            $this->generateQueryAdvertById($id)
-        );
-
-        $row = $queryAdvert->getRow(0);
-
         $this->assertFormElementsExist(
             'advert_form',
             [
@@ -269,9 +267,9 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         $this->assertFormElementValues(
             'advert_form',
             [
-                'location' => $row['location'],
-                'title'    => $row['title'],
-                'text'     => $row['text'],
+                'location' => $oldData['location'],
+                'title'    => $oldData['title'],
+                'text'     => $oldData['text'],
             ]
         );
     }
@@ -284,8 +282,15 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
      */
     public function testEditActionInvalidData()
     {
+        $this->mockLogin(AdminRole::NAME);
+
         $id  = 1;
         $url = '/de/advert-backend/edit/' . $id;
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
 
         $postArray = [
             'location'    => '',
@@ -293,8 +298,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             'text'        => '<p>Description for test advert</p>',
             'save_advert' => 'save_advert',
         ];
-
-        $this->mockLogin(AdminRole::NAME);
 
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
@@ -348,21 +351,177 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $queryAdvert = $this->getConnection()->createQueryTable(
             'fetchAdvertsByPage',
-            $this->generateQueryAdvertById($postArray['id'])
+            $this->generateQueryAdvertById($id)
         );
 
         $row = $queryAdvert->getRow(0);
 
-        $data = fgetcsv();
+        $expectedRow = [
+            'id'       => $id,
+            'status'   => $oldData['status'],
+            'type'     => $oldData['type'],
+            'company'  => $oldData['company'],
+            'title'    => $oldData['title'],
+            'text'     => $oldData['text'],
+            'location' => $oldData['location'],
+        ];
 
-        $this->assertEquals($postArray['id'], $row['id']);
-        $this->assertEquals($postArray['type'], $row['type']);
-        $this->assertEquals($postArray['status'], $row['status']);
-        $this->assertEquals($postArray['company'], $row['company']);
-        $this->assertEquals($postArray['location'], $row['location']);
-        $this->assertEquals($postArray['title'], $row['title']);
-        $this->assertEquals($postArray['text'], $row['text']);
+        $this->assertEquals($expectedRow['id'], $row['id']);
+        $this->assertEquals($expectedRow['type'], $row['type']);
+        $this->assertEquals($expectedRow['status'], $row['status']);
+        $this->assertEquals($expectedRow['company'], $row['company']);
+        $this->assertEquals($expectedRow['location'], $row['location']);
+        $this->assertEquals($expectedRow['title'], $row['title']);
+    }
 
+    /**
+     * Test edit action successful handling
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testEditActionSuccessfulHandling()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 1;
+        $url = '/de/advert-backend/edit/' . $id;
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
+        $postArray = [
+            'location'    => 'Hamburg',
+            'title'       => 'Test advert',
+            'text'        => str_repeat(
+                '<p>Description for test advert</p>', 10
+            ),
+            'save_advert' => 'save_advert',
+        ];
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $postArray['csrf'] = $this->getCsrfValue('advert_form');
+
+        $this->getRequest()
+            ->setMethod('POST')
+            ->setPost(new Parameters($postArray));
+
+        $this->dispatch($url, 'POST');
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirect();
+        $this->assertRedirectTo($url);
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $row = $queryAdvert->getRow(0);
+
+        $expectedRow = [
+            'id'       => $id,
+            'status'   => $oldData['status'],
+            'type'     => $oldData['type'],
+            'company'  => $oldData['company'],
+            'title'    => $postArray['title'],
+            'text'     => $postArray['text'],
+            'location' => $postArray['location'],
+        ];
+
+        $this->assertEquals($expectedRow['id'], $row['id']);
+        $this->assertEquals($expectedRow['type'], $row['type']);
+        $this->assertEquals($expectedRow['status'], $row['status']);
+        $this->assertEquals($expectedRow['company'], $row['company']);
+        $this->assertEquals($expectedRow['location'], $row['location']);
+        $this->assertEquals($expectedRow['title'], $row['title']);
+        $this->assertEquals($expectedRow['text'], $row['text']);
+    }
+
+    /**
+     * Test delete action can be accessed
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testDeleteActionCanBeAccessed()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 1;
+        $url = '/de/advert-backend/delete/' . $id;
+
+        $oldData = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        )->getRow(0);
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
+        $this->assertMatchedRouteName('advert-backend/modify');
+        $this->assertModuleName('advertbackend');
+        $this->assertControllerName(ModifyController::class);
+        $this->assertControllerClass('ModifyController');
+        $this->assertActionName('delete');
+
+        $this->assertQuery('.page-header h1');
+        $this->assertQueryContentContains(
+            '.page-header h1',
+            utf8_encode(
+                $this->translator->translate(
+                    'advert_backend_h1_display_delete', 'default', 'de_DE'
+                )
+            )
+        );
+
+        $this->assertQueryContentRegex(
+            'form .form-group .form-control-static',
+            '#' . preg_quote($oldData['title']) . '#'
+        );
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $this->assertEquals(1, $queryAdvert->getRowCount());
+    }
+
+    /**
+     * Test delete action successful handling
+     *
+     * @group        controller
+     * @group        advert-backend
+     */
+    public function testDeleteActionSuccessfulHandling()
+    {
+        $this->mockLogin(AdminRole::NAME);
+
+        $id  = 1;
+        $url = '/de/advert-backend/delete/' . $id . '?delete=yes';
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $this->assertEquals(1, $queryAdvert->getRowCount());
+
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(302);
+        $this->assertRedirect();
+        $this->assertRedirectTo('/de/advert-backend');
+
+        $queryAdvert = $this->getConnection()->createQueryTable(
+            'fetchAdvertsByPage',
+            $this->generateQueryAdvertById($id)
+        );
+
+        $this->assertEquals(0, $queryAdvert->getRowCount());
     }
 
     /**
