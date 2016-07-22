@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class CompanyConfigTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group company-backend
+     * @group company-model
      * @group model
      */
     public function testClassExists()

@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class UserRepositoryFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group user-backend
+     * @group user-model
      * @group model
      */
     public function testClassExists()
