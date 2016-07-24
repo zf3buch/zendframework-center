@@ -77,7 +77,7 @@ class I18nListenerTest extends PHPUnit_Framework_TestCase
             MvcEvent::EVENT_ROUTE,
             [$this->i18nListener, 'setupLocalization'],
             -100
-        )->willReturn([$this->i18nListener, 'redirectHomeRoute'])
+        )->willReturn([$this->i18nListener, 'setupLocalization'])
             ->shouldBeCalled();
 
         $this->i18nListener->attach($events->reveal());
