@@ -60,10 +60,6 @@ class EditControllerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new EditControllerFactory();
 
-        $this->assertTrue(
-            $factory instanceof EditControllerFactory
-        );
-
         /** @var EditController $controller */
         $controller = $factory(
             $container->reveal(), EditController::class

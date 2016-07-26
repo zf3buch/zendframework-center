@@ -45,10 +45,6 @@ class IndexControllerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new IndexControllerFactory();
 
-        $this->assertTrue(
-            $factory instanceof IndexControllerFactory
-        );
-
         /** @var IndexController $controller */
         $controller = $factory(
             $container->reveal(), IndexController::class

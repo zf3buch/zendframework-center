@@ -67,10 +67,6 @@ class AuthorizationListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new AuthorizationListenerFactory();
 
-        $this->assertTrue(
-            $factory instanceof AuthorizationListenerFactory
-        );
-
         /** @var AuthorizationListener $table */
         $listener = $factory(
             $container->reveal(), AuthorizationListener::class
