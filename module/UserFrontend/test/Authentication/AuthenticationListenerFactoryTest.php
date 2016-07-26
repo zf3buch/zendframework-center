@@ -68,10 +68,6 @@ class AuthenticationListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new AuthenticationListenerFactory();
 
-        $this->assertTrue(
-            $factory instanceof AuthenticationListenerFactory
-        );
-
         /** @var AuthenticationListener $table */
         $listener = $factory(
             $container->reveal(), AuthenticationListener::class

@@ -56,10 +56,6 @@ class I18nListenerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new I18nListenerFactory();
 
-        $this->assertTrue(
-            $factory instanceof I18nListenerFactory
-        );
-
         /** @var I18nListener $table */
         $listener = $factory($container->reveal(), I18nListener::class);
 
