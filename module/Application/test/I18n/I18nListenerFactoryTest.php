@@ -42,16 +42,14 @@ class I18nListenerFactoryTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        /** @var ContainerInterface $container */
-        $container = $this->prophesize(ContainerInterface::class);
-
         /** @var TranslatorInterface $translator */
         $translator = $this->prophesize(TranslatorInterface::class);
 
+        /** @var ContainerInterface $container */
+        $container = $this->prophesize(ContainerInterface::class);
         $container->get(TranslatorInterface::class)
             ->willReturn($translator)
             ->shouldBeCalled();
-
         $container->get('config')
             ->willReturn($config)
             ->shouldBeCalled();
