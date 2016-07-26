@@ -45,10 +45,6 @@ class DisplayControllerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new DisplayControllerFactory();
 
-        $this->assertTrue(
-            $factory instanceof DisplayControllerFactory
-        );
-
         /** @var DisplayController $controller */
         $controller = $factory(
             $container->reveal(), DisplayController::class

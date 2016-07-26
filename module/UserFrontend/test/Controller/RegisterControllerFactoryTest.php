@@ -68,10 +68,6 @@ class RegisterControllerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new RegisterControllerFactory();
 
-        $this->assertTrue(
-            $factory instanceof RegisterControllerFactory
-        );
-
         /** @var RegisterController $controller */
         $controller = $factory(
             $container->reveal(), RegisterController::class

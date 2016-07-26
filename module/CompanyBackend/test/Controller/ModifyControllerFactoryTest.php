@@ -60,10 +60,6 @@ class ModifyControllerFactoryTest extends PHPUnit_Framework_TestCase
 
         $factory = new ModifyControllerFactory();
 
-        $this->assertTrue(
-            $factory instanceof ModifyControllerFactory
-        );
-
         /** @var ModifyController $controller */
         $controller = $factory(
             $container->reveal(), ModifyController::class
