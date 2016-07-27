@@ -201,6 +201,7 @@ class DisplayControllerTest extends AbstractHttpControllerTestCase
     {
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(302);
+        $this->assertRedirect();
         $this->assertRedirectTo($redirect);
     }
 

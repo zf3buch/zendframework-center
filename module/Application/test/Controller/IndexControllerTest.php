@@ -44,6 +44,8 @@ class IndexControllerTest extends AbstractHttpControllerTestCase
     {
         $this->dispatch('/', 'GET');
         $this->assertResponseStatusCode(301);
+        $this->assertRedirect();
+        $this->assertRedirectTo('/de');
     }
 
     /**
