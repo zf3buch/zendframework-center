@@ -86,17 +86,13 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $postArray = [
             'id'        => 4,
+            'csrf'      => '123456',
             'status'    => 'approved',
             'role'      => 'test',
             'email'     => 'email',
             'password'  => '1',
             'save_user' => 'save_user',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = '123456';
 
         $this->getRequest()
             ->setMethod('POST')
@@ -175,19 +171,18 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $url = '/de/user-backend/add';
 
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
         $postArray = [
             'id'        => 4,
+            'csrf'      => $this->getCsrfValue('user_form'),
             'status'    => 'approved',
             'role'      => 'company',
             'email'     => 'new-company@zendframework.center',
             'password'  => '12345789',
             'save_user' => 'save_user',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = $this->getCsrfValue('user_form');
 
         $this->getRequest()
             ->setMethod('POST')
@@ -284,15 +279,11 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         )->getRow(0);
 
         $postArray = [
+            'csrf'      => '123456',
             'email'     => 'email',
             'password'  => '1',
             'save_user' => 'save_user',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = '123456';
 
         $this->getRequest()
             ->setMethod('POST')
@@ -379,16 +370,15 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             $this->generateQueryUserById($id)
         )->getRow(0);
 
-        $postArray = [
-            'email'     => 'neuer@firma.de',
-            'password'   => '987654321',
-            'save_user' => 'save_user',
-        ];
-
         $this->dispatch($url, 'GET');
         $this->assertResponseStatusCode(200);
 
-        $postArray['csrf'] = $this->getCsrfValue('user_form');
+        $postArray = [
+            'csrf'      => $this->getCsrfValue('user_form'),
+            'email'     => 'neuer@firma.de',
+            'password'  => '987654321',
+            'save_user' => 'save_user',
+        ];
 
         $this->getRequest()
             ->setMethod('POST')

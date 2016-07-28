@@ -88,6 +88,7 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $postArray = [
             'id'          => 20,
+            'csrf'        => '123456',
             'type'        => 'job',
             'status'      => 'approved',
             'company'     => '99',
@@ -96,11 +97,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             'text'        => '<p>Description for test advert</p>',
             'save_advert' => 'save_advert',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = '123456';
 
         $this->getRequest()
             ->setMethod('POST')
@@ -179,8 +175,12 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $url = '/de/advert-backend/add';
 
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
         $postArray = [
             'id'          => 20,
+            'csrf'        => $this->getCsrfValue('user_form'),
             'type'        => 'job',
             'status'      => 'approved',
             'company'     => '3',
@@ -191,11 +191,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             ),
             'save_advert' => 'save_advert',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = $this->getCsrfValue('advert_form');
 
         $this->getRequest()
             ->setMethod('POST')
@@ -293,16 +288,12 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         )->getRow(0);
 
         $postArray = [
+            'csrf'        => '123456',
             'location'    => '',
             'title'       => 'Test advert',
             'text'        => '<p>Description for test advert</p>',
             'save_advert' => 'save_advert',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = '123456';
 
         $this->getRequest()
             ->setMethod('POST')
@@ -392,7 +383,11 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             $this->generateQueryAdvertById($id)
         )->getRow(0);
 
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
         $postArray = [
+            'csrf'        => $this->getCsrfValue('user_form'),
             'location'    => 'Hamburg',
             'title'       => 'Test advert',
             'text'        => str_repeat(
@@ -400,11 +395,6 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             ),
             'save_advert' => 'save_advert',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = $this->getCsrfValue('advert_form');
 
         $this->getRequest()
             ->setMethod('POST')
