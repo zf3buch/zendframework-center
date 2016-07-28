@@ -86,17 +86,13 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $postArray = [
             'id'           => 20,
+            'csrf'         => '123456',
             'status'       => 'approved',
             'name'         => '',
             'email'        => 'email',
             'contact'      => '1',
             'save_company' => 'save_company',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = '123456';
 
         $this->getRequest()
             ->setMethod('POST')
@@ -175,19 +171,18 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $url = '/de/company-backend/add';
 
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
         $postArray = [
             'id'           => 11,
+            'csrf'         => $this->getCsrfValue('user_form'),
             'status'       => 'approved',
             'name'         => 'Neue Firma',
             'email'        => 'neuer@firma.de',
             'contact'      => 'Manuel Neuer',
             'save_company' => 'save_company',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = $this->getCsrfValue('company_form');
 
         $this->getRequest()
             ->setMethod('POST')
@@ -283,16 +278,12 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         )->getRow(0);
 
         $postArray = [
+            'csrf'         => '123456',
             'name'         => '',
             'email'        => 'email',
             'contact'      => '1',
             'save_company' => 'save_company',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = '123456';
 
         $this->getRequest()
             ->setMethod('POST')
@@ -390,17 +381,16 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
             $this->generateQueryCompanyById($id)
         )->getRow(0);
 
+        $this->dispatch($url, 'GET');
+        $this->assertResponseStatusCode(200);
+
         $postArray = [
+            'csrf'         => $this->getCsrfValue('user_form'),
             'name'         => 'Neue Firma',
             'email'        => 'neuer@firma.de',
             'contact'      => 'Manuel Neuer',
             'save_company' => 'save_company',
         ];
-
-        $this->dispatch($url, 'GET');
-        $this->assertResponseStatusCode(200);
-
-        $postArray['csrf'] = $this->getCsrfValue('company_form');
 
         $this->getRequest()
             ->setMethod('POST')
