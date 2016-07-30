@@ -176,7 +176,7 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
 
         $postArray = [
             'id'           => 11,
-            'csrf'         => $this->getCsrfValue('user_form'),
+            'csrf'         => $this->getCsrfValue('company_form'),
             'status'       => 'approved',
             'name'         => 'Neue Firma',
             'email'        => 'neuer@firma.de',
@@ -385,7 +385,7 @@ class ModifyControllerTest extends AbstractHttpControllerTestCase
         $this->assertResponseStatusCode(200);
 
         $postArray = [
-            'csrf'         => $this->getCsrfValue('user_form'),
+            'csrf'         => $this->getCsrfValue('company_form'),
             'name'         => 'Neue Firma',
             'email'        => 'neuer@firma.de',
             'contact'      => 'Manuel Neuer',
