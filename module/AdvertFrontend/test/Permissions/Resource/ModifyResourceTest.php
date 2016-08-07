@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class ModifyResourceTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group advert-backend
+     * @group advert-frontend
      * @group permissions
      */
     public function testClassExists()

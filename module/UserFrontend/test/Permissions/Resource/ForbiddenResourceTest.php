@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class ForbiddenResourceTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group advert-backend
+     * @group user-frontend
      * @group permissions
      */
     public function testClassExists()

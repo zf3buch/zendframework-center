@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class AdvertDbStorageTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group advert-backend
+     * @group advert-model
      * @group model
      */
     public function testClassExists()

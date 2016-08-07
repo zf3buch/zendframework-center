@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class IndexResourceTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group advert-backend
+     * @group application
      * @group permissions
      */
     public function testClassExists()

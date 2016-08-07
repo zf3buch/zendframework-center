@@ -20,7 +20,7 @@ use PHPUnit_Framework_TestCase;
 class DisplayResourceTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @group advert-backend
+     * @group user-backend
      * @group permissions
      */
     public function testClassExists()
