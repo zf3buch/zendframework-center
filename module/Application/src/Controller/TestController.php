@@ -36,6 +36,7 @@ class TestController extends AbstractActionController
         $companyEntity->setName(' Name ');
         $companyEntity->setEmail('Email');
         $companyEntity->setContact('Contact');
+        $companyEntity->setLogo('Logo');
 
         $advertEntity = new AdvertEntity();
         $advertEntity->setId('123');
