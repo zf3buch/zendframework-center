@@ -44,6 +44,7 @@ class TestController extends AbstractActionController
             'company_name'       => ' Name ',
             'company_email'      => 'Email',
             'company_contact'    => 'Contact',
+            'company_logo'       => 'Logo',
         ];
 
         $advertEntity = new AdvertEntity();
