@@ -38,6 +38,7 @@ class TestController extends AbstractActionController
             'name'       => ' Name ',
             'email'      => 'Email',
             'contact'    => 'Contact',
+            'logo'       => 'Logo',
         ];
 
         $companyEntity = new CompanyEntity();
