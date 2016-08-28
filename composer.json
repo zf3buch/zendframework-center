@@ -53,6 +53,7 @@
       "AdvertFrontend\\": "module/AdvertFrontend/src/",
       "AdvertBackend\\": "module/AdvertBackend/src/",
       "AdvertModel\\": "module/AdvertModel/src/",
+      "AdvertRest\\": "module/AdvertRest/src/",
       "CompanyModel\\": "module/CompanyModel/src/",
       "CompanyBackend\\": "module/CompanyBackend/src/",
       "UserModel\\": "module/UserModel/src/",

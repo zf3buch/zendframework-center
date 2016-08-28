@@ -59,6 +59,9 @@ return [
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
+        'strategies'               => [
+            'ViewJsonStrategy',
+        ],
         'template_map'             =>
             include APPLICATION_MODULE_ROOT
                 . '/config/template_map.config.php',

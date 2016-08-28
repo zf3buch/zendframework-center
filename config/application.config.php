@@ -30,6 +30,7 @@ return [
         'UserModel',
         'CompanyBackend',
         'CompanyModel',
+        'AdvertRest',
         'AdvertFrontend',
         'AdvertBackend',
         'AdvertModel',
