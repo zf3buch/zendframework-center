@@ -9,6 +9,9 @@
 
 return [
     'modules'                 => [
+        'DoctrineModule',
+        'DoctrineORMModule',
+        'Zend\Cache',
         'Zend\Mvc\Plugin\Identity',
         'TravelloFilter',
         'TravelloViewHelper',
